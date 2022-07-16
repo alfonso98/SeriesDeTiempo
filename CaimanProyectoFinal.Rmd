@@ -7,6 +7,8 @@ output:
   prettydoc::html_pretty:
     theme: cayman
     highlight: github
+    toc: yes
+    toc_depth: 3
 ---
 
 
