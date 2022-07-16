@@ -4,15 +4,11 @@ subtitle: Diplomado en Técnicas Estadísticas y de Mineria de Datos
 author: "Equipo 1"
 date: "16 de julio de 2022"
 output:
-  html_document: 
-    toc: yes
-    toc_depth: 3
-    toc_float: yes
-    highlight: espresso
-    theme: yeti
-    number_sections: yes
-    fog_caption: yes
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
+
 
 **Equipo 1**
 

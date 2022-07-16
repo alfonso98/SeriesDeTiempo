@@ -1,0 +1,2069 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Proyecto Final \textbar{} Series de Tiempo},
+  pdfauthor={Equipo 1},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Proyecto Final \textbar{} Series de Tiempo}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{Diplomado en Técnicas Estadísticas y de Mineria de Datos}
+\author{Equipo 1}
+\date{16 de julio de 2022}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
+\textbf{Equipo 1}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\begin{itemize}
+\tightlist
+\item
+  Abimael de la Cruz Jiménez
+\item
+  Alfonso Flores Zenteno
+\item
+  Ana Saharaí Hernández Delgadillo
+\item
+  Ana Karen Picazo Ayala
+\item
+  Brenda Durán Díaz
+\item
+  Ivan Moises Hita Cahuantzi
+\item
+  Ricardo Hernández Gaona
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{introducciuxf3n}{%
+\section{Introducción}\label{introducciuxf3n}}
+
+La información analizada contempla datos históricos que abarcan las
+ventas del 05-02-2010 hasta 01-11-2012, en el archivo con el nombre
+WalmartStoreSales. En el archivo se encontrarán las siguientes
+variables:
+
+\begin{itemize}
+\tightlist
+\item
+  VENTAS\_SEMANALES: Esta variable registra el monto de las ventas de
+  cada semana.
+\item
+  PRECIO\_COMBUSTRIBLE: Es el precio de la gasolina en la región. Se
+  registra el monto del precio en dólares por galón.
+\item
+  CPI: Es el índice de precios al consumidor.
+\item
+  TEMPERATURA: La temperatura del día de la venta registrada en grados
+  Fahrenheit.
+\item
+  DESEMPLEO: Marca la tasa de desempleo predominante durante esa semana.
+\item
+  TIENDA: Se refiere al número de tienda. En total tenemos los registros
+  de 45 tiendas, por lo que esta columna toma valores de 1 a 45.
+\item
+  FECHA: Se refiere a la semana en la que se registró la venta, se pone
+  la fecha del viernes de esa semana.
+\end{itemize}
+
+\hypertarget{anuxe1lisis-exploratorio}{%
+\section{Análisis exploratorio}\label{anuxe1lisis-exploratorio}}
+
+Análisis Exploratorio, se tomaron en consideración las variables con
+outliers: Unemployment, Fuel\_price y CPI. Se generó una tabla de
+correlación para observar la posible influencia de las variables y
+tratar de predecir cuáles serían de utilidad para el modelo. Decidimos
+utilizar la tasa de desempleo, el precio del combustible y la semana del
+año para tratar de explicar el comportamiento de ventas.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Verificamos si hay datos nulos}
+\FunctionTok{colSums}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(data1))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        Store         Date Weekly_Sales Holiday_Flag  Temperature   Fuel_Price 
+##            0            0            0            0            0            0 
+##          CPI Unemployment 
+##            0            0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Verificamos si hay datos duplicados}
+\FunctionTok{all}\NormalTok{(}\FunctionTok{duplicated}\NormalTok{(data1) }\SpecialCharTok{==} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Generamos un objeto que acumule las ventas por tienda}
+\NormalTok{Store\_Sales}\OtherTok{\textless{}{-}} \FunctionTok{aggregate}\NormalTok{(Weekly\_Sales }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Store, }\AttributeTok{data =}\NormalTok{ data1, sum)}
+\FunctionTok{colnames}\NormalTok{(Store\_Sales)[}\DecValTok{2}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Total\_Sales\_by\_Store"}
+
+\NormalTok{Store\_Sales }\OtherTok{\textless{}{-}} \FunctionTok{arrange}\NormalTok{(Store\_Sales, }\FunctionTok{desc}\NormalTok{(Total\_Sales\_by\_Store))}
+
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{\textquotesingle{}La tienda número \textquotesingle{}}\NormalTok{, Store\_Sales[}\DecValTok{1}\NormalTok{,]}\SpecialCharTok{$}\NormalTok{Store,}
+            \StringTok{\textquotesingle{}tiene las mayores ventas con un valor de : \textquotesingle{}}\NormalTok{, Store\_Sales[}\DecValTok{1}\NormalTok{,]}\SpecialCharTok{$}\NormalTok{Total\_Sales\_by\_Store))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "La tienda número  20 tiene las mayores ventas con un valor de :  301397792.46"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Gráfica de ventas totales por tienda}
+
+\NormalTok{Store\_Sales}\SpecialCharTok{$}\NormalTok{Store }\OtherTok{\textless{}{-}} \FunctionTok{as.character}\NormalTok{(Store\_Sales}\SpecialCharTok{$}\NormalTok{Store)}
+\NormalTok{Store\_Sales}\SpecialCharTok{$}\NormalTok{Store }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(Store\_Sales}\SpecialCharTok{$}\NormalTok{Store, }\AttributeTok{levels=}\FunctionTok{unique}\NormalTok{(Store\_Sales}\SpecialCharTok{$}\NormalTok{Store))}
+
+\FunctionTok{options}\NormalTok{(}\AttributeTok{repr.plot.width =} \DecValTok{14}\NormalTok{, }\AttributeTok{repr.plot.height =} \DecValTok{8}\NormalTok{)}
+
+\NormalTok{graficaVentasTienda }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{Store\_Sales, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Store, }\AttributeTok{y=}\NormalTok{Total\_Sales\_by\_Store)) }\SpecialCharTok{+} \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat=}\StringTok{"identity"}\NormalTok{,}\AttributeTok{fill=}\StringTok{"steelblue"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{90}\NormalTok{,}\AttributeTok{vjust =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{hjust=}\FloatTok{0.5}\NormalTok{))}\SpecialCharTok{+} \FunctionTok{scale\_x\_discrete}\NormalTok{(}\AttributeTok{breaks =}\NormalTok{ data1}\SpecialCharTok{$}\NormalTok{Store)}\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{labels =} \FunctionTok{label\_number}\NormalTok{(}\AttributeTok{suffix =} \StringTok{" M"}\NormalTok{, }\AttributeTok{scale =} \FloatTok{1e{-}6}\NormalTok{))}\SpecialCharTok{+} \FunctionTok{ggtitle}\NormalTok{(}\StringTok{\textquotesingle{}Ventas totales por tienda\textquotesingle{}}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{))}\SpecialCharTok{+}
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Tiendas"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{ylab}\NormalTok{(}\StringTok{"Total de ventas"}\NormalTok{)}
+
+\NormalTok{graficaVentasTienda}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-3-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{alterData }\OtherTok{\textless{}{-}}\NormalTok{ data1}
+
+\CommentTok{\# Usamos la tienda número uno}
+\NormalTok{alterData }\OtherTok{\textless{}{-}}\NormalTok{ dplyr}\SpecialCharTok{::}\FunctionTok{filter}\NormalTok{(alterData, Store }\SpecialCharTok{==}\DecValTok{1}\NormalTok{)}
+
+\CommentTok{\# Cambiamos el formato de fecha y ordenamos de menor a mayor}
+\NormalTok{alterData}\SpecialCharTok{$}\NormalTok{Date }\OtherTok{\textless{}{-}}\NormalTok{ lubridate}\SpecialCharTok{::}\FunctionTok{dmy}\NormalTok{(alterData}\SpecialCharTok{$}\NormalTok{Date)}
+\NormalTok{alterData }\OtherTok{\textless{}{-}}\NormalTok{ dplyr}\SpecialCharTok{::}\FunctionTok{arrange}\NormalTok{(alterData,Date)}
+
+\CommentTok{\# Creamos columnas para número de semana, mes y cuarto del año}
+\NormalTok{alterData}\SpecialCharTok{$}\NormalTok{Week\_Number }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\FunctionTok{length}\NormalTok{(}\FunctionTok{unique}\NormalTok{(alterData}\SpecialCharTok{$}\NormalTok{Date)))}
+\NormalTok{alterData}\SpecialCharTok{$}\NormalTok{month }\OtherTok{\textless{}{-}}\NormalTok{ lubridate}\SpecialCharTok{::}\FunctionTok{month}\NormalTok{(alterData}\SpecialCharTok{$}\NormalTok{Date)}
+\NormalTok{alterData}\SpecialCharTok{$}\NormalTok{quarter }\OtherTok{\textless{}{-}}\NormalTok{ lubridate}\SpecialCharTok{::}\FunctionTok{quarter}\NormalTok{(alterData}\SpecialCharTok{$}\NormalTok{Date)}
+
+\CommentTok{\# Creating a event type dataframe}
+
+\CommentTok{\# Vector con fechas festivas en estados unidos}
+\NormalTok{Holiday\_date }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"12{-}02{-}2010"}\NormalTok{, }\StringTok{"11{-}02{-}2011"}\NormalTok{, }\StringTok{"10{-}02{-}2012"}\NormalTok{, }\StringTok{"08{-}02{-}2013"}\NormalTok{,}\StringTok{"10{-}09{-}2010"}\NormalTok{, }\StringTok{"09{-}09{-}2011"}\NormalTok{, }\StringTok{"07{-}09{-}2012"}\NormalTok{, }\StringTok{"06{-}09{-}2013"}\NormalTok{,}\StringTok{"26{-}11{-}2010"}\NormalTok{, }\StringTok{"25{-}11{-}2011"}\NormalTok{, }\StringTok{"23{-}11{-}2012"}\NormalTok{, }\StringTok{"29{-}11{-}2013"}\NormalTok{,}\StringTok{"31{-}12{-}2010"}\NormalTok{, }\StringTok{"30{-}12{-}2011"}\NormalTok{, }\StringTok{"28{-}12{-}2012"}\NormalTok{, }\StringTok{"27{-}12{-}2013"}\NormalTok{)}
+\NormalTok{Holiday\_date }\OtherTok{\textless{}{-}}\NormalTok{ lubridate}\SpecialCharTok{::}\FunctionTok{dmy}\NormalTok{(Holiday\_date)}
+
+\CommentTok{\# Etiquetas de los eventos}
+\NormalTok{Events }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\StringTok{"Super Bowl"}\NormalTok{, }\DecValTok{4}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"Labour Day"}\NormalTok{, }\DecValTok{4}\NormalTok{),}\FunctionTok{rep}\NormalTok{(}\StringTok{"Thanksgiving"}\NormalTok{, }\DecValTok{4}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"Christmas"}\NormalTok{, }\DecValTok{4}\NormalTok{))}
+
+\CommentTok{\# Data frame de eventos y fechas}
+\NormalTok{Holidays\_Data }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(Events,Holiday\_date)}
+
+\CommentTok{\# Combinamos data frames }
+\NormalTok{alterData }\OtherTok{\textless{}{-}} \FunctionTok{merge}\NormalTok{(alterData,Holidays\_Data, }\AttributeTok{by.x=}\StringTok{"Date"}\NormalTok{, }\AttributeTok{by.y=}\StringTok{"Holiday\_date"}\NormalTok{, }\AttributeTok{all.x =} \ConstantTok{TRUE}\NormalTok{)}
+
+\CommentTok{\# En las semanas sin eventos ponemos una etiqueta}
+\NormalTok{alterData}\SpecialCharTok{$}\NormalTok{Events }\OtherTok{=} \FunctionTok{as.character}\NormalTok{(alterData}\SpecialCharTok{$}\NormalTok{Events)}
+\NormalTok{alterData}\SpecialCharTok{$}\NormalTok{Events[}\FunctionTok{is.na}\NormalTok{(alterData}\SpecialCharTok{$}\NormalTok{Events)]}\OtherTok{=} \StringTok{"No\_Holiday"}
+
+\FunctionTok{head}\NormalTok{(alterData)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         Date Store Weekly_Sales Holiday_Flag Temperature Fuel_Price      CPI
+## 1 2010-02-05     1      1643691            0       42.31      2.572 211.0964
+## 2 2010-02-12     1      1641957            1       38.51      2.548 211.2422
+## 3 2010-02-19     1      1611968            0       39.93      2.514 211.2891
+## 4 2010-02-26     1      1409728            0       46.63      2.561 211.3196
+## 5 2010-03-05     1      1554807            0       46.50      2.625 211.3501
+## 6 2010-03-12     1      1439542            0       57.79      2.667 211.3806
+##   Unemployment Week_Number month quarter     Events
+## 1        8.106           1     2       1 No_Holiday
+## 2        8.106           2     2       1 Super Bowl
+## 3        8.106           3     2       1 No_Holiday
+## 4        8.106           4     2       1 No_Holiday
+## 5        8.106           5     3       1 No_Holiday
+## 6        8.106           6     3       1 No_Holiday
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Graficamos las ventas semanales contra todas las variables}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow=}\FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{))}
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{3}\SpecialCharTok{:}\DecValTok{11}\NormalTok{)\{}
+  \FunctionTok{plot}\NormalTok{(alterData[,i], }
+\NormalTok{       alterData}\SpecialCharTok{$}\NormalTok{Weekly\_Sales,}
+       \AttributeTok{main=}\FunctionTok{names}\NormalTok{(alterData[i]), }
+       \AttributeTok{ylab=}\StringTok{"Weekly Sales"}\NormalTok{, }\AttributeTok{xlab =}\StringTok{" "}\NormalTok{,}
+       \AttributeTok{col=}\StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{,}
+       \FunctionTok{abline}\NormalTok{(}\FunctionTok{lm}\NormalTok{(alterData[,i] }\SpecialCharTok{\textasciitilde{}}\NormalTok{ alterData}\SpecialCharTok{$}\NormalTok{Weekly\_Sales, }\AttributeTok{data =}\NormalTok{ alterData), }\AttributeTok{col =} \StringTok{"blue"}\NormalTok{))}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-5-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{buscando-outliers-por-variable-contra-ventas-semanales}{%
+\subsection{Buscando Outliers por variable contra Ventas
+semanales}\label{buscando-outliers-por-variable-contra-ventas-semanales}}
+
+Buscaremos outliers en las diferentes variables
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Creamos otro data frame para limpiarlo}
+\NormalTok{cleanedData }\OtherTok{\textless{}{-}}\NormalTok{ alterData}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{temperatura}{%
+\subsubsection{Temperatura}\label{temperatura}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# En la variable de temperatura se encontraron 5 outliers}
+
+\FunctionTok{boxplot}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Weekly\_Sales }\SpecialCharTok{\textasciitilde{}} \FunctionTok{cut}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Temperature, }\FunctionTok{pretty}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Temperature)), }\AttributeTok{main=}\StringTok{"Ventas semanales vs temperatura"}\NormalTok{, }\AttributeTok{xlab =}\StringTok{"Temperatura"}\NormalTok{, }\AttributeTok{ylab=}\StringTok{"Ventas semanales"}\NormalTok{, }\AttributeTok{cex.axis=}\FloatTok{0.5}\NormalTok{, }\AttributeTok{col=}\StringTok{"Steel Blue"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-7-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{outliers\_temp }\OtherTok{\textless{}{-}} \FunctionTok{boxplot}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Weekly\_Sales }\SpecialCharTok{\textasciitilde{}} \FunctionTok{cut}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Temperature, }\FunctionTok{pretty}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Temperature)), }\AttributeTok{main=}\StringTok{"Ventas semanales vs temperatura"}\NormalTok{, }\AttributeTok{cex.axis=}\FloatTok{0.5}\NormalTok{,}\AttributeTok{plot=}\ConstantTok{FALSE}\NormalTok{)}\SpecialCharTok{$}\NormalTok{out}
+
+\NormalTok{cleanedData}\OtherTok{\textless{}{-}}\NormalTok{ cleanedData[}\SpecialCharTok{{-}}\FunctionTok{which}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Weekly\_Sales }\SpecialCharTok{\%in\%}\NormalTok{ outliers\_temp),]}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{cpi}{%
+\subsubsection{CPI}\label{cpi}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# En la variable CPI se encontró un outlier}
+\FunctionTok{boxplot}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Weekly\_Sales }\SpecialCharTok{\textasciitilde{}} \FunctionTok{cut}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{CPI, }\FunctionTok{pretty}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{CPI)), }\AttributeTok{main=}\StringTok{"CPI vs Ventas Semanales"}\NormalTok{,}\AttributeTok{xlab =}\StringTok{"CPI"}\NormalTok{, }\AttributeTok{ylab=}\StringTok{"Ventas semanales"}\NormalTok{, }\AttributeTok{cex.axis=}\FloatTok{0.5}\NormalTok{,}\AttributeTok{col=}\StringTok{"Steel Blue"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-8-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{outliers\_CPI }\OtherTok{\textless{}{-}} \FunctionTok{boxplot}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Weekly\_Sales }\SpecialCharTok{\textasciitilde{}} \FunctionTok{cut}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{CPI, }\FunctionTok{pretty}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{CPI)), }\AttributeTok{main=}\StringTok{"CPI vs Ventas Semanales"}\NormalTok{, }\AttributeTok{cex.axis=}\FloatTok{0.5}\NormalTok{,}\AttributeTok{plot=}\ConstantTok{FALSE}\NormalTok{)}\SpecialCharTok{$}\NormalTok{out}
+
+\NormalTok{cleanedData }\OtherTok{\textless{}{-}}\NormalTok{ cleanedData[}\SpecialCharTok{{-}}\FunctionTok{which}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Weekly\_Sales }\SpecialCharTok{\%in\%}\NormalTok{ outliers\_CPI),]}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{tasa-de-desempleo}{%
+\subsubsection{Tasa de Desempleo}\label{tasa-de-desempleo}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Se encontraron 3 outliers en la variable Desempleo}
+\FunctionTok{boxplot}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Weekly\_Sales }\SpecialCharTok{\textasciitilde{}} \FunctionTok{cut}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Unemployment, }\FunctionTok{pretty}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Unemployment)), }\AttributeTok{main=}\StringTok{"Desempleo vs Ventas Semanales"}\NormalTok{,}\AttributeTok{xlab =}\StringTok{"Desempleo"}\NormalTok{, }\AttributeTok{ylab=}\StringTok{"Ventas Semanales"}\NormalTok{,  }\AttributeTok{cex.axis=}\FloatTok{0.5}\NormalTok{, }\AttributeTok{col=}\StringTok{"Steel Blue"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-9-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{outliers\_Unemployment }\OtherTok{\textless{}{-}} \FunctionTok{boxplot}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Weekly\_Sales }\SpecialCharTok{\textasciitilde{}} \FunctionTok{cut}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Unemployment, }\FunctionTok{pretty}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Unemployment)), }\AttributeTok{main=}\StringTok{"Desempleo vs Ventas Semanales"}\NormalTok{, }\AttributeTok{cex.axis=}\FloatTok{0.5}\NormalTok{,}\AttributeTok{plot=}\ConstantTok{FALSE}\NormalTok{)}\SpecialCharTok{$}\NormalTok{out}
+
+\NormalTok{cleanedData }\OtherTok{\textless{}{-}}\NormalTok{ cleanedData[}\SpecialCharTok{{-}}\FunctionTok{which}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Weekly\_Sales }\SpecialCharTok{\%in\%}\NormalTok{ outliers\_Unemployment),]}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{precio-del-combustible}{%
+\subsubsection{Precio del combustible}\label{precio-del-combustible}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Se encontraron dos outliers en la variable Precio del combustible}
+\FunctionTok{boxplot}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Weekly\_Sales }\SpecialCharTok{\textasciitilde{}} \FunctionTok{cut}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Fuel\_Price, }\FunctionTok{pretty}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Fuel\_Price) ), }\AttributeTok{main=}\StringTok{"Precio del combustible vs Ventas Semanales"}\NormalTok{, }\AttributeTok{xlab =}\StringTok{"Precio del combustible"}\NormalTok{, }\AttributeTok{ylab=}\StringTok{"Ventas Semanales"}\NormalTok{, }\AttributeTok{cex.axis=}\FloatTok{0.5}\NormalTok{,}\AttributeTok{col=}\StringTok{"Steel Blue"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-10-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{outliers\_fuel\_price }\OtherTok{\textless{}{-}} \FunctionTok{boxplot}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Weekly\_Sales }\SpecialCharTok{\textasciitilde{}} \FunctionTok{cut}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Fuel\_Price, }\FunctionTok{pretty}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Fuel\_Price)), }\AttributeTok{main=}\StringTok{"Precio del combustible vs Ventas Semanales"}\NormalTok{, }\AttributeTok{cex.axis=}\FloatTok{0.5}\NormalTok{,}\AttributeTok{plot=}\ConstantTok{FALSE}\NormalTok{)}\SpecialCharTok{$}\NormalTok{out}
+
+\NormalTok{cleanedData }\OtherTok{\textless{}{-}}\NormalTok{ cleanedData[}\SpecialCharTok{{-}}\FunctionTok{which}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Weekly\_Sales }\SpecialCharTok{\%in\%}\NormalTok{ outliers\_fuel\_price),]}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{feriados}{%
+\subsubsection{Feriados}\label{feriados}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# No se encuentran outliers para la variable de detección de día feriado}
+\FunctionTok{boxplot}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Weekly\_Sales }\SpecialCharTok{\textasciitilde{}}\NormalTok{ cleanedData}\SpecialCharTok{$}\NormalTok{Holiday\_Flag, }\AttributeTok{main =} \StringTok{\textquotesingle{}Ventas Semanales vs Feriados\textquotesingle{}}\NormalTok{,}\AttributeTok{xlab =}\StringTok{"Feriados"}\NormalTok{, }\AttributeTok{ylab=}\StringTok{"Ventas Semanales"}\NormalTok{,}\AttributeTok{col=}\StringTok{"Steel Blue"}\NormalTok{ )}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-11-1.pdf}
+
+\hypertarget{mes}{%
+\subsubsection{Mes}\label{mes}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Ventas Semanales por la variable mes, se eliminan 4 outliers}
+\FunctionTok{boxplot}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Weekly\_Sales }\SpecialCharTok{\textasciitilde{}}\NormalTok{ cleanedData}\SpecialCharTok{$}\NormalTok{month, }\AttributeTok{main =} \StringTok{\textquotesingle{}Ventas Semanales vs Mes\textquotesingle{}}\NormalTok{, }\AttributeTok{xlab =}\StringTok{"Mes"}\NormalTok{, }\AttributeTok{ylab=}\StringTok{"Ventas Semanales"}\NormalTok{, }\AttributeTok{col=}\StringTok{"Steel Blue"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-12-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{outliers\_month }\OtherTok{\textless{}{-}} \FunctionTok{boxplot}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Weekly\_Sales }\SpecialCharTok{\textasciitilde{}}\NormalTok{ cleanedData}\SpecialCharTok{$}\NormalTok{month, }\AttributeTok{main =} \StringTok{\textquotesingle{}Ventas Semanales vs Mes\textquotesingle{}}\NormalTok{,}\AttributeTok{plot=}\ConstantTok{FALSE}\NormalTok{)}\SpecialCharTok{$}\NormalTok{out}
+\NormalTok{cleanedData}\OtherTok{\textless{}{-}}\NormalTok{ cleanedData[}\SpecialCharTok{{-}}\FunctionTok{which}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Weekly\_Sales }\SpecialCharTok{\%in\%}\NormalTok{ outliers\_month),]}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{cuarto}{%
+\subsubsection{Cuarto}\label{cuarto}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Dos outliers al hacer el tratamiento por la variable de cuarto de año}
+\NormalTok{outliers\_quarter }\OtherTok{\textless{}{-}} \FunctionTok{boxplot}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Weekly\_Sales }\SpecialCharTok{\textasciitilde{}}\NormalTok{ cleanedData}\SpecialCharTok{$}\NormalTok{quarter, }\AttributeTok{main =} \StringTok{\textquotesingle{}Ventas Semanales vs Cuartos\textquotesingle{}}\NormalTok{,}\AttributeTok{xlab =}\StringTok{"Cuartos"}\NormalTok{, }\AttributeTok{ylab=}\StringTok{"Ventas Semanales"}\NormalTok{, }\AttributeTok{col=}\StringTok{"Steel Blue"}\NormalTok{)}\SpecialCharTok{$}\NormalTok{out}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-13-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cleanedData}\OtherTok{\textless{}{-}}\NormalTok{ cleanedData[}\SpecialCharTok{{-}}\FunctionTok{which}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Weekly\_Sales }\SpecialCharTok{\%in\%}\NormalTok{ outliers\_quarter),]}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{modificaciuxf3n-de-data-frame}{%
+\subsection{Modificación de data
+frame}\label{modificaciuxf3n-de-data-frame}}
+
+Removemos columnas innecesarias y cambiamos un poco la estructura de la
+variable Evento y modificamos los valores de las otras variables para
+trabajar mejor con ellas.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cleanedData}\SpecialCharTok{$}\NormalTok{Date }\OtherTok{\textless{}{-}} \ConstantTok{NULL}
+\NormalTok{cleanedData}\SpecialCharTok{$}\NormalTok{Store }\OtherTok{\textless{}{-}} \ConstantTok{NULL}
+\NormalTok{cleanedData}\SpecialCharTok{$}\NormalTok{Events }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Events)}
+\NormalTok{cleanedData}\SpecialCharTok{$}\NormalTok{Holiday\_Flag }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Holiday\_Flag)}
+\NormalTok{cleanedData}\SpecialCharTok{$}\NormalTok{Week\_Number }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Week\_Number)}
+\NormalTok{cleanedData}\SpecialCharTok{$}\NormalTok{quarter }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{quarter)}
+\FunctionTok{str}\NormalTok{(cleanedData)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    126 obs. of  10 variables:
+##  $ Weekly_Sales: num  1643691 1641957 1611968 1409728 1554807 ...
+##  $ Holiday_Flag: num  0 1 0 0 0 0 0 0 0 0 ...
+##  $ Temperature : num  42.3 38.5 39.9 46.6 46.5 ...
+##  $ Fuel_Price  : num  2.57 2.55 2.51 2.56 2.62 ...
+##  $ CPI         : num  211 211 211 211 211 ...
+##  $ Unemployment: num  8.11 8.11 8.11 8.11 8.11 ...
+##  $ Week_Number : num  1 2 3 4 5 6 7 8 9 10 ...
+##  $ month       : num  2 2 2 2 3 3 3 3 4 4 ...
+##  $ quarter     : num  1 1 1 1 1 1 1 1 2 2 ...
+##  $ Events      : Factor w/ 4 levels "Christmas","Labour Day",..: 3 4 3 3 3 3 3 3 3 3 ...
+\end{verbatim}
+
+\hypertarget{matriz-de-correlaciuxf3n}{%
+\subsection{Matriz de correlación}\label{matriz-de-correlaciuxf3n}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Creamos una matrix de correlación}
+\NormalTok{corr }\OtherTok{=} \FunctionTok{cor}\NormalTok{(cleanedData[, }\FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{9}\NormalTok{)])}
+\FunctionTok{View}\NormalTok{(corr)}
+\FunctionTok{corrplot}\NormalTok{(corr, }\AttributeTok{method =} \StringTok{"color"}\NormalTok{, }\AttributeTok{cl.pos =} \StringTok{\textquotesingle{}n\textquotesingle{}}\NormalTok{, }\AttributeTok{rect.col =} \StringTok{"black"}\NormalTok{,  }\AttributeTok{tl.col =} \StringTok{"indianred4"}\NormalTok{, }\AttributeTok{addCoef.col =} \StringTok{"black"}\NormalTok{, }\AttributeTok{number.digits =} \DecValTok{2}\NormalTok{, }\AttributeTok{number.cex =} \FloatTok{0.60}\NormalTok{, }\AttributeTok{tl.cex =} \FloatTok{0.7}\NormalTok{, }\AttributeTok{cl.cex =} \DecValTok{1}\NormalTok{, }\AttributeTok{col =} \FunctionTok{colorRampPalette}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"green4"}\NormalTok{,}\StringTok{"white"}\NormalTok{,}\StringTok{"red"}\NormalTok{))(}\DecValTok{100}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-15-1.pdf}
+Con esta matriz de correlación nos damos cuenta que las correlaciones
+más fuertes están entre las variables Número de semana con precio de
+combustible, Número de semana con CPI, Número de semana con tasa de
+desempleo, Tasa de desempleo con CPI, Precio de combustible con CPI.
+
+\hypertarget{regresiuxf3n-lineal}{%
+\section{Regresión Lineal}\label{regresiuxf3n-lineal}}
+
+\hypertarget{modelo-simple}{%
+\subsection{Modelo Simple}\label{modelo-simple}}
+
+Interpretación
+
+\begin{itemize}
+\tightlist
+\item
+  Si los parámetros son igual a cero, la venta semanal incrementa en
+  340,219.1226 dólares.
+\item
+  Si el Fuel\_Price incrementa en una unidad, entonces las ventas
+  semanales incrementan 27,671.8389 dólares
+\item
+  Si el desempleo incrementa en una unidad , entonces se tendría una
+  disminución de las ventas de 30,766.7480 dólares.
+\end{itemize}
+
+\textbf{R-Cuadrada}: Representa que tan cerca están los datos de la
+línea de regresión ajustada. El 48\% explica la variabilidad de los
+datos de respuesta en torno a su media.
+
+\textbf{R Cuadrado Ajustado}: Representa la extensión de la varianza de
+la variable dependiente que pueda explicarse por la variable
+independiente. El 38\% de la variación en la variable dependiente se
+explica por la variable independiente.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model }\OtherTok{=} \FunctionTok{lm}\NormalTok{(}\AttributeTok{formula =}\NormalTok{ Weekly\_Sales }\SpecialCharTok{\textasciitilde{}}\NormalTok{ . , }\AttributeTok{data =}\NormalTok{ cleanedData)}
+\NormalTok{model}\SpecialCharTok{$}\NormalTok{coefficients}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      (Intercept)     Holiday_Flag      Temperature       Fuel_Price 
+##      340219.1226      -93558.2661        -750.2522       27671.8389 
+##              CPI     Unemployment      Week_Number            month 
+##        5883.2370      -30766.7480        -299.4195       24936.9503 
+##          quarter EventsLabour Day EventsNo_Holiday EventsSuper Bowl 
+##      -30308.0152      201177.9143               NA      171310.6287 
+## EventsLabour.Day EventsNo_Holiday EventsSuper.Bowl         quarter2 
+##               NA               NA               NA       83856.1963 
+##         quarter3         quarter4           month2           month3 
+##      -59325.6889               NA      163686.7154      121062.6567 
+##           month4           month5           month6           month7 
+##       -2981.4023       -4554.7778               NA       56489.6460 
+##           month8           month9          month10          month11 
+##      112108.7129               NA      -44064.6045               NA 
+##          month12 
+##               NA
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = Weekly_Sales ~ ., data = cleanedData)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -142278  -54004     847   43608  128616 
+## 
+## Coefficients: (9 not defined because of singularities)
+##                   Estimate Std. Error t value Pr(>|t|)  
+## (Intercept)       340219.1  1995427.4   0.170   0.8649  
+## Holiday_Flag      -93558.3    87488.3  -1.069   0.2873  
+## Temperature         -750.3     1444.3  -0.519   0.6045  
+## Fuel_Price         27671.8    43512.8   0.636   0.5262  
+## CPI                 5883.2     9255.2   0.636   0.5264  
+## Unemployment      -30766.7    42461.0  -0.725   0.4703  
+## Week_Number         -299.4     1263.9  -0.237   0.8132  
+## month              24937.0    60313.5   0.413   0.6801  
+## quarter           -30308.0   207739.8  -0.146   0.8843  
+## EventsLabour Day  201177.9    99330.6   2.025   0.0453 *
+## EventsNo_Holiday        NA         NA      NA       NA  
+## EventsSuper Bowl  171310.6   104061.7   1.646   0.1027  
+## EventsLabour.Day        NA         NA      NA       NA  
+## EventsNo_Holiday        NA         NA      NA       NA  
+## EventsSuper.Bowl        NA         NA      NA       NA  
+## quarter2           83856.2   120019.5   0.699   0.4863  
+## quarter3          -59325.7    91153.9  -0.651   0.5166  
+## quarter4                NA         NA      NA       NA  
+## month2            163686.7    73427.7   2.229   0.0279 *
+## month3            121062.7   133667.2   0.906   0.3671  
+## month4             -2981.4   129299.7  -0.023   0.9816  
+## month5             -4554.8    69864.0  -0.065   0.9481  
+## month6                  NA         NA      NA       NA  
+## month7             56489.6   122350.0   0.462   0.6452  
+## month8            112108.7    65454.8   1.713   0.0897 .
+## month9                  NA         NA      NA       NA  
+## month10           -44064.6    82849.5  -0.532   0.5959  
+## month11                 NA         NA      NA       NA  
+## month12                 NA         NA      NA       NA  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 69800 on 106 degrees of freedom
+## Multiple R-squared:  0.4805, Adjusted R-squared:  0.3874 
+## F-statistic:  5.16 on 19 and 106 DF,  p-value: 1.558e-08
+\end{verbatim}
+
+\hypertarget{modelo-lin-lin}{%
+\subsection{Modelo Lin-Lin}\label{modelo-lin-lin}}
+
+Modelo Lin-Lin, en este modelo su especificación contempla que tanto
+para la variable dependiente, cómo para la variables independientes o
+explicativas se contemplan lineales.
+
+La especificación del modelo consiste en las ventas semanales cómo
+variable dependiente, al precio del combustible (Fuel Price), el
+Desempleo (Unemployment) y el número de la semana cómo variable
+explicativa.
+
+El modelo así especificado reportó significativa al intercepto con un
+P-value menor 3.78e-09, también el precio del combustible con su P-value
+de 0.062, mostrando también su significancia cómo variable explicativa.
+Sin embargo, el desempleo y el no. de la semana no demostraron ser
+significativas para el modelo.
+
+Para el modelo su R \^{}2 de 0.098 indicando que sólo el 9.8\% de los
+datos de las ventas semanales resultaron explicados por el modelo.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modLin }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Weekly\_Sales}\SpecialCharTok{\textasciitilde{}}\NormalTok{cleanedData}\SpecialCharTok{$}\NormalTok{Fuel\_Price}\SpecialCharTok{+}\NormalTok{cleanedData}\SpecialCharTok{$}\NormalTok{Unemployment}\SpecialCharTok{+}\NormalTok{cleanedData}\SpecialCharTok{$}\NormalTok{Week\_Number)}
+\NormalTok{modLin}\SpecialCharTok{$}\NormalTok{coefficients}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##              (Intercept)   cleanedData$Fuel_Price cleanedData$Unemployment 
+##              1774572.607                57189.381               -54727.734 
+##  cleanedData$Week_Number 
+##                 -324.265
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(modLin)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = cleanedData$Weekly_Sales ~ cleanedData$Fuel_Price + 
+##     cleanedData$Unemployment + cleanedData$Week_Number)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -207537  -63181    5174   54945  179665 
+## 
+## Coefficients:
+##                           Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)              1774572.6   279303.2   6.354 3.78e-09 ***
+## cleanedData$Fuel_Price     57189.4    30365.9   1.883    0.062 .  
+## cleanedData$Unemployment  -54727.7    36744.7  -1.489    0.139    
+## cleanedData$Week_Number     -324.3      465.2  -0.697    0.487    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 85710 on 122 degrees of freedom
+## Multiple R-squared:  0.09827,    Adjusted R-squared:  0.0761 
+## F-statistic: 4.432 on 3 and 122 DF,  p-value: 0.005405
+\end{verbatim}
+
+\hypertarget{modelo-log-log}{%
+\subsection{Modelo Log-Log}\label{modelo-log-log}}
+
+Modelo Log Log, este modelo consiste en utilizar el logaritmo de la
+variable explicativa y de la variables independientes.
+
+Su especificación toma a las ventas semanales cómo dependiente y al
+precio de combustible, tasa de desempleo y al número de la semana cómo
+independiente o explicativa.
+
+El modelo reportó significancia para todas sus variables. Para este
+modelo su R \^{}2 de 0.1312 indicando que sólo el 13.12\% de los datos
+resultaron explicados por el modelo así especificado.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modLog }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(}\FunctionTok{log}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Weekly\_Sales)}\SpecialCharTok{\textasciitilde{}}\FunctionTok{log}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Fuel\_Price)}\SpecialCharTok{+}\FunctionTok{log}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Unemployment)}\SpecialCharTok{+}\FunctionTok{log}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Week\_Number) )}
+\NormalTok{modLog}\SpecialCharTok{$}\NormalTok{coefficients}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                   (Intercept)   log(cleanedData$Fuel_Price) 
+##                   14.72389809                    0.17719161 
+## log(cleanedData$Unemployment)  log(cleanedData$Week_Number) 
+##                   -0.30208009                   -0.02151658
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(modLog)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = log(cleanedData$Weekly_Sales) ~ log(cleanedData$Fuel_Price) + 
+##     log(cleanedData$Unemployment) + log(cleanedData$Week_Number))
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -0.139874 -0.041158  0.006642  0.040828  0.121647 
+## 
+## Coefficients:
+##                                Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)                   14.723898   0.273504  53.834  < 2e-16 ***
+## log(cleanedData$Fuel_Price)    0.177192   0.057064   3.105  0.00237 ** 
+## log(cleanedData$Unemployment) -0.302080   0.124543  -2.426  0.01675 *  
+## log(cleanedData$Week_Number)  -0.021517   0.009068  -2.373  0.01922 *  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.05571 on 122 degrees of freedom
+## Multiple R-squared:  0.1312, Adjusted R-squared:  0.1098 
+## F-statistic: 6.139 on 3 and 122 DF,  p-value: 0.0006361
+\end{verbatim}
+
+Graficamos los residuales del modelo
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{residuosLog }\OtherTok{\textless{}{-}}\NormalTok{ modLog}\SpecialCharTok{$}\NormalTok{residuals}
+\FunctionTok{ts.plot}\NormalTok{(residuosLog)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-20-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{auto.arima}\NormalTok{(residuosLog)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Series: residuosLog 
+## ARIMA(0,0,3) with zero mean 
+## 
+## Coefficients:
+##          ma1      ma2      ma3
+##       0.3466  -0.0339  -0.3892
+## s.e.  0.0888   0.0826   0.0940
+## 
+## sigma^2 = 0.002562:  log likelihood = 198.33
+## AIC=-388.65   AICc=-388.32   BIC=-377.31
+\end{verbatim}
+
+Construimos nuevo modelo con la predicción para la siguiente semana
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modeloRL }\OtherTok{\textless{}{-}} \FunctionTok{arima}\NormalTok{(residuosLog, }\AttributeTok{order=}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+
+\CommentTok{\# Predición para la semana 139}
+\NormalTok{prediccion1 }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(modeloRL, }\AttributeTok{h=}\DecValTok{1}\NormalTok{)}
+
+
+\CommentTok{\# Predicción Mod Log{-}Log}
+\NormalTok{prediccionModLog }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(modLog)}
+
+\CommentTok{\# Añadimos la predicción de la semana 139 a las observaciones}
+\NormalTok{newObs }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Weekly\_Sales, }\FunctionTok{exp}\NormalTok{(}\FloatTok{14.27747} \SpecialCharTok{+} \FunctionTok{predict}\NormalTok{(modeloRL, }\AttributeTok{h=}\DecValTok{1}\NormalTok{)}\SpecialCharTok{$}\NormalTok{pred[}\DecValTok{1}\NormalTok{]) )}
+
+\NormalTok{predictionWS }\OtherTok{\textless{}{-}} \FunctionTok{ts}\NormalTok{(newObs)}
+
+\FunctionTok{autoplot}\NormalTok{(predictionWS)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-21-1.pdf}
+
+\hypertarget{modelo-estandarizado}{%
+\subsection{Modelo Estandarizado}\label{modelo-estandarizado}}
+
+Se propone la siguiente prueba de Hipótesis
+
+\[
+H_{0} = 0 \\
+H_{a} <> 0
+\]
+
+Con un 95\% de confianza se acepta Ho para las variables desempleo y
+número de la semana. Y para la variable precio del combustible, con un
+95\% de confianza se rechaza Ho.
+
+Solo se puede concluir que la variable fuel price, es estadísticamente
+significativa para el modelo.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Mean\_ws }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Weekly\_Sales)}
+\NormalTok{Sd\_ws }\OtherTok{\textless{}{-}} \FunctionTok{sd}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Weekly\_Sales)}
+
+\NormalTok{Mean\_fuel }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Fuel\_Price)}
+\NormalTok{Sd\_fuel }\OtherTok{\textless{}{-}} \FunctionTok{sd}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Fuel\_Price)}
+
+\NormalTok{Mean\_unemp }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Unemployment)}
+\NormalTok{Sd\_unemp }\OtherTok{\textless{}{-}} \FunctionTok{sd}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Unemployment)}
+
+\NormalTok{Mean\_week }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Week\_Number)}
+\NormalTok{Sd\_week }\OtherTok{\textless{}{-}} \FunctionTok{sd}\NormalTok{(cleanedData}\SpecialCharTok{$}\NormalTok{Week\_Number)}
+
+\NormalTok{norm\_ws }\OtherTok{\textless{}{-}}\NormalTok{ (cleanedData}\SpecialCharTok{$}\NormalTok{Weekly\_Sales }\SpecialCharTok{{-}}\NormalTok{ Mean\_ws) }\SpecialCharTok{/}\NormalTok{ Sd\_ws;}
+\NormalTok{norm\_fuel }\OtherTok{\textless{}{-}}\NormalTok{ (cleanedData}\SpecialCharTok{$}\NormalTok{Fuel\_Price }\SpecialCharTok{{-}}\NormalTok{ Mean\_fuel) }\SpecialCharTok{/}\NormalTok{ Sd\_fuel;}
+\NormalTok{norm\_unemp }\OtherTok{\textless{}{-}}\NormalTok{ (cleanedData}\SpecialCharTok{$}\NormalTok{Unemployment }\SpecialCharTok{{-}}\NormalTok{ Mean\_unemp) }\SpecialCharTok{/}\NormalTok{ Sd\_unemp;}
+\NormalTok{norm\_week }\OtherTok{\textless{}{-}}\NormalTok{ (cleanedData}\SpecialCharTok{$}\NormalTok{Week\_Number }\SpecialCharTok{{-}}\NormalTok{ Mean\_week) }\SpecialCharTok{/}\NormalTok{ Sd\_week;}
+
+\NormalTok{modNorm }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(norm\_ws}\SpecialCharTok{\textasciitilde{}}\NormalTok{norm\_fuel}\SpecialCharTok{+}\NormalTok{norm\_unemp}\SpecialCharTok{+}\NormalTok{norm\_week}\DecValTok{{-}1}\NormalTok{)}
+
+\FunctionTok{format}\NormalTok{(modNorm}\SpecialCharTok{$}\NormalTok{coefficients, }\AttributeTok{scientific =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    norm_fuel   norm_unemp    norm_week 
+## " 0.2823382" "-0.2347135" "-0.1538392"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modNorm}\SpecialCharTok{$}\NormalTok{coefficients}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  norm_fuel norm_unemp  norm_week 
+##  0.2823382 -0.2347135 -0.1538392
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(modNorm)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = norm_ws ~ norm_fuel + norm_unemp + norm_week - 1)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2.32735 -0.70852  0.05802  0.61616  2.01479 
+## 
+## Coefficients:
+##            Estimate Std. Error t value Pr(>|t|)  
+## norm_fuel    0.2823     0.1493   1.891    0.061 .
+## norm_unemp  -0.2347     0.1569  -1.495    0.137  
+## norm_week   -0.1538     0.2198  -0.700    0.485  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.9573 on 123 degrees of freedom
+## Multiple R-squared:  0.09827,    Adjusted R-squared:  0.07628 
+## F-statistic: 4.468 on 3 and 123 DF,  p-value: 0.005151
+\end{verbatim}
+
+\hypertarget{series-de-tiempo}{%
+\section{Series de Tiempo}\label{series-de-tiempo}}
+
+\hypertarget{promedio-simple-de-ventas-semanales}{%
+\subsection{Promedio Simple de Ventas
+Semanales}\label{promedio-simple-de-ventas-semanales}}
+
+Representación gráfica de la variable ventas de la tienda número 1
+(Walmart\(Store\)Weekly\_Sales) la serie de tiempo con periodicidad
+semanal se define como (start = decimal\_date(as.Date(``2010-02-05'')),
+frequency = 52)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Actualizacion de inicio y Frecuencia}
+\NormalTok{info\_tda\_1 }\OtherTok{\textless{}{-}}\NormalTok{ Walmart[Walmart}\SpecialCharTok{$}\NormalTok{Store }\SpecialCharTok{==} \StringTok{\textquotesingle{}1\textquotesingle{}}\NormalTok{,];}
+\NormalTok{modets }\OtherTok{\textless{}{-}} \FunctionTok{ts}\NormalTok{(info\_tda\_1}\SpecialCharTok{$}\NormalTok{Weekly\_Sales,}\AttributeTok{start =} \FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{52}\NormalTok{); }
+
+\CommentTok{\# Gráfica }
+\FunctionTok{ts.plot}\NormalTok{(modets)}
+\FunctionTok{qqline}\NormalTok{(}\FunctionTok{mean}\NormalTok{(modets), }\AttributeTok{col=}\StringTok{"Red"}\NormalTok{, }\AttributeTok{lwd=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-24-1.pdf}
+
+A continuación se presentan los diferentes modelos trabajados,
+graficados y con la tabla de error. La interpretación para cada uno de
+estos se debe entender de la siguiente forma:
+
+\begin{quote}
+El modelo acepta una tolerancia del error de hasta (MAPE) por ciento
+(\%), lo que representa un error mínimo en Millones de dólares (MAE) y
+un máximo en millones de dólares de (RMSE)
+\end{quote}
+
+\hypertarget{promedio-movil}{%
+\subsection{Promedio Movil}\label{promedio-movil}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Prom\_Movil\_2 }\OtherTok{\textless{}{-}} \FunctionTok{movavg}\NormalTok{(modets,}\DecValTok{2}\NormalTok{,}\AttributeTok{type=}\StringTok{"s"}\NormalTok{);}
+\FunctionTok{ts.plot}\NormalTok{(modets,Prom\_Movil\_2,}\AttributeTok{xlab=}\ConstantTok{NULL}\NormalTok{,}\AttributeTok{ylab=}\ConstantTok{NULL}\NormalTok{, }\AttributeTok{main =} \StringTok{"Pronóstico de Promedio Movil"}\NormalTok{,}\AttributeTok{lty=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{),}\AttributeTok{lwd =}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\FloatTok{1.5}\NormalTok{) ,}\AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{legend}\NormalTok{(}\AttributeTok{x=}\StringTok{"bottomright"}\NormalTok{,}\AttributeTok{legend=}\FunctionTok{c}\NormalTok{(}\StringTok{"Obs"}\NormalTok{,}\StringTok{"Prom Movil"}\NormalTok{),}\AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{),}\AttributeTok{lty=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-25-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Errores}
+\NormalTok{mae }\OtherTok{\textless{}{-}} \FunctionTok{MAE}\NormalTok{(modets,Prom\_Movil\_2);}
+\NormalTok{mape }\OtherTok{\textless{}{-}} \FunctionTok{MAPE}\NormalTok{(modets,Prom\_Movil\_2);}
+\NormalTok{smape }\OtherTok{\textless{}{-}} \FunctionTok{SMAPE}\NormalTok{(modets,Prom\_Movil\_2);}
+\NormalTok{mse }\OtherTok{\textless{}{-}} \FunctionTok{MSE}\NormalTok{(modets,Prom\_Movil\_2);}
+\NormalTok{rmse }\OtherTok{\textless{}{-}} \FunctionTok{RMSE}\NormalTok{(modets,Prom\_Movil\_2);}
+\NormalTok{medidas }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(mae,mape,smape,mse,rmse));}
+\FunctionTok{rownames}\NormalTok{(medidas) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}MAE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}MAPE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}SMAPE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}MSE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}RMSE\textquotesingle{}}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(medidas)}\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\StringTok{"Prom.Simple"}\NormalTok{)}
+\NormalTok{df\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(medidas)  }
+
+\NormalTok{tab\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{as.data.table}\NormalTok{(df\_medidas, }\AttributeTok{keep.rownames=}\ConstantTok{TRUE}\NormalTok{, }\AttributeTok{keep.colnames=}\ConstantTok{FALSE}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(tab\_medidas) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Medida"}\NormalTok{,}\StringTok{"Promedio Movil "}\NormalTok{)}
+\NormalTok{ftab\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{format}\NormalTok{(tab\_medidas, }\AttributeTok{digits=}\DecValTok{5}\NormalTok{, }\AttributeTok{scientific =}\NormalTok{ F, }\AttributeTok{big.mark=}\StringTok{","}\NormalTok{,}\AttributeTok{decimal.mark=}\StringTok{"."}\NormalTok{,}\AttributeTok{justify=}\StringTok{"right"}\NormalTok{)}
+\NormalTok{tem }\OtherTok{\textless{}{-}} \FunctionTok{ttheme\_minimal}\NormalTok{(}\AttributeTok{base\_colour=}\StringTok{"black"}\NormalTok{,}\AttributeTok{base\_size=}\DecValTok{15}\NormalTok{, }\AttributeTok{core=}\FunctionTok{list}\NormalTok{(}\AttributeTok{bg\_params=}\FunctionTok{list}\NormalTok{(}\AttributeTok{fill=}\NormalTok{blues9,}\AttributeTok{col=}\ConstantTok{NA}\NormalTok{)))}
+
+\FunctionTok{grid.arrange}\NormalTok{(}\FunctionTok{tableGrob}\NormalTok{(ftab\_medidas,}\AttributeTok{theme=}\NormalTok{tem))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-26-1.pdf}
+
+\hypertarget{promedio-ponderado}{%
+\subsection{Promedio Ponderado}\label{promedio-ponderado}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{ts}\NormalTok{(info\_tda\_1}\SpecialCharTok{$}\NormalTok{Weekly\_Sales, }\AttributeTok{start =} \FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{52}\NormalTok{)}
+
+\NormalTok{f}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{144}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (t }\ControlFlowTok{in} \DecValTok{3}\SpecialCharTok{:}\DecValTok{144}\NormalTok{) f[t]}\OtherTok{\textless{}{-}}\NormalTok{(}\FloatTok{0.75}\NormalTok{)}\SpecialCharTok{*}\NormalTok{y[t}\DecValTok{{-}1}\NormalTok{]}\SpecialCharTok{+}\NormalTok{(}\FloatTok{0.25}\NormalTok{)}\SpecialCharTok{*}\NormalTok{y[t}\DecValTok{{-}2}\NormalTok{]}
+
+\NormalTok{f }\OtherTok{\textless{}{-}} \FunctionTok{ts}\NormalTok{(f, }\AttributeTok{start =} \FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{52}\NormalTok{)}
+
+\FunctionTok{ts.plot}\NormalTok{(y,f,}\AttributeTok{xlab=}\ConstantTok{NULL}\NormalTok{,}\AttributeTok{ylab=}\ConstantTok{NULL}\NormalTok{, }\AttributeTok{main =} \StringTok{"Pronóstico de Promedio Ponderado"}\NormalTok{,}\AttributeTok{lty=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{),}\AttributeTok{lwd =}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\FloatTok{1.5}\NormalTok{) ,}\AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{legend}\NormalTok{(}\AttributeTok{x=}\StringTok{"bottom"}\NormalTok{,}\AttributeTok{legend=}\FunctionTok{c}\NormalTok{(}\StringTok{"Obs"}\NormalTok{,}\StringTok{"Promedio Ponderado"}\NormalTok{),}\AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{),}\AttributeTok{lty=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-27-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{yp\_ob}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{141}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (t }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{141}\NormalTok{) yp\_ob[t]}\OtherTok{\textless{}{-}}\NormalTok{y[t}\SpecialCharTok{+}\DecValTok{2}\NormalTok{]}
+
+\NormalTok{yp\_pr}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{141}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (t }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{141}\NormalTok{) yp\_pr[t]}\OtherTok{\textless{}{-}}\NormalTok{f[t}\SpecialCharTok{+}\DecValTok{2}\NormalTok{]}
+
+\NormalTok{mae\_yp}\OtherTok{\textless{}{-}}\FunctionTok{MAE}\NormalTok{(yp\_ob,yp\_pr)}
+\NormalTok{mape\_yp}\OtherTok{\textless{}{-}}\FunctionTok{MAPE}\NormalTok{(yp\_ob,yp\_pr)}
+\NormalTok{smape\_yp}\OtherTok{\textless{}{-}}\FunctionTok{SMAPE}\NormalTok{(yp\_ob,yp\_pr)}
+\NormalTok{mse\_yp}\OtherTok{\textless{}{-}}\FunctionTok{MSE}\NormalTok{(yp\_ob,yp\_pr)}
+\NormalTok{rmse\_yp}\OtherTok{\textless{}{-}}\FunctionTok{RMSE}\NormalTok{(yp\_ob,yp\_pr)}
+
+\NormalTok{medidas }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(mae\_yp,mape\_yp,smape\_yp,mse\_yp,rmse\_yp))}
+\FunctionTok{rownames}\NormalTok{(medidas) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}MAE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}MAPE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}SMAPE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}MSE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}RMSE\textquotesingle{}}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(medidas)}\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\StringTok{"Promedio Ponderado"}\NormalTok{)}
+\NormalTok{df\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(medidas)     }
+
+\NormalTok{tab\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{as.data.table}\NormalTok{(df\_medidas, }\AttributeTok{keep.rownames=}\ConstantTok{TRUE}\NormalTok{, }\AttributeTok{keep.colnames=}\ConstantTok{FALSE}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(tab\_medidas) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Medida"}\NormalTok{,}\StringTok{"Promedio Ponderado"}\NormalTok{)}
+\NormalTok{ftab\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{format}\NormalTok{(tab\_medidas, }\AttributeTok{digits=}\DecValTok{5}\NormalTok{, }\AttributeTok{scientific =}\NormalTok{ F, }\AttributeTok{big.mark=}\StringTok{","}\NormalTok{,}\AttributeTok{decimal.mark=}\StringTok{"."}\NormalTok{,}\AttributeTok{justify=}\StringTok{"right"}\NormalTok{)}
+\NormalTok{tem }\OtherTok{\textless{}{-}} \FunctionTok{ttheme\_minimal}\NormalTok{(}\AttributeTok{base\_colour=}\StringTok{"black"}\NormalTok{,}\AttributeTok{base\_size=}\DecValTok{15}\NormalTok{, }\AttributeTok{core=}\FunctionTok{list}\NormalTok{(}\AttributeTok{bg\_params=}\FunctionTok{list}\NormalTok{(}\AttributeTok{fill=}\NormalTok{blues9,}\AttributeTok{col=}\ConstantTok{NA}\NormalTok{)))}
+
+\FunctionTok{grid.arrange}\NormalTok{(}\FunctionTok{tableGrob}\NormalTok{(ftab\_medidas,}\AttributeTok{theme=}\NormalTok{tem))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-28-1.pdf}
+
+\hypertarget{media-muxf3vil-tipo-w}{%
+\subsection{Media móvil tipo ``w''}\label{media-muxf3vil-tipo-w}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fw}\OtherTok{\textless{}{-}}\FunctionTok{movavg}\NormalTok{(y,}\DecValTok{2}\NormalTok{,}\AttributeTok{type=}\StringTok{"w"}\NormalTok{)}
+\NormalTok{fwt}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{143}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{2}\SpecialCharTok{:}\DecValTok{143}\NormalTok{) fwt[t]}\OtherTok{\textless{}{-}}\NormalTok{fw[t}\DecValTok{{-}1}\NormalTok{]}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{1}\NormalTok{) fwt[t]}\OtherTok{\textless{}{-}}\ConstantTok{NA}
+\NormalTok{fw\_ts}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{143}\NormalTok{)}
+\NormalTok{fw\_ts}\OtherTok{\textless{}{-}}\FunctionTok{ts}\NormalTok{(fwt,}\AttributeTok{start =} \FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{52}\NormalTok{)}
+
+\FunctionTok{ts.plot}\NormalTok{(y,fw\_ts,}\AttributeTok{xlab=}\ConstantTok{NULL}\NormalTok{,}\AttributeTok{ylab=}\ConstantTok{NULL}\NormalTok{, }\AttributeTok{main =} \StringTok{"Media Móvil w"}\NormalTok{,}\AttributeTok{lty=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{),}\AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{legend}\NormalTok{(}\AttributeTok{x=}\StringTok{"bottomright"}\NormalTok{,}\AttributeTok{legend=}\FunctionTok{c}\NormalTok{(}\StringTok{"Obs"}\NormalTok{,}\StringTok{"MedMovP"}\NormalTok{),}\AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{),}\AttributeTok{lty=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-29-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{yw\_ob}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{142}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (t }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{142}\NormalTok{) yw\_ob[t]}\OtherTok{\textless{}{-}}\NormalTok{y[t}\SpecialCharTok{+}\DecValTok{1}\NormalTok{]}
+\NormalTok{yw\_pr}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{142}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (t }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{142}\NormalTok{) yw\_pr[t]}\OtherTok{\textless{}{-}}\NormalTok{fw[t]}
+\NormalTok{mae\_yw}\OtherTok{\textless{}{-}}\FunctionTok{MAE}\NormalTok{(yw\_ob,yw\_pr)}
+\NormalTok{mape\_yw}\OtherTok{\textless{}{-}}\FunctionTok{MAPE}\NormalTok{(yw\_ob,yw\_pr)}
+\NormalTok{smape\_yw}\OtherTok{\textless{}{-}}\FunctionTok{SMAPE}\NormalTok{(yw\_ob,yw\_pr)}
+\NormalTok{mse\_yw}\OtherTok{\textless{}{-}}\FunctionTok{MSE}\NormalTok{(yw\_ob,yw\_pr)}
+\NormalTok{rmse\_yw}\OtherTok{\textless{}{-}}\FunctionTok{RMSE}\NormalTok{(yw\_ob,yw\_pr)}
+
+\NormalTok{medidas }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(mae\_yw,mape\_yw,smape\_yw,mse\_yw,rmse\_yw));}
+\FunctionTok{rownames}\NormalTok{(medidas) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}MAE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}MAPE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}SMAPE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}MSE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}RMSE\textquotesingle{}}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(medidas)}\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\StringTok{"Prom.Movilw"}\NormalTok{)}
+\NormalTok{df\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(medidas)}
+
+\NormalTok{tab\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{as.data.table}\NormalTok{(df\_medidas, }\AttributeTok{keep.rownames=}\ConstantTok{TRUE}\NormalTok{, }\AttributeTok{keep.colnames=}\ConstantTok{FALSE}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(tab\_medidas) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Medida"}\NormalTok{,}\StringTok{"Prom.Movilw"}\NormalTok{)}
+\NormalTok{ftab\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{format}\NormalTok{(tab\_medidas, }\AttributeTok{digits=}\DecValTok{5}\NormalTok{, }\AttributeTok{scientific =}\NormalTok{ F, }\AttributeTok{big.mark=}\StringTok{","}\NormalTok{,}\AttributeTok{decimal.mark=}\StringTok{"."}\NormalTok{,}\AttributeTok{justify=}\StringTok{"right"}\NormalTok{)}
+\NormalTok{tem }\OtherTok{\textless{}{-}} \FunctionTok{ttheme\_minimal}\NormalTok{(}\AttributeTok{base\_colour=}\StringTok{"black"}\NormalTok{,}\AttributeTok{base\_size=}\DecValTok{15}\NormalTok{, }\AttributeTok{core=}\FunctionTok{list}\NormalTok{(}\AttributeTok{bg\_params=}\FunctionTok{list}\NormalTok{(}\AttributeTok{fill=}\NormalTok{blues9,}\AttributeTok{col=}\ConstantTok{NA}\NormalTok{)))}
+
+\FunctionTok{grid.arrange}\NormalTok{(}\FunctionTok{tableGrob}\NormalTok{(ftab\_medidas,}\AttributeTok{theme=}\NormalTok{tem))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-30-1.pdf}
+
+\hypertarget{media-muxf3vil-tipo-e}{%
+\subsection{Media móvil tipo ``e''}\label{media-muxf3vil-tipo-e}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fe}\OtherTok{\textless{}{-}}\FunctionTok{movavg}\NormalTok{(y,}\DecValTok{2}\NormalTok{,}\AttributeTok{type=}\StringTok{"e"}\NormalTok{)}
+\NormalTok{fet}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{143}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{2}\SpecialCharTok{:}\DecValTok{143}\NormalTok{) fet[t]}\OtherTok{\textless{}{-}}\NormalTok{fe[t}\DecValTok{{-}1}\NormalTok{]}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{1}\NormalTok{) fet[t]}\OtherTok{\textless{}{-}}\ConstantTok{NA}
+\NormalTok{fe\_ts}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{143}\NormalTok{)}
+\NormalTok{fe\_ts}\OtherTok{\textless{}{-}}\FunctionTok{ts}\NormalTok{(fet,}\AttributeTok{start =} \FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{52}\NormalTok{)}
+
+\FunctionTok{ts.plot}\NormalTok{(y,fe\_ts,}\AttributeTok{xlab=}\ConstantTok{NULL}\NormalTok{,}\AttributeTok{ylab=}\ConstantTok{NULL}\NormalTok{, }\AttributeTok{main =} \StringTok{"Media Móvil e"}\NormalTok{,}\AttributeTok{lty=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{),}\AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{legend}\NormalTok{(}\AttributeTok{x=}\StringTok{"bottomright"}\NormalTok{,}\AttributeTok{legend=}\FunctionTok{c}\NormalTok{(}\StringTok{"Obs"}\NormalTok{,}\StringTok{"MedMovP"}\NormalTok{),}\AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{),}\AttributeTok{lty=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-31-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ye\_ob}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{142}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (t }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{142}\NormalTok{) ye\_ob[t]}\OtherTok{\textless{}{-}}\NormalTok{y[t}\SpecialCharTok{+}\DecValTok{1}\NormalTok{]}
+\NormalTok{ye\_pr}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{142}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (t }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{142}\NormalTok{) ye\_pr[t]}\OtherTok{\textless{}{-}}\NormalTok{fe[t]}
+\NormalTok{mae\_ye}\OtherTok{\textless{}{-}}\FunctionTok{MAE}\NormalTok{(ye\_ob,ye\_pr)}
+\NormalTok{mape\_ye}\OtherTok{\textless{}{-}}\FunctionTok{MAPE}\NormalTok{(ye\_ob,ye\_pr)}
+\NormalTok{smape\_ye}\OtherTok{\textless{}{-}}\FunctionTok{SMAPE}\NormalTok{(ye\_ob,ye\_pr)}
+\NormalTok{mse\_ye}\OtherTok{\textless{}{-}}\FunctionTok{MSE}\NormalTok{(ye\_ob,ye\_pr)}
+\NormalTok{rmse\_ye}\OtherTok{\textless{}{-}}\FunctionTok{RMSE}\NormalTok{(ye\_ob,ye\_pr)}
+
+\NormalTok{medidas }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(mae\_ye,mape\_ye,smape\_ye,mse\_ye,rmse\_ye));}
+\FunctionTok{rownames}\NormalTok{(medidas) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}MAE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}MAPE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}SMAPE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}MSE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}RMSE\textquotesingle{}}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(medidas)}\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\StringTok{"Prom.Movile"}\NormalTok{)}
+\NormalTok{df\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(medidas)     }
+
+\NormalTok{tab\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{as.data.table}\NormalTok{(df\_medidas, }\AttributeTok{keep.rownames=}\ConstantTok{TRUE}\NormalTok{, }\AttributeTok{keep.colnames=}\ConstantTok{FALSE}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(tab\_medidas) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Medida"}\NormalTok{,}\StringTok{"Prom.Movile"}\NormalTok{)}
+\NormalTok{ftab\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{format}\NormalTok{(tab\_medidas, }\AttributeTok{digits=}\DecValTok{5}\NormalTok{, }\AttributeTok{scientific =}\NormalTok{ F, }\AttributeTok{big.mark=}\StringTok{","}\NormalTok{,}\AttributeTok{decimal.mark=}\StringTok{"."}\NormalTok{,}\AttributeTok{justify=}\StringTok{"right"}\NormalTok{)}
+\NormalTok{tem }\OtherTok{\textless{}{-}} \FunctionTok{ttheme\_minimal}\NormalTok{(}\AttributeTok{base\_colour=}\StringTok{"black"}\NormalTok{,}\AttributeTok{base\_size=}\DecValTok{15}\NormalTok{, }\AttributeTok{core=}\FunctionTok{list}\NormalTok{(}\AttributeTok{bg\_params=}\FunctionTok{list}\NormalTok{(}\AttributeTok{fill=}\NormalTok{blues9,}\AttributeTok{col=}\ConstantTok{NA}\NormalTok{)))}
+
+\FunctionTok{grid.arrange}\NormalTok{(}\FunctionTok{tableGrob}\NormalTok{(ftab\_medidas,}\AttributeTok{theme=}\NormalTok{tem))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-32-1.pdf}
+
+\hypertarget{media-muxf3vil-tipo-r}{%
+\subsection{Media móvil tipo ``r''}\label{media-muxf3vil-tipo-r}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fr}\OtherTok{\textless{}{-}}\FunctionTok{movavg}\NormalTok{(y,}\DecValTok{2}\NormalTok{,}\AttributeTok{type=}\StringTok{"r"}\NormalTok{)}
+\NormalTok{frt}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{143}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{2}\SpecialCharTok{:}\DecValTok{143}\NormalTok{) frt[t]}\OtherTok{\textless{}{-}}\NormalTok{fr[t}\DecValTok{{-}1}\NormalTok{]}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{1}\NormalTok{) frt[t]}\OtherTok{\textless{}{-}}\ConstantTok{NA}
+\NormalTok{fr\_ts}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{143}\NormalTok{)}
+\NormalTok{fr\_ts}\OtherTok{\textless{}{-}}\FunctionTok{ts}\NormalTok{(frt,}\AttributeTok{start =} \FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{52}\NormalTok{)}
+
+\FunctionTok{ts.plot}\NormalTok{(y,fr\_ts,}\AttributeTok{xlab=}\ConstantTok{NULL}\NormalTok{,}\AttributeTok{ylab=}\ConstantTok{NULL}\NormalTok{, }\AttributeTok{main =} \StringTok{"Media Móvil r"}\NormalTok{,}\AttributeTok{lty=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{),}\AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{legend}\NormalTok{(}\AttributeTok{x=}\StringTok{"bottomright"}\NormalTok{,}\AttributeTok{legend=}\FunctionTok{c}\NormalTok{(}\StringTok{"Obs"}\NormalTok{,}\StringTok{"MedMovP"}\NormalTok{),}\AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{),}\AttributeTok{lty=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-33-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{yr\_ob}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{142}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (t }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{142}\NormalTok{) yr\_ob[t]}\OtherTok{\textless{}{-}}\NormalTok{y[t}\SpecialCharTok{+}\DecValTok{1}\NormalTok{]}
+\NormalTok{yr\_pr}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{142}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (t }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{142}\NormalTok{) yr\_pr[t]}\OtherTok{\textless{}{-}}\NormalTok{fr[t]}
+\NormalTok{mae\_yr}\OtherTok{\textless{}{-}}\FunctionTok{MAE}\NormalTok{(yr\_ob,yr\_pr)}
+\NormalTok{mape\_yr}\OtherTok{\textless{}{-}}\FunctionTok{MAPE}\NormalTok{(yr\_ob,yr\_pr)}
+\NormalTok{smape\_yr}\OtherTok{\textless{}{-}}\FunctionTok{SMAPE}\NormalTok{(yr\_ob,yr\_pr)}
+\NormalTok{mse\_yr}\OtherTok{\textless{}{-}}\FunctionTok{MSE}\NormalTok{(yr\_ob,yr\_pr)}
+\NormalTok{rmse\_yr}\OtherTok{\textless{}{-}}\FunctionTok{RMSE}\NormalTok{(yr\_ob,yr\_pr)}
+
+\NormalTok{medidas }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(mae\_yr,mape\_yr,smape\_yr,mse\_yr,rmse\_yr));}
+\FunctionTok{rownames}\NormalTok{(medidas) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}MAE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}MAPE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}SMAPE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}MSE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}RMSE\textquotesingle{}}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(medidas)}\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\StringTok{"Prom.MovilR"}\NormalTok{)}
+\NormalTok{df\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(medidas)     }
+
+\NormalTok{tab\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{as.data.table}\NormalTok{(df\_medidas, }\AttributeTok{keep.rownames=}\ConstantTok{TRUE}\NormalTok{, }\AttributeTok{keep.colnames=}\ConstantTok{FALSE}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(tab\_medidas) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Medida"}\NormalTok{,}\StringTok{"Prom.MovilR"}\NormalTok{)}
+\NormalTok{ftab\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{format}\NormalTok{(tab\_medidas, }\AttributeTok{digits=}\DecValTok{5}\NormalTok{, }\AttributeTok{scientific =}\NormalTok{ F, }\AttributeTok{big.mark=}\StringTok{","}\NormalTok{,}\AttributeTok{decimal.mark=}\StringTok{"."}\NormalTok{,}\AttributeTok{justify=}\StringTok{"right"}\NormalTok{)}
+\NormalTok{tem }\OtherTok{\textless{}{-}} \FunctionTok{ttheme\_minimal}\NormalTok{(}\AttributeTok{base\_colour=}\StringTok{"black"}\NormalTok{,}\AttributeTok{base\_size=}\DecValTok{15}\NormalTok{, }\AttributeTok{core=}\FunctionTok{list}\NormalTok{(}\AttributeTok{bg\_params=}\FunctionTok{list}\NormalTok{(}\AttributeTok{fill=}\NormalTok{blues9,}\AttributeTok{col=}\ConstantTok{NA}\NormalTok{)))}
+
+\FunctionTok{grid.arrange}\NormalTok{(}\FunctionTok{tableGrob}\NormalTok{(ftab\_medidas,}\AttributeTok{theme=}\NormalTok{tem))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-34-1.pdf}
+
+\hypertarget{promedio-muxf3vil-doble}{%
+\subsection{Promedio móvil doble}\label{promedio-muxf3vil-doble}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{ts}\NormalTok{(info\_tda\_1}\SpecialCharTok{$}\NormalTok{Weekly\_Sales, }\AttributeTok{start =} \FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{52}\NormalTok{)}
+
+\NormalTok{m1}\OtherTok{\textless{}{-}}\FunctionTok{movavg}\NormalTok{(y, }\DecValTok{2}\NormalTok{, }\AttributeTok{type=}\FunctionTok{c}\NormalTok{(}\StringTok{"s"}\NormalTok{))}
+\NormalTok{m2}\OtherTok{\textless{}{-}}\FunctionTok{movavg}\NormalTok{(m1,}\DecValTok{2}\NormalTok{, }\AttributeTok{type=}\FunctionTok{c}\NormalTok{(}\StringTok{"s"}\NormalTok{))}
+\NormalTok{b}\OtherTok{\textless{}{-}}\NormalTok{(}\DecValTok{2}\SpecialCharTok{/}\DecValTok{1}\NormalTok{)}\SpecialCharTok{*}\NormalTok{(m1}\SpecialCharTok{{-}}\NormalTok{m2)}
+\NormalTok{a }\OtherTok{=} \DecValTok{2}\SpecialCharTok{*}\NormalTok{m1}\SpecialCharTok{{-}}\NormalTok{m2}
+\NormalTok{f}\OtherTok{\textless{}{-}}\NormalTok{a}\SpecialCharTok{+}\NormalTok{b}\SpecialCharTok{*}\DecValTok{1}
+
+\CommentTok{\# Grafica}
+\NormalTok{fdt}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{144}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{2}\SpecialCharTok{:}\DecValTok{144}\NormalTok{) fdt[t]}\OtherTok{\textless{}{-}}\NormalTok{f[t}\DecValTok{{-}1}\NormalTok{]}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{1}\NormalTok{) fdt[t]}\OtherTok{\textless{}{-}}\ConstantTok{NA}
+\NormalTok{fd\_ts}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{144}\NormalTok{)}
+\NormalTok{fd\_ts}\OtherTok{\textless{}{-}}\FunctionTok{ts}\NormalTok{(fdt,}\AttributeTok{start =} \FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{52}\NormalTok{)}
+\FunctionTok{ts.plot}\NormalTok{(y,fd\_ts,}\AttributeTok{xlab=}\ConstantTok{NULL}\NormalTok{,}\AttributeTok{ylab=}\ConstantTok{NULL}\NormalTok{, }\AttributeTok{main =} \StringTok{"Media Móvil Doble"}\NormalTok{,}\AttributeTok{lty=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{),}\AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{legend}\NormalTok{(}\AttributeTok{x=}\StringTok{"bottomright"}\NormalTok{,}\AttributeTok{legend=}\FunctionTok{c}\NormalTok{(}\StringTok{"Obs"}\NormalTok{,}\StringTok{"MedMovD"}\NormalTok{),}\AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{),}\AttributeTok{lty=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-35-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{yd\_pr}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{143}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (t }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{143}\NormalTok{) yd\_pr[t]}\OtherTok{\textless{}{-}}\NormalTok{f[t]}
+\NormalTok{mae\_yd}\OtherTok{\textless{}{-}}\FunctionTok{MAE}\NormalTok{(y,yd\_pr)}
+\NormalTok{mape\_yd}\OtherTok{\textless{}{-}}\FunctionTok{MAPE}\NormalTok{(y,yd\_pr)}
+\NormalTok{smape\_yd}\OtherTok{\textless{}{-}}\FunctionTok{SMAPE}\NormalTok{(y,yd\_pr)}
+\NormalTok{mse\_yd}\OtherTok{\textless{}{-}}\FunctionTok{MSE}\NormalTok{(y,yd\_pr)}
+\NormalTok{rmse\_yd}\OtherTok{\textless{}{-}}\FunctionTok{RMSE}\NormalTok{(y,yd\_pr)}
+
+\NormalTok{medidas }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(mae\_yd,mape\_yd,smape\_yd,mse\_yd,rmse\_yd));}
+\FunctionTok{rownames}\NormalTok{(medidas) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}MAE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}MAPE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}SMAPE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}MSE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}RMSE\textquotesingle{}}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(medidas)}\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\StringTok{"Prom.Movil doble"}\NormalTok{)}
+\NormalTok{df\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(medidas)     }
+
+\NormalTok{tab\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{as.data.table}\NormalTok{(df\_medidas, }\AttributeTok{keep.rownames=}\ConstantTok{TRUE}\NormalTok{, }\AttributeTok{keep.colnames=}\ConstantTok{FALSE}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(tab\_medidas) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Medida"}\NormalTok{,}\StringTok{"Prom.Movil doble"}\NormalTok{)}
+\NormalTok{ftab\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{format}\NormalTok{(tab\_medidas, }\AttributeTok{digits=}\DecValTok{5}\NormalTok{, }\AttributeTok{scientific =}\NormalTok{ F, }\AttributeTok{big.mark=}\StringTok{","}\NormalTok{,}\AttributeTok{decimal.mark=}\StringTok{"."}\NormalTok{,}\AttributeTok{justify=}\StringTok{"right"}\NormalTok{)}
+\NormalTok{tem }\OtherTok{\textless{}{-}} \FunctionTok{ttheme\_minimal}\NormalTok{(}\AttributeTok{base\_colour=}\StringTok{"black"}\NormalTok{,}\AttributeTok{base\_size=}\DecValTok{15}\NormalTok{, }\AttributeTok{core=}\FunctionTok{list}\NormalTok{(}\AttributeTok{bg\_params=}\FunctionTok{list}\NormalTok{(}\AttributeTok{fill=}\NormalTok{blues9,}\AttributeTok{col=}\ConstantTok{NA}\NormalTok{)))}
+
+\FunctionTok{grid.arrange}\NormalTok{(}\FunctionTok{tableGrob}\NormalTok{(ftab\_medidas,}\AttributeTok{theme=}\NormalTok{tem))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-36-1.pdf}
+
+\hypertarget{promedio-muxf3vil-triangular}{%
+\subsection{Promedio móvil
+triangular}\label{promedio-muxf3vil-triangular}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{ts}\NormalTok{(info\_tda\_1}\SpecialCharTok{$}\NormalTok{Weekly\_Sales, }\AttributeTok{start =} \FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{52}\NormalTok{)}
+
+\NormalTok{m1}\OtherTok{\textless{}{-}}\FunctionTok{movavg}\NormalTok{(y, }\DecValTok{2}\NormalTok{, }\AttributeTok{type=}\FunctionTok{c}\NormalTok{(}\StringTok{"t"}\NormalTok{))}
+\NormalTok{m2}\OtherTok{\textless{}{-}}\FunctionTok{movavg}\NormalTok{(m1,}\DecValTok{2}\NormalTok{, }\AttributeTok{type=}\FunctionTok{c}\NormalTok{(}\StringTok{"t"}\NormalTok{))}
+\NormalTok{b}\OtherTok{\textless{}{-}}\NormalTok{(}\DecValTok{2}\SpecialCharTok{/}\DecValTok{1}\NormalTok{)}\SpecialCharTok{*}\NormalTok{(m1}\SpecialCharTok{{-}}\NormalTok{m2)}
+\NormalTok{a }\OtherTok{=} \DecValTok{2}\SpecialCharTok{*}\NormalTok{m1}\SpecialCharTok{{-}}\NormalTok{m2}
+\NormalTok{f}\OtherTok{\textless{}{-}}\NormalTok{a}\SpecialCharTok{+}\NormalTok{b}\SpecialCharTok{*}\DecValTok{1}
+
+\CommentTok{\# Grafica}
+\NormalTok{fdt}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{144}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{2}\SpecialCharTok{:}\DecValTok{144}\NormalTok{) fdt[t]}\OtherTok{\textless{}{-}}\NormalTok{f[t}\DecValTok{{-}1}\NormalTok{]}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{1}\NormalTok{) fdt[t]}\OtherTok{\textless{}{-}}\ConstantTok{NA}
+\NormalTok{fd\_ts}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{144}\NormalTok{)}
+\NormalTok{fd\_ts}\OtherTok{\textless{}{-}}\FunctionTok{ts}\NormalTok{(fdt,}\AttributeTok{start =} \FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{52}\NormalTok{)}
+\FunctionTok{ts.plot}\NormalTok{(y,fd\_ts,}\AttributeTok{xlab=}\ConstantTok{NULL}\NormalTok{,}\AttributeTok{ylab=}\ConstantTok{NULL}\NormalTok{, }\AttributeTok{main =} \StringTok{"Media Móvil Doble Triangular"}\NormalTok{,}\AttributeTok{lty=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{),}\AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{legend}\NormalTok{(}\AttributeTok{x=}\StringTok{"bottomright"}\NormalTok{,}\AttributeTok{legend=}\FunctionTok{c}\NormalTok{(}\StringTok{"Obs"}\NormalTok{,}\StringTok{"MedMovD"}\NormalTok{),}\AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{),}\AttributeTok{lty=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-37-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{yd\_pr}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{143}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (t }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{143}\NormalTok{) yd\_pr[t]}\OtherTok{\textless{}{-}}\NormalTok{f[t]}
+\NormalTok{mae\_yd}\OtherTok{\textless{}{-}}\FunctionTok{MAE}\NormalTok{(y,yd\_pr)}
+\NormalTok{mape\_yd}\OtherTok{\textless{}{-}}\FunctionTok{MAPE}\NormalTok{(y,yd\_pr)}
+\NormalTok{smape\_yd}\OtherTok{\textless{}{-}}\FunctionTok{SMAPE}\NormalTok{(y,yd\_pr)}
+\NormalTok{mse\_yd}\OtherTok{\textless{}{-}}\FunctionTok{MSE}\NormalTok{(y,yd\_pr)}
+\NormalTok{rmse\_yd}\OtherTok{\textless{}{-}}\FunctionTok{RMSE}\NormalTok{(y,yd\_pr)}
+
+\NormalTok{medidas }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(mae\_yd,mape\_yd,smape\_yd,mse\_yd,rmse\_yd));}
+\FunctionTok{rownames}\NormalTok{(medidas) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}MAE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}MAPE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}SMAPE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}MSE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}RMSE\textquotesingle{}}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(medidas)}\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\StringTok{"Prom.Movil doble Triangular"}\NormalTok{)}
+\NormalTok{df\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(medidas)     }
+
+\NormalTok{tab\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{as.data.table}\NormalTok{(df\_medidas, }\AttributeTok{keep.rownames=}\ConstantTok{TRUE}\NormalTok{, }\AttributeTok{keep.colnames=}\ConstantTok{FALSE}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(tab\_medidas) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Medida"}\NormalTok{,}\StringTok{"Prom.Movil doble Triangular"}\NormalTok{)}
+\NormalTok{ftab\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{format}\NormalTok{(tab\_medidas, }\AttributeTok{digits=}\DecValTok{5}\NormalTok{, }\AttributeTok{scientific =}\NormalTok{ F, }\AttributeTok{big.mark=}\StringTok{","}\NormalTok{,}\AttributeTok{decimal.mark=}\StringTok{"."}\NormalTok{,}\AttributeTok{justify=}\StringTok{"right"}\NormalTok{)}
+\NormalTok{tem }\OtherTok{\textless{}{-}} \FunctionTok{ttheme\_minimal}\NormalTok{(}\AttributeTok{base\_colour=}\StringTok{"black"}\NormalTok{,}\AttributeTok{base\_size=}\DecValTok{15}\NormalTok{, }\AttributeTok{core=}\FunctionTok{list}\NormalTok{(}\AttributeTok{bg\_params=}\FunctionTok{list}\NormalTok{(}\AttributeTok{fill=}\NormalTok{blues9,}\AttributeTok{col=}\ConstantTok{NA}\NormalTok{)))}
+
+\FunctionTok{grid.arrange}\NormalTok{(}\FunctionTok{tableGrob}\NormalTok{(ftab\_medidas,}\AttributeTok{theme=}\NormalTok{tem))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-38-1.pdf}
+
+\hypertarget{promedio-muxf3vil-doble-modificado}{%
+\subsection{Promedio móvil doble
+modificado}\label{promedio-muxf3vil-doble-modificado}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{ts}\NormalTok{(info\_tda\_1}\SpecialCharTok{$}\NormalTok{Weekly\_Sales, }\AttributeTok{start =} \FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{52}\NormalTok{)}
+
+\NormalTok{m1}\OtherTok{\textless{}{-}}\FunctionTok{movavg}\NormalTok{(y, }\DecValTok{2}\NormalTok{, }\AttributeTok{type=}\FunctionTok{c}\NormalTok{(}\StringTok{"m"}\NormalTok{))}
+\NormalTok{m2}\OtherTok{\textless{}{-}}\FunctionTok{movavg}\NormalTok{(m1,}\DecValTok{2}\NormalTok{, }\AttributeTok{type=}\FunctionTok{c}\NormalTok{(}\StringTok{"m"}\NormalTok{))}
+\NormalTok{b}\OtherTok{\textless{}{-}}\NormalTok{(}\DecValTok{2}\SpecialCharTok{/}\DecValTok{1}\NormalTok{)}\SpecialCharTok{*}\NormalTok{(m1}\SpecialCharTok{{-}}\NormalTok{m2)}
+\NormalTok{a }\OtherTok{=} \DecValTok{2}\SpecialCharTok{*}\NormalTok{m1}\SpecialCharTok{{-}}\NormalTok{m2}
+\NormalTok{f}\OtherTok{\textless{}{-}}\NormalTok{a}\SpecialCharTok{+}\NormalTok{b}\SpecialCharTok{*}\DecValTok{1}
+
+\CommentTok{\# Grafica}
+\NormalTok{fdt}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{144}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{2}\SpecialCharTok{:}\DecValTok{144}\NormalTok{) fdt[t]}\OtherTok{\textless{}{-}}\NormalTok{f[t}\DecValTok{{-}1}\NormalTok{]}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{1}\NormalTok{) fdt[t]}\OtherTok{\textless{}{-}}\ConstantTok{NA}
+\NormalTok{fd\_ts}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{144}\NormalTok{)}
+\NormalTok{fd\_ts}\OtherTok{\textless{}{-}}\FunctionTok{ts}\NormalTok{(fdt,}\AttributeTok{start =} \FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{52}\NormalTok{)}
+\FunctionTok{ts.plot}\NormalTok{(y,fd\_ts,}\AttributeTok{xlab=}\ConstantTok{NULL}\NormalTok{,}\AttributeTok{ylab=}\ConstantTok{NULL}\NormalTok{, }\AttributeTok{main =} \StringTok{"Media Móvil Doble Modificado"}\NormalTok{,}\AttributeTok{lty=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{),}\AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{legend}\NormalTok{(}\AttributeTok{x=}\StringTok{"bottomright"}\NormalTok{,}\AttributeTok{legend=}\FunctionTok{c}\NormalTok{(}\StringTok{"Obs"}\NormalTok{,}\StringTok{"MedMovD"}\NormalTok{),}\AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{),}\AttributeTok{lty=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-39-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{yd\_pr}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{143}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (t }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{143}\NormalTok{) yd\_pr[t]}\OtherTok{\textless{}{-}}\NormalTok{f[t]}
+\NormalTok{mae\_yd}\OtherTok{\textless{}{-}}\FunctionTok{MAE}\NormalTok{(y,yd\_pr)}
+\NormalTok{mape\_yd}\OtherTok{\textless{}{-}}\FunctionTok{MAPE}\NormalTok{(y,yd\_pr)}
+\NormalTok{smape\_yd}\OtherTok{\textless{}{-}}\FunctionTok{SMAPE}\NormalTok{(y,yd\_pr)}
+\NormalTok{mse\_yd}\OtherTok{\textless{}{-}}\FunctionTok{MSE}\NormalTok{(y,yd\_pr)}
+\NormalTok{rmse\_yd}\OtherTok{\textless{}{-}}\FunctionTok{RMSE}\NormalTok{(y,yd\_pr)}
+
+\NormalTok{medidas }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(mae\_yd,mape\_yd,smape\_yd,mse\_yd,rmse\_yd));}
+\FunctionTok{rownames}\NormalTok{(medidas) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}MAE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}MAPE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}SMAPE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}MSE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}RMSE\textquotesingle{}}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(medidas)}\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\StringTok{"Prom.Movil doble Modificado"}\NormalTok{)}
+\NormalTok{df\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(medidas)     }
+
+\NormalTok{tab\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{as.data.table}\NormalTok{(df\_medidas, }\AttributeTok{keep.rownames=}\ConstantTok{TRUE}\NormalTok{, }\AttributeTok{keep.colnames=}\ConstantTok{FALSE}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(tab\_medidas) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Medida"}\NormalTok{,}\StringTok{"Prom.Movil doble Modificado"}\NormalTok{)}
+\NormalTok{ftab\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{format}\NormalTok{(tab\_medidas, }\AttributeTok{digits=}\DecValTok{5}\NormalTok{, }\AttributeTok{scientific =}\NormalTok{ F, }\AttributeTok{big.mark=}\StringTok{","}\NormalTok{,}\AttributeTok{decimal.mark=}\StringTok{"."}\NormalTok{,}\AttributeTok{justify=}\StringTok{"right"}\NormalTok{)}
+\NormalTok{tem }\OtherTok{\textless{}{-}} \FunctionTok{ttheme\_minimal}\NormalTok{(}\AttributeTok{base\_colour=}\StringTok{"black"}\NormalTok{,}\AttributeTok{base\_size=}\DecValTok{15}\NormalTok{, }\AttributeTok{core=}\FunctionTok{list}\NormalTok{(}\AttributeTok{bg\_params=}\FunctionTok{list}\NormalTok{(}\AttributeTok{fill=}\NormalTok{blues9,}\AttributeTok{col=}\ConstantTok{NA}\NormalTok{)))}
+
+\FunctionTok{grid.arrange}\NormalTok{(}\FunctionTok{tableGrob}\NormalTok{(ftab\_medidas,}\AttributeTok{theme=}\NormalTok{tem))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-40-1.pdf}
+
+\hypertarget{suavizamiento-exponencial}{%
+\subsection{Suavizamiento exponencial}\label{suavizamiento-exponencial}}
+
+\hypertarget{simple-a0.1}{%
+\subsubsection{Simple a=0.1}\label{simple-a0.1}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{est.s1}\OtherTok{\textless{}{-}}\FunctionTok{ses}\NormalTok{(y, }\AttributeTok{h =} \DecValTok{2}\NormalTok{, }\AttributeTok{level =} \FunctionTok{c}\NormalTok{(}\DecValTok{99}\NormalTok{,}\DecValTok{99}\NormalTok{), }\AttributeTok{initial =} \FunctionTok{c}\NormalTok{(}\StringTok{"simple"}\NormalTok{),  }\AttributeTok{alpha =} \FloatTok{0.1}\NormalTok{)}
+\NormalTok{fse}\OtherTok{\textless{}{-}}\NormalTok{est.s1}\SpecialCharTok{$}\NormalTok{fitted}
+\NormalTok{fse\_ts}\OtherTok{\textless{}{-}}\FunctionTok{ts}\NormalTok{(fse,}\AttributeTok{start=}\FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{52}\NormalTok{)}
+\NormalTok{fset\_ts}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{144}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{3}\SpecialCharTok{:}\DecValTok{144}\NormalTok{) fset\_ts[t]}\OtherTok{\textless{}{-}}\NormalTok{fse\_ts[t}\DecValTok{{-}2}\NormalTok{]}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{) fset\_ts[t]}\OtherTok{\textless{}{-}}\ConstantTok{NA}
+\NormalTok{yt}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{144}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{142}\NormalTok{) yt[t]}\OtherTok{\textless{}{-}}\NormalTok{y[t]}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{143}\SpecialCharTok{:}\DecValTok{144}\NormalTok{) yt[t]}\OtherTok{\textless{}{-}}\ConstantTok{NA}
+\NormalTok{yt\_ts}\OtherTok{\textless{}{-}}\FunctionTok{ts}\NormalTok{(yt,}\AttributeTok{start=}\FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{52}\NormalTok{)}
+\FunctionTok{ts.plot}\NormalTok{(yt\_ts,fset\_ts,}\AttributeTok{xlab=}\ConstantTok{NULL}\NormalTok{,}\AttributeTok{ylab=}\ConstantTok{NULL}\NormalTok{, }\AttributeTok{main =} \StringTok{"Serie Suavizada Exponencialmente"}\NormalTok{,}\AttributeTok{lty=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{),}\AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{legend}\NormalTok{(}\AttributeTok{x=}\StringTok{"bottomright"}\NormalTok{,}\AttributeTok{legend=}\FunctionTok{c}\NormalTok{(}\StringTok{"Obs"}\NormalTok{,}\StringTok{"Suavizada"}\NormalTok{),}\AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{),}\AttributeTok{lty=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-42-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mae\_yd}\OtherTok{\textless{}{-}}\FunctionTok{MAE}\NormalTok{(y,fse\_ts)}
+\NormalTok{mape\_yd}\OtherTok{\textless{}{-}}\FunctionTok{MAPE}\NormalTok{(y,fse\_ts)}
+\NormalTok{smape\_yd}\OtherTok{\textless{}{-}}\FunctionTok{SMAPE}\NormalTok{(y,fse\_ts)}
+\NormalTok{mse\_yd}\OtherTok{\textless{}{-}}\FunctionTok{MSE}\NormalTok{(y,fse\_ts)}
+\NormalTok{rmse\_yd}\OtherTok{\textless{}{-}}\FunctionTok{RMSE}\NormalTok{(y,fse\_ts)}
+
+\NormalTok{medidas }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(mae\_yd,mape\_yd,smape\_yd,mse\_yd,rmse\_yd));}
+\FunctionTok{rownames}\NormalTok{(medidas) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}MAE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}MAPE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}SMAPE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}MSE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}RMSE\textquotesingle{}}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(medidas)}\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\StringTok{"Suavizamiento Exponencial Simple 0.1"}\NormalTok{)}
+\NormalTok{df\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(medidas)     }
+
+\NormalTok{tab\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{as.data.table}\NormalTok{(df\_medidas, }\AttributeTok{keep.rownames=}\ConstantTok{TRUE}\NormalTok{, }\AttributeTok{keep.colnames=}\ConstantTok{FALSE}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(tab\_medidas) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Medida"}\NormalTok{,}\StringTok{"Suavizamiento Exponencial Simple 0.1"}\NormalTok{)}
+\NormalTok{ftab\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{format}\NormalTok{(tab\_medidas, }\AttributeTok{digits=}\DecValTok{5}\NormalTok{, }\AttributeTok{scientific =}\NormalTok{ F, }\AttributeTok{big.mark=}\StringTok{","}\NormalTok{,}\AttributeTok{decimal.mark=}\StringTok{"."}\NormalTok{,}\AttributeTok{justify=}\StringTok{"right"}\NormalTok{)}
+\NormalTok{tem }\OtherTok{\textless{}{-}} \FunctionTok{ttheme\_minimal}\NormalTok{(}\AttributeTok{base\_colour=}\StringTok{"black"}\NormalTok{,}\AttributeTok{base\_size=}\DecValTok{15}\NormalTok{, }\AttributeTok{core=}\FunctionTok{list}\NormalTok{(}\AttributeTok{bg\_params=}\FunctionTok{list}\NormalTok{(}\AttributeTok{fill=}\NormalTok{blues9,}\AttributeTok{col=}\ConstantTok{NA}\NormalTok{)))}
+
+\FunctionTok{grid.arrange}\NormalTok{(}\FunctionTok{tableGrob}\NormalTok{(ftab\_medidas,}\AttributeTok{theme=}\NormalTok{tem))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-43-1.pdf}
+
+\hypertarget{simple-a0.5}{%
+\subsubsection{Simple a=0.5}\label{simple-a0.5}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{est.s5}\OtherTok{\textless{}{-}}\FunctionTok{ses}\NormalTok{(y, }\AttributeTok{h =} \DecValTok{2}\NormalTok{, }\AttributeTok{level =} \FunctionTok{c}\NormalTok{(}\DecValTok{95}\NormalTok{,}\DecValTok{95}\NormalTok{), }\AttributeTok{initial =} \FunctionTok{c}\NormalTok{(}\StringTok{"simple"}\NormalTok{),  }\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{)}
+\NormalTok{fse}\OtherTok{\textless{}{-}}\NormalTok{est.s5}\SpecialCharTok{$}\NormalTok{fitted}
+\NormalTok{fse\_ts}\OtherTok{\textless{}{-}}\FunctionTok{ts}\NormalTok{(fse,}\AttributeTok{start=}\FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{52}\NormalTok{)}
+\NormalTok{fset\_ts}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{144}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{3}\SpecialCharTok{:}\DecValTok{144}\NormalTok{) fset\_ts[t]}\OtherTok{\textless{}{-}}\NormalTok{fse\_ts[t}\DecValTok{{-}2}\NormalTok{]}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{) fset\_ts[t]}\OtherTok{\textless{}{-}}\ConstantTok{NA}
+\NormalTok{yt}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{144}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{142}\NormalTok{) yt[t]}\OtherTok{\textless{}{-}}\NormalTok{y[t]}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{143}\SpecialCharTok{:}\DecValTok{144}\NormalTok{) yt[t]}\OtherTok{\textless{}{-}}\ConstantTok{NA}
+\NormalTok{yt\_ts}\OtherTok{\textless{}{-}}\FunctionTok{ts}\NormalTok{(yt,}\AttributeTok{start=}\FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{52}\NormalTok{)}
+\FunctionTok{ts.plot}\NormalTok{(yt\_ts,fset\_ts,}\AttributeTok{xlab=}\ConstantTok{NULL}\NormalTok{,}\AttributeTok{ylab=}\ConstantTok{NULL}\NormalTok{, }\AttributeTok{main =} \StringTok{"Serie Suavizada Exponencialmente"}\NormalTok{,}\AttributeTok{lty=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{),}\AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{legend}\NormalTok{(}\AttributeTok{x=}\StringTok{"bottomright"}\NormalTok{,}\AttributeTok{legend=}\FunctionTok{c}\NormalTok{(}\StringTok{"Obs"}\NormalTok{,}\StringTok{"Suavizada"}\NormalTok{),}\AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{),}\AttributeTok{lty=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-44-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mae\_yd}\OtherTok{\textless{}{-}}\FunctionTok{MAE}\NormalTok{(y,fse\_ts)}
+\NormalTok{mape\_yd}\OtherTok{\textless{}{-}}\FunctionTok{MAPE}\NormalTok{(y,fse\_ts)}
+\NormalTok{smape\_yd}\OtherTok{\textless{}{-}}\FunctionTok{SMAPE}\NormalTok{(y,fse\_ts)}
+\NormalTok{mse\_yd}\OtherTok{\textless{}{-}}\FunctionTok{MSE}\NormalTok{(y,fse\_ts)}
+\NormalTok{rmse\_yd}\OtherTok{\textless{}{-}}\FunctionTok{RMSE}\NormalTok{(y,fse\_ts)}
+
+\NormalTok{medidas }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(mae\_yd,mape\_yd,smape\_yd,mse\_yd,rmse\_yd))}
+\FunctionTok{rownames}\NormalTok{(medidas) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}MAE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}MAPE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}SMAPE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}MSE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}RMSE\textquotesingle{}}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(medidas)}\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\StringTok{"Suavizamiento Exponencial Simple 0.5"}\NormalTok{)}
+\NormalTok{df\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(medidas)     }
+
+\NormalTok{tab\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{as.data.table}\NormalTok{(df\_medidas, }\AttributeTok{keep.rownames=}\ConstantTok{TRUE}\NormalTok{, }\AttributeTok{keep.colnames=}\ConstantTok{FALSE}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(tab\_medidas) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Medida"}\NormalTok{,}\StringTok{"Suavizamiento Exponencial Simple 0.5"}\NormalTok{)}
+\NormalTok{ftab\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{format}\NormalTok{(tab\_medidas, }\AttributeTok{digits=}\DecValTok{5}\NormalTok{, }\AttributeTok{scientific =}\NormalTok{ F, }\AttributeTok{big.mark=}\StringTok{","}\NormalTok{,}\AttributeTok{decimal.mark=}\StringTok{"."}\NormalTok{,}\AttributeTok{justify=}\StringTok{"right"}\NormalTok{)}
+\NormalTok{tem }\OtherTok{\textless{}{-}} \FunctionTok{ttheme\_minimal}\NormalTok{(}\AttributeTok{base\_colour=}\StringTok{"black"}\NormalTok{,}\AttributeTok{base\_size=}\DecValTok{15}\NormalTok{, }\AttributeTok{core=}\FunctionTok{list}\NormalTok{(}\AttributeTok{bg\_params=}\FunctionTok{list}\NormalTok{(}\AttributeTok{fill=}\NormalTok{blues9,}\AttributeTok{col=}\ConstantTok{NA}\NormalTok{)))}
+
+\FunctionTok{grid.arrange}\NormalTok{(}\FunctionTok{tableGrob}\NormalTok{(ftab\_medidas,}\AttributeTok{theme=}\NormalTok{tem))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-45-1.pdf}
+
+\hypertarget{simple-a0.8}{%
+\subsubsection{Simple a=0.8}\label{simple-a0.8}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{est.s8}\OtherTok{\textless{}{-}}\FunctionTok{ses}\NormalTok{(y, }\AttributeTok{h =} \DecValTok{2}\NormalTok{, }\AttributeTok{level =} \FunctionTok{c}\NormalTok{(}\DecValTok{92}\NormalTok{,}\DecValTok{92}\NormalTok{), }\AttributeTok{initial =} \FunctionTok{c}\NormalTok{(}\StringTok{"simple"}\NormalTok{),  }\AttributeTok{alpha =} \FloatTok{0.8}\NormalTok{)}
+\NormalTok{fse}\OtherTok{\textless{}{-}}\NormalTok{est.s8}\SpecialCharTok{$}\NormalTok{fitted}
+\NormalTok{fse\_ts}\OtherTok{\textless{}{-}}\FunctionTok{ts}\NormalTok{(fse,}\AttributeTok{start=}\FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{52}\NormalTok{)}
+\NormalTok{fset\_ts}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{144}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{3}\SpecialCharTok{:}\DecValTok{144}\NormalTok{) fset\_ts[t]}\OtherTok{\textless{}{-}}\NormalTok{fse\_ts[t}\DecValTok{{-}2}\NormalTok{]}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{) fset\_ts[t]}\OtherTok{\textless{}{-}}\ConstantTok{NA}
+\NormalTok{yt}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{144}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{142}\NormalTok{) yt[t]}\OtherTok{\textless{}{-}}\NormalTok{y[t]}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{143}\SpecialCharTok{:}\DecValTok{144}\NormalTok{) yt[t]}\OtherTok{\textless{}{-}}\ConstantTok{NA}
+\NormalTok{yt\_ts}\OtherTok{\textless{}{-}}\FunctionTok{ts}\NormalTok{(yt,}\AttributeTok{start=}\FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{52}\NormalTok{)}
+\FunctionTok{ts.plot}\NormalTok{(yt\_ts,fset\_ts,}\AttributeTok{xlab=}\ConstantTok{NULL}\NormalTok{,}\AttributeTok{ylab=}\ConstantTok{NULL}\NormalTok{, }\AttributeTok{main =} \StringTok{"Serie Suavizada Exponencialmente"}\NormalTok{,}\AttributeTok{lty=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{),}\AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{legend}\NormalTok{(}\AttributeTok{x=}\StringTok{"bottomright"}\NormalTok{,}\AttributeTok{legend=}\FunctionTok{c}\NormalTok{(}\StringTok{"Obs"}\NormalTok{,}\StringTok{"Suavizada"}\NormalTok{),}\AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{),}\AttributeTok{lty=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-46-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mae\_yd}\OtherTok{\textless{}{-}}\FunctionTok{MAE}\NormalTok{(y,fse\_ts)}
+\NormalTok{mape\_yd}\OtherTok{\textless{}{-}}\FunctionTok{MAPE}\NormalTok{(y,fse\_ts)}
+\NormalTok{smape\_yd}\OtherTok{\textless{}{-}}\FunctionTok{SMAPE}\NormalTok{(y,fse\_ts)}
+\NormalTok{mse\_yd}\OtherTok{\textless{}{-}}\FunctionTok{MSE}\NormalTok{(y,fse\_ts)}
+\NormalTok{rmse\_yd}\OtherTok{\textless{}{-}}\FunctionTok{RMSE}\NormalTok{(y,fse\_ts)}
+
+\NormalTok{medidas }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(mae\_yd,mape\_yd,smape\_yd,mse\_yd,rmse\_yd))}
+\FunctionTok{rownames}\NormalTok{(medidas) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}MAE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}MAPE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}SMAPE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}MSE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}RMSE\textquotesingle{}}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(medidas)}\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\StringTok{"Suavizamiento Exponencial Simple 0.8"}\NormalTok{)}
+\NormalTok{df\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(medidas)     }
+
+\NormalTok{tab\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{as.data.table}\NormalTok{(df\_medidas, }\AttributeTok{keep.rownames=}\ConstantTok{TRUE}\NormalTok{, }\AttributeTok{keep.colnames=}\ConstantTok{FALSE}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(tab\_medidas) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Medida"}\NormalTok{,}\StringTok{"Suavizamiento Exponencial Simple 0.8"}\NormalTok{)}
+\NormalTok{ftab\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{format}\NormalTok{(tab\_medidas, }\AttributeTok{digits=}\DecValTok{5}\NormalTok{, }\AttributeTok{scientific =}\NormalTok{ F, }\AttributeTok{big.mark=}\StringTok{","}\NormalTok{,}\AttributeTok{decimal.mark=}\StringTok{"."}\NormalTok{,}\AttributeTok{justify=}\StringTok{"right"}\NormalTok{)}
+\NormalTok{tem }\OtherTok{\textless{}{-}} \FunctionTok{ttheme\_minimal}\NormalTok{(}\AttributeTok{base\_colour=}\StringTok{"black"}\NormalTok{,}\AttributeTok{base\_size=}\DecValTok{15}\NormalTok{, }\AttributeTok{core=}\FunctionTok{list}\NormalTok{(}\AttributeTok{bg\_params=}\FunctionTok{list}\NormalTok{(}\AttributeTok{fill=}\NormalTok{blues9,}\AttributeTok{col=}\ConstantTok{NA}\NormalTok{)))}
+
+\FunctionTok{grid.arrange}\NormalTok{(}\FunctionTok{tableGrob}\NormalTok{(ftab\_medidas,}\AttributeTok{theme=}\NormalTok{tem))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-47-1.pdf}
+
+\hypertarget{optimal-a0.1}{%
+\subsubsection{Optimal a=0.1}\label{optimal-a0.1}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{est.o1}\OtherTok{\textless{}{-}}\FunctionTok{ses}\NormalTok{(y, }\AttributeTok{h =} \DecValTok{2}\NormalTok{, }\AttributeTok{level =} \FunctionTok{c}\NormalTok{(}\DecValTok{99}\NormalTok{,}\DecValTok{99}\NormalTok{), }\AttributeTok{initial =} \FunctionTok{c}\NormalTok{(}\StringTok{"optimal"}\NormalTok{),  }\AttributeTok{alpha =} \FloatTok{0.1}\NormalTok{)}
+
+\NormalTok{fse}\OtherTok{\textless{}{-}}\NormalTok{est.o1}\SpecialCharTok{$}\NormalTok{fitted}
+\NormalTok{fse\_ts}\OtherTok{\textless{}{-}}\FunctionTok{ts}\NormalTok{(fse,}\AttributeTok{start=}\FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{52}\NormalTok{)}
+\NormalTok{fset\_ts}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{144}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{3}\SpecialCharTok{:}\DecValTok{144}\NormalTok{) fset\_ts[t]}\OtherTok{\textless{}{-}}\NormalTok{fse\_ts[t}\DecValTok{{-}2}\NormalTok{]}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{) fset\_ts[t]}\OtherTok{\textless{}{-}}\ConstantTok{NA}
+\NormalTok{yt}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{144}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{142}\NormalTok{) yt[t]}\OtherTok{\textless{}{-}}\NormalTok{y[t]}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{143}\SpecialCharTok{:}\DecValTok{144}\NormalTok{) yt[t]}\OtherTok{\textless{}{-}}\ConstantTok{NA}
+\NormalTok{yt\_ts}\OtherTok{\textless{}{-}}\FunctionTok{ts}\NormalTok{(yt,}\AttributeTok{start=}\FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{52}\NormalTok{)}
+\FunctionTok{ts.plot}\NormalTok{(yt\_ts,fset\_ts,}\AttributeTok{xlab=}\ConstantTok{NULL}\NormalTok{,}\AttributeTok{ylab=}\ConstantTok{NULL}\NormalTok{, }\AttributeTok{main =} \StringTok{"Serie Suavizada Exponencialmente"}\NormalTok{,}\AttributeTok{lty=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{),}\AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{legend}\NormalTok{(}\AttributeTok{x=}\StringTok{"bottomright"}\NormalTok{,}\AttributeTok{legend=}\FunctionTok{c}\NormalTok{(}\StringTok{"Obs"}\NormalTok{,}\StringTok{"Suavizada"}\NormalTok{),}\AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{),}\AttributeTok{lty=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-48-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mae\_yd}\OtherTok{\textless{}{-}}\FunctionTok{MAE}\NormalTok{(y,fse\_ts)}
+\NormalTok{mape\_yd}\OtherTok{\textless{}{-}}\FunctionTok{MAPE}\NormalTok{(y,fse\_ts)}
+\NormalTok{smape\_yd}\OtherTok{\textless{}{-}}\FunctionTok{SMAPE}\NormalTok{(y,fse\_ts)}
+\NormalTok{mse\_yd}\OtherTok{\textless{}{-}}\FunctionTok{MSE}\NormalTok{(y,fse\_ts)}
+\NormalTok{rmse\_yd}\OtherTok{\textless{}{-}}\FunctionTok{RMSE}\NormalTok{(y,fse\_ts)}
+
+\NormalTok{medidas }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(mae\_yd,mape\_yd,smape\_yd,mse\_yd,rmse\_yd))}
+\FunctionTok{rownames}\NormalTok{(medidas) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}MAE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}MAPE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}SMAPE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}MSE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}RMSE\textquotesingle{}}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(medidas)}\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\StringTok{"Suavizamiento Exponencial Optimal 0.1"}\NormalTok{)}
+\NormalTok{df\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(medidas)     }
+
+\NormalTok{tab\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{as.data.table}\NormalTok{(df\_medidas, }\AttributeTok{keep.rownames=}\ConstantTok{TRUE}\NormalTok{, }\AttributeTok{keep.colnames=}\ConstantTok{FALSE}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(tab\_medidas) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Medida"}\NormalTok{,}\StringTok{"Suavizamiento Exponencial Optimal 0.1"}\NormalTok{)}
+\NormalTok{ftab\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{format}\NormalTok{(tab\_medidas, }\AttributeTok{digits=}\DecValTok{5}\NormalTok{, }\AttributeTok{scientific =}\NormalTok{ F, }\AttributeTok{big.mark=}\StringTok{","}\NormalTok{,}\AttributeTok{decimal.mark=}\StringTok{"."}\NormalTok{,}\AttributeTok{justify=}\StringTok{"right"}\NormalTok{)}
+\NormalTok{tem }\OtherTok{\textless{}{-}} \FunctionTok{ttheme\_minimal}\NormalTok{(}\AttributeTok{base\_colour=}\StringTok{"black"}\NormalTok{,}\AttributeTok{base\_size=}\DecValTok{15}\NormalTok{, }\AttributeTok{core=}\FunctionTok{list}\NormalTok{(}\AttributeTok{bg\_params=}\FunctionTok{list}\NormalTok{(}\AttributeTok{fill=}\NormalTok{blues9,}\AttributeTok{col=}\ConstantTok{NA}\NormalTok{)))}
+
+\FunctionTok{grid.arrange}\NormalTok{(}\FunctionTok{tableGrob}\NormalTok{(ftab\_medidas,}\AttributeTok{theme=}\NormalTok{tem))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-49-1.pdf}
+
+\hypertarget{optimal-a0.5}{%
+\subsubsection{Optimal a=0.5}\label{optimal-a0.5}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{est.o5}\OtherTok{\textless{}{-}}\FunctionTok{ses}\NormalTok{(y, }\AttributeTok{h =} \DecValTok{2}\NormalTok{, }\AttributeTok{level =} \FunctionTok{c}\NormalTok{(}\DecValTok{95}\NormalTok{,}\DecValTok{95}\NormalTok{), }\AttributeTok{initial =} \FunctionTok{c}\NormalTok{(}\StringTok{"optimal"}\NormalTok{),  }\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{)}
+\NormalTok{fse}\OtherTok{\textless{}{-}}\NormalTok{est.o5}\SpecialCharTok{$}\NormalTok{fitted}
+\NormalTok{fse\_ts}\OtherTok{\textless{}{-}}\FunctionTok{ts}\NormalTok{(fse,}\AttributeTok{start=}\FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{52}\NormalTok{)}
+\NormalTok{fset\_ts}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{144}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{3}\SpecialCharTok{:}\DecValTok{144}\NormalTok{) fset\_ts[t]}\OtherTok{\textless{}{-}}\NormalTok{fse\_ts[t}\DecValTok{{-}2}\NormalTok{]}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{) fset\_ts[t]}\OtherTok{\textless{}{-}}\ConstantTok{NA}
+\NormalTok{yt}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{144}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{142}\NormalTok{) yt[t]}\OtherTok{\textless{}{-}}\NormalTok{y[t]}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{143}\SpecialCharTok{:}\DecValTok{144}\NormalTok{) yt[t]}\OtherTok{\textless{}{-}}\ConstantTok{NA}
+\NormalTok{yt\_ts}\OtherTok{\textless{}{-}}\FunctionTok{ts}\NormalTok{(yt,}\AttributeTok{start=}\FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{52}\NormalTok{)}
+\FunctionTok{ts.plot}\NormalTok{(yt\_ts,fset\_ts,}\AttributeTok{xlab=}\ConstantTok{NULL}\NormalTok{,}\AttributeTok{ylab=}\ConstantTok{NULL}\NormalTok{, }\AttributeTok{main =} \StringTok{"Serie Suavizada Exponencialmente"}\NormalTok{,}\AttributeTok{lty=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{),}\AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{legend}\NormalTok{(}\AttributeTok{x=}\StringTok{"bottomright"}\NormalTok{,}\AttributeTok{legend=}\FunctionTok{c}\NormalTok{(}\StringTok{"Obs"}\NormalTok{,}\StringTok{"Suavizada"}\NormalTok{),}\AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{),}\AttributeTok{lty=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-50-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mae\_yd}\OtherTok{\textless{}{-}}\FunctionTok{MAE}\NormalTok{(y,fse\_ts)}
+\NormalTok{mape\_yd}\OtherTok{\textless{}{-}}\FunctionTok{MAPE}\NormalTok{(y,fse\_ts)}
+\NormalTok{smape\_yd}\OtherTok{\textless{}{-}}\FunctionTok{SMAPE}\NormalTok{(y,fse\_ts)}
+\NormalTok{mse\_yd}\OtherTok{\textless{}{-}}\FunctionTok{MSE}\NormalTok{(y,fse\_ts)}
+\NormalTok{rmse\_yd}\OtherTok{\textless{}{-}}\FunctionTok{RMSE}\NormalTok{(y,fse\_ts)}
+
+\NormalTok{medidas }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(mae\_yd,mape\_yd,smape\_yd,mse\_yd,rmse\_yd))}
+\FunctionTok{rownames}\NormalTok{(medidas) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}MAE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}MAPE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}SMAPE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}MSE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}RMSE\textquotesingle{}}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(medidas)}\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\StringTok{"Suavizamiento Exponencial Optimal 0.5"}\NormalTok{)}
+\NormalTok{df\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(medidas)     }
+
+\NormalTok{tab\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{as.data.table}\NormalTok{(df\_medidas, }\AttributeTok{keep.rownames=}\ConstantTok{TRUE}\NormalTok{, }\AttributeTok{keep.colnames=}\ConstantTok{FALSE}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(tab\_medidas) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Medida"}\NormalTok{,}\StringTok{"Suavizamiento Exponencial Optimal 0.5"}\NormalTok{)}
+\NormalTok{ftab\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{format}\NormalTok{(tab\_medidas, }\AttributeTok{digits=}\DecValTok{5}\NormalTok{, }\AttributeTok{scientific =}\NormalTok{ F, }\AttributeTok{big.mark=}\StringTok{","}\NormalTok{,}\AttributeTok{decimal.mark=}\StringTok{"."}\NormalTok{,}\AttributeTok{justify=}\StringTok{"right"}\NormalTok{)}
+\NormalTok{tem }\OtherTok{\textless{}{-}} \FunctionTok{ttheme\_minimal}\NormalTok{(}\AttributeTok{base\_colour=}\StringTok{"black"}\NormalTok{,}\AttributeTok{base\_size=}\DecValTok{15}\NormalTok{, }\AttributeTok{core=}\FunctionTok{list}\NormalTok{(}\AttributeTok{bg\_params=}\FunctionTok{list}\NormalTok{(}\AttributeTok{fill=}\NormalTok{blues9,}\AttributeTok{col=}\ConstantTok{NA}\NormalTok{)))}
+
+\FunctionTok{grid.arrange}\NormalTok{(}\FunctionTok{tableGrob}\NormalTok{(ftab\_medidas,}\AttributeTok{theme=}\NormalTok{tem))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-51-1.pdf}
+
+\hypertarget{optimal-a0.8}{%
+\subsubsection{Optimal a=0.8}\label{optimal-a0.8}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{est.o8}\OtherTok{\textless{}{-}}\FunctionTok{ses}\NormalTok{(y, }\AttributeTok{h =} \DecValTok{2}\NormalTok{, }\AttributeTok{level =} \FunctionTok{c}\NormalTok{(}\DecValTok{92}\NormalTok{,}\DecValTok{92}\NormalTok{), }\AttributeTok{initial =} \FunctionTok{c}\NormalTok{(}\StringTok{"optimal"}\NormalTok{),  }\AttributeTok{alpha =} \FloatTok{0.8}\NormalTok{)}
+\NormalTok{fse}\OtherTok{\textless{}{-}}\NormalTok{est.o8}\SpecialCharTok{$}\NormalTok{fitted}
+\NormalTok{fse\_ts}\OtherTok{\textless{}{-}}\FunctionTok{ts}\NormalTok{(fse,}\AttributeTok{start=}\FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{52}\NormalTok{)}
+\NormalTok{fset\_ts}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{144}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{3}\SpecialCharTok{:}\DecValTok{144}\NormalTok{) fset\_ts[t]}\OtherTok{\textless{}{-}}\NormalTok{fse\_ts[t}\DecValTok{{-}2}\NormalTok{]}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{) fset\_ts[t]}\OtherTok{\textless{}{-}}\ConstantTok{NA}
+\NormalTok{yt}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{144}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{142}\NormalTok{) yt[t]}\OtherTok{\textless{}{-}}\NormalTok{y[t]}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{143}\SpecialCharTok{:}\DecValTok{144}\NormalTok{) yt[t]}\OtherTok{\textless{}{-}}\ConstantTok{NA}
+\NormalTok{yt\_ts}\OtherTok{\textless{}{-}}\FunctionTok{ts}\NormalTok{(yt,}\AttributeTok{start=}\FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{52}\NormalTok{)}
+\FunctionTok{ts.plot}\NormalTok{(yt\_ts,fset\_ts,}\AttributeTok{xlab=}\ConstantTok{NULL}\NormalTok{,}\AttributeTok{ylab=}\ConstantTok{NULL}\NormalTok{, }\AttributeTok{main =} \StringTok{"Serie Suavizada Exponencialmente"}\NormalTok{,}\AttributeTok{lty=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{),}\AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{legend}\NormalTok{(}\AttributeTok{x=}\StringTok{"bottomright"}\NormalTok{,}\AttributeTok{legend=}\FunctionTok{c}\NormalTok{(}\StringTok{"Obs"}\NormalTok{,}\StringTok{"Suavizada"}\NormalTok{),}\AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{),}\AttributeTok{lty=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-52-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mae\_yd}\OtherTok{\textless{}{-}}\FunctionTok{MAE}\NormalTok{(y,fse\_ts)}
+\NormalTok{mape\_yd}\OtherTok{\textless{}{-}}\FunctionTok{MAPE}\NormalTok{(y,fse\_ts)}
+\NormalTok{smape\_yd}\OtherTok{\textless{}{-}}\FunctionTok{SMAPE}\NormalTok{(y,fse\_ts)}
+\NormalTok{mse\_yd}\OtherTok{\textless{}{-}}\FunctionTok{MSE}\NormalTok{(y,fse\_ts)}
+\NormalTok{rmse\_yd}\OtherTok{\textless{}{-}}\FunctionTok{RMSE}\NormalTok{(y,fse\_ts)}
+
+\NormalTok{medidas }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(mae\_yd,mape\_yd,smape\_yd,mse\_yd,rmse\_yd))}
+\FunctionTok{rownames}\NormalTok{(medidas) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}MAE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}MAPE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}SMAPE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}MSE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}RMSE\textquotesingle{}}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(medidas)}\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\StringTok{"Suavizamiento Exponencial Optimal 0.8"}\NormalTok{)}
+\NormalTok{df\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(medidas)     }
+
+\NormalTok{tab\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{as.data.table}\NormalTok{(df\_medidas, }\AttributeTok{keep.rownames=}\ConstantTok{TRUE}\NormalTok{, }\AttributeTok{keep.colnames=}\ConstantTok{FALSE}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(tab\_medidas) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Medida"}\NormalTok{,}\StringTok{"Suavizamiento Exponencial Optimal 0.8"}\NormalTok{)}
+\NormalTok{ftab\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{format}\NormalTok{(tab\_medidas, }\AttributeTok{digits=}\DecValTok{5}\NormalTok{, }\AttributeTok{scientific =}\NormalTok{ F, }\AttributeTok{big.mark=}\StringTok{","}\NormalTok{,}\AttributeTok{decimal.mark=}\StringTok{"."}\NormalTok{,}\AttributeTok{justify=}\StringTok{"right"}\NormalTok{)}
+\NormalTok{tem }\OtherTok{\textless{}{-}} \FunctionTok{ttheme\_minimal}\NormalTok{(}\AttributeTok{base\_colour=}\StringTok{"black"}\NormalTok{,}\AttributeTok{base\_size=}\DecValTok{15}\NormalTok{, }\AttributeTok{core=}\FunctionTok{list}\NormalTok{(}\AttributeTok{bg\_params=}\FunctionTok{list}\NormalTok{(}\AttributeTok{fill=}\NormalTok{blues9,}\AttributeTok{col=}\ConstantTok{NA}\NormalTok{)))}
+
+\FunctionTok{grid.arrange}\NormalTok{(}\FunctionTok{tableGrob}\NormalTok{(ftab\_medidas,}\AttributeTok{theme=}\NormalTok{tem))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-53-1.pdf}
+
+\hypertarget{muxe9todo-de-holt}{%
+\subsection{Método de Holt}\label{muxe9todo-de-holt}}
+
+\hypertarget{simple}{%
+\subsubsection{Simple}\label{simple}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{ts}\NormalTok{(info\_tda\_1}\SpecialCharTok{$}\NormalTok{Weekly\_Sales, }\AttributeTok{start =} \FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{52}\NormalTok{)}
+
+\NormalTok{esth}\OtherTok{\textless{}{-}}\FunctionTok{holt}\NormalTok{(y, }\AttributeTok{h =} \DecValTok{2}\NormalTok{, }\AttributeTok{level =} \FunctionTok{c}\NormalTok{(}\DecValTok{80}\NormalTok{, }\DecValTok{95}\NormalTok{), }\AttributeTok{initial =} \FunctionTok{c}\NormalTok{(}\StringTok{"simple"}\NormalTok{),  }\AttributeTok{alpha =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{beta =} \ConstantTok{NULL}\NormalTok{)}
+\NormalTok{fh}\OtherTok{\textless{}{-}}\NormalTok{esth}\SpecialCharTok{$}\NormalTok{fitted}
+\NormalTok{fh\_ts}\OtherTok{\textless{}{-}}\FunctionTok{ts}\NormalTok{(fh,}\AttributeTok{start=}\FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{52}\NormalTok{)}
+\NormalTok{fht\_ts}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{144}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{3}\SpecialCharTok{:}\DecValTok{144}\NormalTok{) fht\_ts[t]}\OtherTok{\textless{}{-}}\NormalTok{fh\_ts[t}\DecValTok{{-}2}\NormalTok{]}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{) fht\_ts[t]}\OtherTok{\textless{}{-}}\ConstantTok{NA}
+\NormalTok{yt}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{144}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{142}\NormalTok{) yt[t]}\OtherTok{\textless{}{-}}\NormalTok{y[t]}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{143}\SpecialCharTok{:}\DecValTok{144}\NormalTok{) yt[t]}\OtherTok{\textless{}{-}}\ConstantTok{NA}
+\NormalTok{yt\_ts}\OtherTok{\textless{}{-}}\FunctionTok{ts}\NormalTok{(yt,}\AttributeTok{start=}\FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{52}\NormalTok{)}
+\FunctionTok{ts.plot}\NormalTok{(yt\_ts,fht\_ts,}\AttributeTok{xlab=}\ConstantTok{NULL}\NormalTok{,}\AttributeTok{ylab=}\ConstantTok{NULL}\NormalTok{, }\AttributeTok{main =} \StringTok{"Pronóstico de Holt"}\NormalTok{,}\AttributeTok{lty=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{),}\AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{legend}\NormalTok{(}\AttributeTok{x=}\StringTok{"bottomright"}\NormalTok{,}\AttributeTok{legend=}\FunctionTok{c}\NormalTok{(}\StringTok{"Obs"}\NormalTok{,}\StringTok{"Holt"}\NormalTok{),}\AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{),}\AttributeTok{lty=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-54-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mae\_yd}\OtherTok{\textless{}{-}}\FunctionTok{MAE}\NormalTok{(y,fh\_ts)}
+\NormalTok{mape\_yd}\OtherTok{\textless{}{-}}\FunctionTok{MAPE}\NormalTok{(y,fh\_ts)}
+\NormalTok{smape\_yd}\OtherTok{\textless{}{-}}\FunctionTok{SMAPE}\NormalTok{(y,fh\_ts)}
+\NormalTok{mse\_yd}\OtherTok{\textless{}{-}}\FunctionTok{MSE}\NormalTok{(y,fh\_ts)}
+\NormalTok{rmse\_yd}\OtherTok{\textless{}{-}}\FunctionTok{RMSE}\NormalTok{(y,fh\_ts)}
+
+\NormalTok{medidas }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(mae\_yd,mape\_yd,smape\_yd,mse\_yd,rmse\_yd))}
+\FunctionTok{rownames}\NormalTok{(medidas) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}MAE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}MAPE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}SMAPE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}MSE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}RMSE\textquotesingle{}}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(medidas)}\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\StringTok{"Pronóstico de Holt"}\NormalTok{)}
+\NormalTok{df\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(medidas)     }
+
+\NormalTok{tab\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{as.data.table}\NormalTok{(df\_medidas, }\AttributeTok{keep.rownames=}\ConstantTok{TRUE}\NormalTok{, }\AttributeTok{keep.colnames=}\ConstantTok{FALSE}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(tab\_medidas) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Medida"}\NormalTok{,}\StringTok{"Pronóstico de Holt"}\NormalTok{)}
+\NormalTok{ftab\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{format}\NormalTok{(tab\_medidas, }\AttributeTok{digits=}\DecValTok{5}\NormalTok{, }\AttributeTok{scientific =}\NormalTok{ F, }\AttributeTok{big.mark=}\StringTok{","}\NormalTok{,}\AttributeTok{decimal.mark=}\StringTok{"."}\NormalTok{,}\AttributeTok{justify=}\StringTok{"right"}\NormalTok{)}
+\NormalTok{tem }\OtherTok{\textless{}{-}} \FunctionTok{ttheme\_minimal}\NormalTok{(}\AttributeTok{base\_colour=}\StringTok{"black"}\NormalTok{,}\AttributeTok{base\_size=}\DecValTok{15}\NormalTok{, }\AttributeTok{core=}\FunctionTok{list}\NormalTok{(}\AttributeTok{bg\_params=}\FunctionTok{list}\NormalTok{(}\AttributeTok{fill=}\NormalTok{blues9,}\AttributeTok{col=}\ConstantTok{NA}\NormalTok{)))}
+
+\FunctionTok{grid.arrange}\NormalTok{(}\FunctionTok{tableGrob}\NormalTok{(ftab\_medidas,}\AttributeTok{theme=}\NormalTok{tem))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-55-1.pdf}
+
+\hypertarget{optimal}{%
+\subsubsection{Optimal}\label{optimal}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{ts}\NormalTok{(info\_tda\_1}\SpecialCharTok{$}\NormalTok{Weekly\_Sales, }\AttributeTok{start =} \FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{52}\NormalTok{)}
+
+\NormalTok{esth}\OtherTok{\textless{}{-}}\FunctionTok{holt}\NormalTok{(y, }\AttributeTok{h =} \DecValTok{2}\NormalTok{, }\AttributeTok{level =} \FunctionTok{c}\NormalTok{(}\DecValTok{80}\NormalTok{, }\DecValTok{95}\NormalTok{), }\AttributeTok{initial =} \FunctionTok{c}\NormalTok{(}\StringTok{"optimal"}\NormalTok{),  }\AttributeTok{alpha =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{beta =} \ConstantTok{NULL}\NormalTok{)}
+\NormalTok{fh}\OtherTok{\textless{}{-}}\NormalTok{esth}\SpecialCharTok{$}\NormalTok{fitted}
+\NormalTok{fh\_ts}\OtherTok{\textless{}{-}}\FunctionTok{ts}\NormalTok{(fh,}\AttributeTok{start=}\FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{52}\NormalTok{)}
+\NormalTok{fht\_ts}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{144}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{3}\SpecialCharTok{:}\DecValTok{144}\NormalTok{) fht\_ts[t]}\OtherTok{\textless{}{-}}\NormalTok{fh\_ts[t}\DecValTok{{-}2}\NormalTok{]}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{) fht\_ts[t]}\OtherTok{\textless{}{-}}\ConstantTok{NA}
+\NormalTok{yt}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{144}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{142}\NormalTok{) yt[t]}\OtherTok{\textless{}{-}}\NormalTok{y[t]}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{143}\SpecialCharTok{:}\DecValTok{144}\NormalTok{) yt[t]}\OtherTok{\textless{}{-}}\ConstantTok{NA}
+\NormalTok{yt\_ts}\OtherTok{\textless{}{-}}\FunctionTok{ts}\NormalTok{(yt,}\AttributeTok{start=}\FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{52}\NormalTok{)}
+\FunctionTok{ts.plot}\NormalTok{(yt\_ts,fht\_ts,}\AttributeTok{xlab=}\ConstantTok{NULL}\NormalTok{,}\AttributeTok{ylab=}\ConstantTok{NULL}\NormalTok{, }\AttributeTok{main =} \StringTok{"Pronóstico de Holt"}\NormalTok{,}\AttributeTok{lty=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{),}\AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{legend}\NormalTok{(}\AttributeTok{x=}\StringTok{"bottomright"}\NormalTok{,}\AttributeTok{legend=}\FunctionTok{c}\NormalTok{(}\StringTok{"Obs"}\NormalTok{,}\StringTok{"Holt"}\NormalTok{),}\AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{),}\AttributeTok{lty=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-56-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mae\_yd}\OtherTok{\textless{}{-}}\FunctionTok{MAE}\NormalTok{(y,fh\_ts)}
+\NormalTok{mape\_yd}\OtherTok{\textless{}{-}}\FunctionTok{MAPE}\NormalTok{(y,fh\_ts)}
+\NormalTok{smape\_yd}\OtherTok{\textless{}{-}}\FunctionTok{SMAPE}\NormalTok{(y,fh\_ts)}
+\NormalTok{mse\_yd}\OtherTok{\textless{}{-}}\FunctionTok{MSE}\NormalTok{(y,fh\_ts)}
+\NormalTok{rmse\_yd}\OtherTok{\textless{}{-}}\FunctionTok{RMSE}\NormalTok{(y,fh\_ts)}
+
+\NormalTok{medidas }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(mae\_yd,mape\_yd,smape\_yd,mse\_yd,rmse\_yd))}
+\FunctionTok{rownames}\NormalTok{(medidas) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}MAE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}MAPE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}SMAPE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}MSE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}RMSE\textquotesingle{}}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(medidas)}\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\StringTok{"Pronóstico de Holt optimal"}\NormalTok{)}
+\NormalTok{df\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(medidas)     }
+
+\NormalTok{tab\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{as.data.table}\NormalTok{(df\_medidas, }\AttributeTok{keep.rownames=}\ConstantTok{TRUE}\NormalTok{, }\AttributeTok{keep.colnames=}\ConstantTok{FALSE}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(tab\_medidas) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Medida"}\NormalTok{,}\StringTok{"Pronóstico de Holt optimal"}\NormalTok{)}
+\NormalTok{ftab\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{format}\NormalTok{(tab\_medidas, }\AttributeTok{digits=}\DecValTok{5}\NormalTok{, }\AttributeTok{scientific =}\NormalTok{ F, }\AttributeTok{big.mark=}\StringTok{","}\NormalTok{,}\AttributeTok{decimal.mark=}\StringTok{"."}\NormalTok{,}\AttributeTok{justify=}\StringTok{"right"}\NormalTok{)}
+\NormalTok{tem }\OtherTok{\textless{}{-}} \FunctionTok{ttheme\_minimal}\NormalTok{(}\AttributeTok{base\_colour=}\StringTok{"black"}\NormalTok{,}\AttributeTok{base\_size=}\DecValTok{15}\NormalTok{, }\AttributeTok{core=}\FunctionTok{list}\NormalTok{(}\AttributeTok{bg\_params=}\FunctionTok{list}\NormalTok{(}\AttributeTok{fill=}\NormalTok{blues9,}\AttributeTok{col=}\ConstantTok{NA}\NormalTok{)))}
+
+\FunctionTok{grid.arrange}\NormalTok{(}\FunctionTok{tableGrob}\NormalTok{(ftab\_medidas,}\AttributeTok{theme=}\NormalTok{tem))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-57-1.pdf}
+
+\hypertarget{holt-winters}{%
+\subsection{Holt-Winters}\label{holt-winters}}
+
+\hypertarget{multiplicativo-simple}{%
+\subsubsection{Multiplicativo Simple}\label{multiplicativo-simple}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{ts}\NormalTok{(info\_tda\_1}\SpecialCharTok{$}\NormalTok{Weekly\_Sales, }\AttributeTok{start =} \FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{52}\NormalTok{)}
+
+\NormalTok{est\_hwm}\OtherTok{\textless{}{-}}\FunctionTok{hw}\NormalTok{(y, }\AttributeTok{h =} \DecValTok{2}\NormalTok{, }\AttributeTok{seasonal =} \FunctionTok{c}\NormalTok{(}\StringTok{"multiplicative"}\NormalTok{),}\AttributeTok{level =} \FunctionTok{c}\NormalTok{(}\DecValTok{80}\NormalTok{, }\DecValTok{95}\NormalTok{),}\AttributeTok{initial =} \FunctionTok{c}\NormalTok{(}\StringTok{"simple"}\NormalTok{), }\AttributeTok{alpha =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{beta =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{gamma =} \ConstantTok{NULL}\NormalTok{)}
+
+\NormalTok{fhwm}\OtherTok{\textless{}{-}}\NormalTok{est\_hwm}\SpecialCharTok{$}\NormalTok{fitted}
+\NormalTok{fhwm\_ts}\OtherTok{\textless{}{-}}\FunctionTok{ts}\NormalTok{(fhwm,}\AttributeTok{start =} \FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{52}\NormalTok{)}
+\NormalTok{fhwmt\_ts}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{144}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{3}\SpecialCharTok{:}\DecValTok{144}\NormalTok{) fhwmt\_ts[t]}\OtherTok{\textless{}{-}}\NormalTok{fhwm\_ts[t}\DecValTok{{-}2}\NormalTok{]}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{) fhwmt\_ts[t]}\OtherTok{\textless{}{-}}\ConstantTok{NA}
+\NormalTok{yt}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{144}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{142}\NormalTok{) yt[t]}\OtherTok{\textless{}{-}}\NormalTok{y[t]}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{143}\SpecialCharTok{:}\DecValTok{144}\NormalTok{) yt[t]}\OtherTok{\textless{}{-}}\ConstantTok{NA}
+\NormalTok{yt\_ts}\OtherTok{\textless{}{-}}\FunctionTok{ts}\NormalTok{(yt,}\AttributeTok{start =} \FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{52}\NormalTok{)}
+\FunctionTok{ts.plot}\NormalTok{(yt\_ts,fhwmt\_ts,}\AttributeTok{xlab=}\ConstantTok{NULL}\NormalTok{,}\AttributeTok{ylab=}\ConstantTok{NULL}\NormalTok{, }\AttributeTok{main =} \StringTok{"Pronóstico de Holt{-}Winters Multiplicativo"}\NormalTok{,}\AttributeTok{lty=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{),}\AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{legend}\NormalTok{(}\AttributeTok{x=}\StringTok{"bottomright"}\NormalTok{,}\AttributeTok{legend=}\FunctionTok{c}\NormalTok{(}\StringTok{"Obs"}\NormalTok{,}\StringTok{"HoltWM"}\NormalTok{),}\AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{),}\AttributeTok{lty=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-58-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mae\_est\_hwm}\OtherTok{\textless{}{-}}\FunctionTok{MAE}\NormalTok{(y,fhwm\_ts)}
+\NormalTok{mape\_est\_hwm}\OtherTok{\textless{}{-}}\FunctionTok{MAPE}\NormalTok{(y,fhwm\_ts)}
+\NormalTok{smape\_est\_hwm}\OtherTok{\textless{}{-}}\FunctionTok{SMAPE}\NormalTok{(y,fhwm\_ts)}
+\NormalTok{mse\_est\_hwm}\OtherTok{\textless{}{-}}\FunctionTok{MSE}\NormalTok{(y,fhwm\_ts)}
+\NormalTok{rmse\_est\_hwm}\OtherTok{\textless{}{-}}\FunctionTok{RMSE}\NormalTok{(y,fhwm\_ts)}
+
+\NormalTok{medidas }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(mae\_est\_hwm,mape\_est\_hwm,smape\_est\_hwm,mse\_est\_hwm,rmse\_est\_hwm))}
+\FunctionTok{rownames}\NormalTok{(medidas) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}MAE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}MAPE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}SMAPE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}MSE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}RMSE\textquotesingle{}}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(medidas)}\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\StringTok{"HOLT{-}WINTERS M"}\NormalTok{)}
+\NormalTok{df\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(medidas)     }
+
+\NormalTok{tab\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{as.data.table}\NormalTok{(df\_medidas, }\AttributeTok{keep.rownames=}\ConstantTok{TRUE}\NormalTok{, }\AttributeTok{keep.colnames=}\ConstantTok{FALSE}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(tab\_medidas) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Medida"}\NormalTok{,}\StringTok{"HOLT{-}WINTERS M"}\NormalTok{)}
+\NormalTok{ftab\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{format}\NormalTok{(tab\_medidas, }\AttributeTok{digits=}\DecValTok{5}\NormalTok{, }\AttributeTok{scientific =}\NormalTok{ F, }\AttributeTok{big.mark=}\StringTok{","}\NormalTok{,}\AttributeTok{decimal.mark=}\StringTok{"."}\NormalTok{,}\AttributeTok{justify=}\StringTok{"right"}\NormalTok{)}
+\NormalTok{tem }\OtherTok{\textless{}{-}} \FunctionTok{ttheme\_minimal}\NormalTok{(}\AttributeTok{base\_colour=}\StringTok{"black"}\NormalTok{,}\AttributeTok{base\_size=}\DecValTok{15}\NormalTok{, }\AttributeTok{core=}\FunctionTok{list}\NormalTok{(}\AttributeTok{bg\_params=}\FunctionTok{list}\NormalTok{(}\AttributeTok{fill=}\NormalTok{blues9,}\AttributeTok{col=}\ConstantTok{NA}\NormalTok{)))}
+
+\FunctionTok{grid.arrange}\NormalTok{(}\FunctionTok{tableGrob}\NormalTok{(ftab\_medidas,}\AttributeTok{theme=}\NormalTok{tem))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-59-1.pdf}
+
+\hypertarget{aditivo-simple}{%
+\subsubsection{Aditivo Simple}\label{aditivo-simple}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{ts}\NormalTok{(info\_tda\_1}\SpecialCharTok{$}\NormalTok{Weekly\_Sales, }\AttributeTok{start =} \FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{24}\NormalTok{)}
+
+\NormalTok{est\_hwm}\OtherTok{\textless{}{-}}\FunctionTok{hw}\NormalTok{(y, }\AttributeTok{h =} \DecValTok{2}\NormalTok{, }\AttributeTok{seasonal =} \FunctionTok{c}\NormalTok{(}\StringTok{"additive"}\NormalTok{),}\AttributeTok{level =} \FunctionTok{c}\NormalTok{(}\DecValTok{80}\NormalTok{, }\DecValTok{95}\NormalTok{),}\AttributeTok{initial =} \FunctionTok{c}\NormalTok{(}\StringTok{"optimal"}\NormalTok{), }\AttributeTok{alpha =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{beta =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{gamma =} \ConstantTok{NULL}\NormalTok{)}
+
+\NormalTok{fhwm}\OtherTok{\textless{}{-}}\NormalTok{est\_hwm}\SpecialCharTok{$}\NormalTok{fitted}
+\NormalTok{fhwm\_ts}\OtherTok{\textless{}{-}}\FunctionTok{ts}\NormalTok{(fhwm,}\AttributeTok{start =} \FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{24}\NormalTok{)}
+\NormalTok{fhwmt\_ts}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{144}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{3}\SpecialCharTok{:}\DecValTok{144}\NormalTok{) fhwmt\_ts[t]}\OtherTok{\textless{}{-}}\NormalTok{fhwm\_ts[t}\DecValTok{{-}2}\NormalTok{]}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{) fhwmt\_ts[t]}\OtherTok{\textless{}{-}}\ConstantTok{NA}
+\NormalTok{yt}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{144}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{142}\NormalTok{) yt[t]}\OtherTok{\textless{}{-}}\NormalTok{y[t]}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{143}\SpecialCharTok{:}\DecValTok{144}\NormalTok{) yt[t]}\OtherTok{\textless{}{-}}\ConstantTok{NA}
+\NormalTok{yt\_ts}\OtherTok{\textless{}{-}}\FunctionTok{ts}\NormalTok{(yt,}\AttributeTok{start =} \FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{24}\NormalTok{)}
+\FunctionTok{ts.plot}\NormalTok{(yt\_ts,fhwmt\_ts,}\AttributeTok{xlab=}\ConstantTok{NULL}\NormalTok{,}\AttributeTok{ylab=}\ConstantTok{NULL}\NormalTok{, }\AttributeTok{main =} \StringTok{"Pronóstico de Holt{-}Winters additive"}\NormalTok{,}\AttributeTok{lty=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{),}\AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{legend}\NormalTok{(}\AttributeTok{x=}\StringTok{"bottomright"}\NormalTok{,}\AttributeTok{legend=}\FunctionTok{c}\NormalTok{(}\StringTok{"Obs"}\NormalTok{,}\StringTok{"HoltWM"}\NormalTok{),}\AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{),}\AttributeTok{lty=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-60-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mae\_est\_hwm}\OtherTok{\textless{}{-}}\FunctionTok{MAE}\NormalTok{(y,fhwm\_ts)}
+\NormalTok{mape\_est\_hwm}\OtherTok{\textless{}{-}}\FunctionTok{MAPE}\NormalTok{(y,fhwm\_ts)}
+\NormalTok{smape\_est\_hwm}\OtherTok{\textless{}{-}}\FunctionTok{SMAPE}\NormalTok{(y,fhwm\_ts)}
+\NormalTok{mse\_est\_hwm}\OtherTok{\textless{}{-}}\FunctionTok{MSE}\NormalTok{(y,fhwm\_ts)}
+\NormalTok{rmse\_est\_hwm}\OtherTok{\textless{}{-}}\FunctionTok{RMSE}\NormalTok{(y,fhwm\_ts)}
+
+\NormalTok{medidas }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(mae\_est\_hwm,mape\_est\_hwm,smape\_est\_hwm,mse\_est\_hwm,rmse\_est\_hwm))}
+\FunctionTok{rownames}\NormalTok{(medidas) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}MAE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}MAPE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}SMAPE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}MSE\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}RMSE\textquotesingle{}}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(medidas)}\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\StringTok{"HOLT{-}WINTERS A"}\NormalTok{)}
+\NormalTok{df\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(medidas)     }
+
+\NormalTok{tab\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{as.data.table}\NormalTok{(df\_medidas, }\AttributeTok{keep.rownames=}\ConstantTok{TRUE}\NormalTok{, }\AttributeTok{keep.colnames=}\ConstantTok{FALSE}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(tab\_medidas) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Medida"}\NormalTok{,}\StringTok{"HOLT{-}WINTERS A"}\NormalTok{)}
+\NormalTok{ftab\_medidas }\OtherTok{\textless{}{-}} \FunctionTok{format}\NormalTok{(tab\_medidas, }\AttributeTok{digits=}\DecValTok{5}\NormalTok{, }\AttributeTok{scientific =}\NormalTok{ F, }\AttributeTok{big.mark=}\StringTok{","}\NormalTok{,}\AttributeTok{decimal.mark=}\StringTok{"."}\NormalTok{,}\AttributeTok{justify=}\StringTok{"right"}\NormalTok{)}
+\NormalTok{tem }\OtherTok{\textless{}{-}} \FunctionTok{ttheme\_minimal}\NormalTok{(}\AttributeTok{base\_colour=}\StringTok{"black"}\NormalTok{,}\AttributeTok{base\_size=}\DecValTok{15}\NormalTok{, }\AttributeTok{core=}\FunctionTok{list}\NormalTok{(}\AttributeTok{bg\_params=}\FunctionTok{list}\NormalTok{(}\AttributeTok{fill=}\NormalTok{blues9,}\AttributeTok{col=}\ConstantTok{NA}\NormalTok{)))}
+
+\FunctionTok{grid.arrange}\NormalTok{(}\FunctionTok{tableGrob}\NormalTok{(ftab\_medidas,}\AttributeTok{theme=}\NormalTok{tem))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-61-1.pdf}
+
+\hypertarget{resumen-de-modelos}{%
+\subsection{Resumen de modelos}\label{resumen-de-modelos}}
+
+Ahora observemos un resumen de las tolerancias de error de todos los
+modelos vistos, en donde el modelo Holt-Winters multiplicativo simple es
+el que menor porcentaje tiene.
+
+\begin{longtable}[]{@{}cc@{}}
+\toprule()
+\textbf{Modelo} & \textbf{MAPE} \\
+\midrule()
+\endhead
+Holt-Winters Multiplicativo Simple & 2.29\% \\
+Promedio Móvil Modificado & 3.12\% \\
+Promedio Móvil & 3.71\% \\
+Promedio Móvil Doble & 6.12\% \\
+Holt-Winters Aditivo Simple & 6.54\% \\
+Suavizamiento Exponencial Tipo Optimal con a=0.1 & 6.59\% \\
+Suavizamiento Exponencial Tipo Simple con a=0.1 & 6.64\% \\
+Método de Holt Simple & 6.72\% \\
+Método de Holt Optimal & 6.87\% \\
+Suavizamiento Exponencial Tipo Simple con a=0.5 & 6.89\% \\
+Suavizamiento Exponencial Tipo Optimal con a=0.5 & 6.90\% \\
+Media Movil Tipo ``r'' & 6.94\% \\
+Media Movil Tipo ``e'' & 6.99\% \\
+Suavizamiento Exponencial Tipo Simple con a=0.8 & 7.07\% \\
+Suavizamiento Exponencial Tipo Optimal con a=0.8 & 7.07\% \\
+Media Móvil Tipo ``w'' & 7.15\% \\
+Promedio Ponderado & 7.20\% \\
+Promedio Móvil Triangular & 10.52\% \\
+\bottomrule()
+\end{longtable}
+
+Gráfica que representa el pronóstico elegido, debido a que el error
+generado es el más pequeño de los modelos que se seleccionaron para su
+validación.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Gráfica de modelo seleccionado}
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{ts}\NormalTok{(info\_tda\_1}\SpecialCharTok{$}\NormalTok{Weekly\_Sales, }\AttributeTok{start =} \FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{52}\NormalTok{)}
+\NormalTok{est\_hwm}\OtherTok{\textless{}{-}}\FunctionTok{hw}\NormalTok{(y, }\AttributeTok{h =} \DecValTok{2}\NormalTok{, }\AttributeTok{seasonal =} \FunctionTok{c}\NormalTok{(}\StringTok{"multiplicative"}\NormalTok{),}\AttributeTok{level =} \FunctionTok{c}\NormalTok{(}\DecValTok{80}\NormalTok{, }\DecValTok{95}\NormalTok{),}\AttributeTok{initial =} \FunctionTok{c}\NormalTok{(}\StringTok{"simple"}\NormalTok{), }\AttributeTok{alpha =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{beta =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{gamma =} \ConstantTok{NULL}\NormalTok{)}
+
+\NormalTok{fhwm}\OtherTok{\textless{}{-}}\NormalTok{est\_hwm}\SpecialCharTok{$}\NormalTok{fitted}
+\NormalTok{fhwm\_ts}\OtherTok{\textless{}{-}}\FunctionTok{ts}\NormalTok{(fhwm,}\AttributeTok{start =} \FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{52}\NormalTok{)}
+\NormalTok{fhwmt\_ts}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{144}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{3}\SpecialCharTok{:}\DecValTok{144}\NormalTok{) fhwmt\_ts[t]}\OtherTok{\textless{}{-}}\NormalTok{fhwm\_ts[t}\DecValTok{{-}2}\NormalTok{]}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{) fhwmt\_ts[t]}\OtherTok{\textless{}{-}}\ConstantTok{NA}
+\NormalTok{yt}\OtherTok{\textless{}{-}}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{144}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{142}\NormalTok{) yt[t]}\OtherTok{\textless{}{-}}\NormalTok{y[t]}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{143}\SpecialCharTok{:}\DecValTok{144}\NormalTok{) yt[t]}\OtherTok{\textless{}{-}}\ConstantTok{NA}
+\NormalTok{yt\_ts}\OtherTok{\textless{}{-}}\FunctionTok{ts}\NormalTok{(yt,}\AttributeTok{start =} \FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{52}\NormalTok{)}
+
+\NormalTok{yd\_pr\_2 }\OtherTok{\textless{}{-}} \FunctionTok{ts}\NormalTok{(fhwm\_ts, }\AttributeTok{start =} \FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{52}\NormalTok{)}
+
+\NormalTok{lis\_mae}\OtherTok{\textless{}{-}}\NormalTok{fhwm\_ts}\SpecialCharTok{+}\NormalTok{mae\_est\_hwm}
+\NormalTok{lii\_mae}\OtherTok{\textless{}{-}}\NormalTok{fhwm\_ts}\SpecialCharTok{{-}}\NormalTok{mae\_est\_hwm}
+\NormalTok{lis\_rmse}\OtherTok{\textless{}{-}}\NormalTok{fhwm\_ts}\SpecialCharTok{+}\NormalTok{rmse\_est\_hwm}
+\NormalTok{lii\_rmse}\OtherTok{\textless{}{-}}\NormalTok{fhwm\_ts}\SpecialCharTok{{-}}\NormalTok{rmse\_est\_hwm}
+\FunctionTok{ts.plot}\NormalTok{(yd\_pr\_2, lis\_mae, lii\_mae, lis\_rmse, lii\_rmse, }\AttributeTok{xlab=}\ConstantTok{NULL}\NormalTok{, }\AttributeTok{main=}\StringTok{"Pronóstico ´Holt{-}Winters Multiplicativo´"}\NormalTok{, }\AttributeTok{lty=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{), }\AttributeTok{col =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{))}
+\FunctionTok{legend}\NormalTok{(}\AttributeTok{x=}\StringTok{"bottomright"}\NormalTok{,}\AttributeTok{legend=}\FunctionTok{c}\NormalTok{(}\StringTok{"Pron"}\NormalTok{,}\StringTok{"LimMAEInf"}\NormalTok{, }\StringTok{"LimMAESup"}\NormalTok{,}\StringTok{"LimRMSEInf"}\NormalTok{,}\StringTok{"LimRMSESup"}\NormalTok{),}\AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{),}\AttributeTok{lty=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{), }\AttributeTok{cex=}\FloatTok{0.8}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-62-1.pdf}
+
+\hypertarget{modelos-de-descomposiciuxf3n}{%
+\subsection{Modelos de
+Descomposición}\label{modelos-de-descomposiciuxf3n}}
+
+Este tipo de descomposición exhibe la variación constante de la serie. Y
+por medio de esta gráfica se representa la estacionalidad de la serie,
+mostrada en los dos picos en la serie. De los cuales podemos inferir que
+marcan un impulso en las ventas semanales por la temporada decembrina,
+incluso las fechas coinciden .
+
+\hypertarget{aditivo}{%
+\subsubsection{Aditivo}\label{aditivo}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{ts}\NormalTok{(info\_tda\_1}\SpecialCharTok{$}\NormalTok{Weekly\_Sales, }\AttributeTok{start =} \FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{52}\NormalTok{)}
+\NormalTok{dec\_y }\OtherTok{\textless{}{-}}\FunctionTok{decompose}\NormalTok{ (y, }\AttributeTok{type =} \FunctionTok{c}\NormalTok{(}\StringTok{"additive"}\NormalTok{, }\StringTok{"multiplicative"}\NormalTok{))}
+
+\FunctionTok{plot}\NormalTok{(dec\_y)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-63-1.pdf}
+
+\hypertarget{multiplicativo}{%
+\subsubsection{Multiplicativo}\label{multiplicativo}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{ts}\NormalTok{(info\_tda\_1}\SpecialCharTok{$}\NormalTok{Weekly\_Sales, }\AttributeTok{start =} \FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{52}\NormalTok{)}
+\NormalTok{dec\_y }\OtherTok{\textless{}{-}}\FunctionTok{decompose}\NormalTok{ (y, }\AttributeTok{type =} \FunctionTok{c}\NormalTok{(}\StringTok{"multiplicative"}\NormalTok{))}
+
+\FunctionTok{plot}\NormalTok{(dec\_y)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-64-1.pdf}
+
+\hypertarget{box-jenkins}{%
+\subsection{Box-Jenkins}\label{box-jenkins}}
+
+Y finalmente tenemos el método de Box-Jenkins, es importante señalar que
+estamos usando una frecuencia de 52 ya que estamos usando datos
+semanales. Entonces aqui observamos que las autocorrelaciones están por
+encima de su límite de confianza por lo que se evidencia que la serie
+tiene un proceso AR no estable.
+
+La serie se está dividiendo en subconjuntos de 52 datos.
+
+En la primera parte es un proceso AR, es no estable y para las parciales
+no toma como tal un proceso MA.
+
+Una vez calculadas las diferencias, tenemos un comportamiento estacional
+del tipo SAR. El tamaño del período estacional cambia con P veces, en
+este caso tiene estacional con P=3.
+
+Y en las parciales de las diferencias, observamos un modelo tipo ARIMA
+con parámetros (10,2,3)
+
+\hypertarget{datos-observados}{%
+\subsubsection{Datos Observados}\label{datos-observados}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{ts}\NormalTok{(info\_tda\_1}\SpecialCharTok{$}\NormalTok{Weekly\_Sales, }\AttributeTok{start =} \FunctionTok{decimal\_date}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2010{-}02{-}05"}\NormalTok{)), }\AttributeTok{frequency =} \DecValTok{24}\NormalTok{)}
+\CommentTok{\# La lectura es Cruzada, para determinar un modelo AR se aobserva la grafica de Correlacion, mientras que para indicar su valor se obserba la parcial}
+\CommentTok{\# La lectura es Cruzada, para determinar un modelo MA se aobserva la grafica de PARCIAL, mientras que para indicar su valor se obserba la CORRELACION}
+\FunctionTok{acf}\NormalTok{(y, }\AttributeTok{lag.max =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{type =} \FunctionTok{c}\NormalTok{(}\StringTok{"correlation"}\NormalTok{), }\AttributeTok{plot =} \ConstantTok{TRUE}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-65-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Lineas Salientes de los limites indican un AR | Ultima Linea que sopbrepasa el limite indica un \# Maximo del modelo MA }
+\FunctionTok{acf}\NormalTok{(y, }\AttributeTok{lag.max =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{type =} \FunctionTok{c}\NormalTok{(}\StringTok{"partial"}\NormalTok{), }\AttributeTok{plot =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-66-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Lineas Salientes de los limites indican un MA | Ultima Linea que sopbrepasa el limite indica un \# Maximo del modelo AR}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{segunda-diferencia}{%
+\subsubsection{Segunda Diferencia}\label{segunda-diferencia}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y\_2 }\OtherTok{\textless{}{-}} \FunctionTok{diff}\NormalTok{(y,}\DecValTok{1}\NormalTok{,}\AttributeTok{lag =} \DecValTok{52}\NormalTok{)}
+\FunctionTok{acf}\NormalTok{(y\_2, }\AttributeTok{lag.max =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{type =} \FunctionTok{c}\NormalTok{(}\StringTok{"correlation"}\NormalTok{), }\AttributeTok{plot =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-67-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{acf}\NormalTok{(y\_2, }\AttributeTok{lag.max =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{type =} \FunctionTok{c}\NormalTok{(}\StringTok{"partial"}\NormalTok{), }\AttributeTok{plot =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-68-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#De acuerco con la grafica en la que no se observa tendencia pero si estacionalidad por medio de las diferencias y los resagos se intenta Eliminar la estacionalidad}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{arima}{%
+\subsubsection{ARIMA}\label{arima}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modelo\_1 }\OtherTok{\textless{}{-}} \FunctionTok{arima}\NormalTok{(y, }\AttributeTok{order =} \FunctionTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{5}\NormalTok{))}
+
+\NormalTok{tar1}\OtherTok{\textless{}{-}}\NormalTok{modelo\_1}\SpecialCharTok{$}\NormalTok{coef[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{/}\FunctionTok{sqrt}\NormalTok{(}\FunctionTok{vcov}\NormalTok{(modelo\_1)[}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{])}
+\NormalTok{ptar1}\OtherTok{\textless{}{-}}\DecValTok{1}\SpecialCharTok{{-}}\FunctionTok{pt}\NormalTok{(tar1,modelo\_1}\SpecialCharTok{$}\NormalTok{nobs)}
+\NormalTok{tar2}\OtherTok{\textless{}{-}}\NormalTok{modelo\_1}\SpecialCharTok{$}\NormalTok{coef[}\DecValTok{2}\NormalTok{]}\SpecialCharTok{/}\FunctionTok{sqrt}\NormalTok{(}\FunctionTok{vcov}\NormalTok{(modelo\_1)[}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{])}
+\NormalTok{ptar2}\OtherTok{\textless{}{-}}\DecValTok{1}\SpecialCharTok{{-}}\FunctionTok{pt}\NormalTok{(tar2,modelo\_1}\SpecialCharTok{$}\NormalTok{nobs)}
+\NormalTok{tar3}\OtherTok{\textless{}{-}}\NormalTok{modelo\_1}\SpecialCharTok{$}\NormalTok{coef[}\DecValTok{3}\NormalTok{]}\SpecialCharTok{/}\FunctionTok{sqrt}\NormalTok{(}\FunctionTok{vcov}\NormalTok{(modelo\_1)[}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{])}
+\NormalTok{ptar3}\OtherTok{\textless{}{-}}\DecValTok{1}\SpecialCharTok{{-}}\FunctionTok{pt}\NormalTok{(tar3,modelo\_1}\SpecialCharTok{$}\NormalTok{nobs)}
+\NormalTok{tar4}\OtherTok{\textless{}{-}}\NormalTok{modelo\_1}\SpecialCharTok{$}\NormalTok{coef[}\DecValTok{4}\NormalTok{]}\SpecialCharTok{/}\FunctionTok{sqrt}\NormalTok{(}\FunctionTok{vcov}\NormalTok{(modelo\_1)[}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{])}
+\NormalTok{ptar4}\OtherTok{\textless{}{-}}\DecValTok{1}\SpecialCharTok{{-}}\FunctionTok{pt}\NormalTok{(tar4,modelo\_1}\SpecialCharTok{$}\NormalTok{nobs)}
+\NormalTok{tar5}\OtherTok{\textless{}{-}}\NormalTok{modelo\_1}\SpecialCharTok{$}\NormalTok{coef[}\DecValTok{5}\NormalTok{]}\SpecialCharTok{/}\FunctionTok{sqrt}\NormalTok{(}\FunctionTok{vcov}\NormalTok{(modelo\_1)[}\DecValTok{5}\NormalTok{,}\DecValTok{5}\NormalTok{])}
+\NormalTok{ptar5}\OtherTok{\textless{}{-}}\DecValTok{1}\SpecialCharTok{{-}}\FunctionTok{pt}\NormalTok{(tar5,modelo\_1}\SpecialCharTok{$}\NormalTok{nobs)}
+
+\NormalTok{tsma1}\OtherTok{\textless{}{-}}\NormalTok{modelo\_1}\SpecialCharTok{$}\NormalTok{coef[}\DecValTok{6}\NormalTok{]}\SpecialCharTok{/}\FunctionTok{sqrt}\NormalTok{(}\FunctionTok{vcov}\NormalTok{(modelo\_1)[}\DecValTok{6}\NormalTok{,}\DecValTok{6}\NormalTok{])}
+\NormalTok{ptsma1}\OtherTok{\textless{}{-}}\DecValTok{1}\SpecialCharTok{{-}}\FunctionTok{pt}\NormalTok{(tsma1,modelo\_1}\SpecialCharTok{$}\NormalTok{nobs)}
+\NormalTok{tsma2}\OtherTok{\textless{}{-}}\NormalTok{modelo\_1}\SpecialCharTok{$}\NormalTok{coef[}\DecValTok{7}\NormalTok{]}\SpecialCharTok{/}\FunctionTok{sqrt}\NormalTok{(}\FunctionTok{vcov}\NormalTok{(modelo\_1)[}\DecValTok{7}\NormalTok{,}\DecValTok{7}\NormalTok{])}
+\NormalTok{ptsma2}\OtherTok{\textless{}{-}}\DecValTok{1}\SpecialCharTok{{-}}\FunctionTok{pt}\NormalTok{(tsma2,modelo\_1}\SpecialCharTok{$}\NormalTok{nobs)}
+\NormalTok{tsma3}\OtherTok{\textless{}{-}}\NormalTok{modelo\_1}\SpecialCharTok{$}\NormalTok{coef[}\DecValTok{8}\NormalTok{]}\SpecialCharTok{/}\FunctionTok{sqrt}\NormalTok{(}\FunctionTok{vcov}\NormalTok{(modelo\_1)[}\DecValTok{8}\NormalTok{,}\DecValTok{8}\NormalTok{])}
+\NormalTok{ptsma3}\OtherTok{\textless{}{-}}\DecValTok{1}\SpecialCharTok{{-}}\FunctionTok{pt}\NormalTok{(tsma3,modelo\_1}\SpecialCharTok{$}\NormalTok{nobs)}
+\NormalTok{tsma4}\OtherTok{\textless{}{-}}\NormalTok{modelo\_1}\SpecialCharTok{$}\NormalTok{coef[}\DecValTok{9}\NormalTok{]}\SpecialCharTok{/}\FunctionTok{sqrt}\NormalTok{(}\FunctionTok{vcov}\NormalTok{(modelo\_1)[}\DecValTok{9}\NormalTok{,}\DecValTok{9}\NormalTok{])}
+\NormalTok{ptsma4}\OtherTok{\textless{}{-}}\DecValTok{1}\SpecialCharTok{{-}}\FunctionTok{pt}\NormalTok{(tsma4,modelo\_1}\SpecialCharTok{$}\NormalTok{nobs)}
+\NormalTok{tsma5}\OtherTok{\textless{}{-}}\NormalTok{modelo\_1}\SpecialCharTok{$}\NormalTok{coef[}\DecValTok{10}\NormalTok{]}\SpecialCharTok{/}\FunctionTok{sqrt}\NormalTok{(}\FunctionTok{vcov}\NormalTok{(modelo\_1)[}\DecValTok{10}\NormalTok{,}\DecValTok{10}\NormalTok{])}
+\NormalTok{ptsma5}\OtherTok{\textless{}{-}}\DecValTok{1}\SpecialCharTok{{-}}\FunctionTok{pt}\NormalTok{(tsma5,modelo\_1}\SpecialCharTok{$}\NormalTok{nobs)}
+
+\CommentTok{\#Arima (AR(5);MA(5)}
+\FunctionTok{library}\NormalTok{(forecast)}
+\FunctionTok{auto.arima}\NormalTok{(y,}
+           \AttributeTok{d=}\ConstantTok{NA}\NormalTok{, }
+           \AttributeTok{D =} \ConstantTok{NA}\NormalTok{, }
+           \AttributeTok{max.p =} \DecValTok{10}\NormalTok{, }
+           \AttributeTok{max.q =} \DecValTok{10}\NormalTok{, }
+           \AttributeTok{max.P =} \DecValTok{52}\NormalTok{, }
+           \AttributeTok{max.Q =} \DecValTok{52}\NormalTok{, }
+           \AttributeTok{max.d =} \DecValTok{10}\NormalTok{, }
+           \AttributeTok{max.D =} \DecValTok{10}\NormalTok{, }
+           \AttributeTok{stationary =} \ConstantTok{TRUE}\NormalTok{, }
+           \AttributeTok{ic =} \FunctionTok{c}\NormalTok{(}\StringTok{"aic"}\NormalTok{) }\CommentTok{\#"aicc", "aic", "bic" }
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Series: y 
+## ARIMA(0,0,4) with non-zero mean 
+## 
+## Coefficients:
+##          ma1     ma2      ma3     ma4        mean
+##       0.4353  0.2372  -0.0386  0.4135  1556161.62
+## s.e.  0.0738  0.0967   0.1067  0.0847    22800.23
+## 
+## sigma^2 = 1.868e+10:  log likelihood = -1892.12
+## AIC=3796.25   AICc=3796.86   BIC=3814.02
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modelo\_2 }\OtherTok{\textless{}{-}} \FunctionTok{arima}\NormalTok{(y, }\AttributeTok{order =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{4}\NormalTok{))}
+
+\NormalTok{tsma1}\OtherTok{\textless{}{-}}\NormalTok{modelo\_2}\SpecialCharTok{$}\NormalTok{coef[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{/}\FunctionTok{sqrt}\NormalTok{(}\FunctionTok{vcov}\NormalTok{(modelo\_2)[}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{])}
+\NormalTok{ptsma1}\OtherTok{\textless{}{-}}\DecValTok{1}\SpecialCharTok{{-}}\FunctionTok{pt}\NormalTok{(tsma1,modelo\_2}\SpecialCharTok{$}\NormalTok{nobs)}
+\NormalTok{tsma2}\OtherTok{\textless{}{-}}\NormalTok{modelo\_2}\SpecialCharTok{$}\NormalTok{coef[}\DecValTok{2}\NormalTok{]}\SpecialCharTok{/}\FunctionTok{sqrt}\NormalTok{(}\FunctionTok{vcov}\NormalTok{(modelo\_2)[}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{])}
+\NormalTok{ptsma2}\OtherTok{\textless{}{-}}\DecValTok{1}\SpecialCharTok{{-}}\FunctionTok{pt}\NormalTok{(tsma2,modelo\_2}\SpecialCharTok{$}\NormalTok{nobs)}
+\NormalTok{tsma3}\OtherTok{\textless{}{-}}\NormalTok{modelo\_2}\SpecialCharTok{$}\NormalTok{coef[}\DecValTok{3}\NormalTok{]}\SpecialCharTok{/}\FunctionTok{sqrt}\NormalTok{(}\FunctionTok{vcov}\NormalTok{(modelo\_2)[}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{])}
+\NormalTok{ptsma3}\OtherTok{\textless{}{-}}\DecValTok{1}\SpecialCharTok{{-}}\FunctionTok{pt}\NormalTok{(tsma3,modelo\_2}\SpecialCharTok{$}\NormalTok{nobs)}
+\NormalTok{tsma4}\OtherTok{\textless{}{-}}\NormalTok{modelo\_2}\SpecialCharTok{$}\NormalTok{coef[}\DecValTok{4}\NormalTok{]}\SpecialCharTok{/}\FunctionTok{sqrt}\NormalTok{(}\FunctionTok{vcov}\NormalTok{(modelo\_2)[}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{])}
+\NormalTok{ptsma4}\OtherTok{\textless{}{-}}\DecValTok{1}\SpecialCharTok{{-}}\FunctionTok{pt}\NormalTok{(tsma4,modelo\_2}\SpecialCharTok{$}\NormalTok{nobs)}
+
+\NormalTok{for\_1 }\OtherTok{\textless{}{-}} \FunctionTok{forecast}\NormalTok{(modelo\_2, }\AttributeTok{h=}\DecValTok{10}\NormalTok{)}
+\FunctionTok{autoplot}\NormalTok{(for\_1)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{proyectoFinal_files/figure-latex/unnamed-chunk-70-1.pdf}
+
+\end{document}
