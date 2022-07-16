@@ -1,0 +1,1303 @@
+---
+title: "Proyecto Final | Series de Tiempo"
+author: "Equipo 1"
+date: "16 de julio de 2022"
+output:
+  pdf_document:
+    toc: yes
+    toc_depth: '3'
+  html_document:
+    toc: yes
+    toc_depth: 3
+    toc_float: yes
+    highlight: espresso
+    theme: yeti
+    number_sections: yes
+    fog_caption: yes
+subtitle: Diplomado en Técnicas Estadísticas y de Mineria de Datos
+---
+
+**Equipo 1**
+
+___
+
+* Abimael de la Cruz Jiménez
+* Alfonso Flores Zenteno
+* Ana Saharaí Hernández Delgadillo
+* Ana Karen Picazo Ayala
+* Brenda Durán Díaz
+* Ivan Moises Hita Cahuantzi
+* Ricardo Hernández Gaona
+
+___
+
+```{r, include=FALSE}
+library(gdata)
+library("ggplot2")
+library(pracma)
+library(lubridate)
+library(Metrics)
+library(DescTools)
+library(data.table)
+library(gridExtra)
+library(fpp2)
+library(forcats)
+library(forecast)
+library(dplyr)
+library("scales")
+library(corrplot)
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+data1 = read.csv("WALMART_SALES_DATA.csv")
+```
+
+# Introducción
+
+La información analizada contempla datos históricos que abarcan las ventas del 05-02-2010 hasta 01-11-2012, en el archivo con el nombre WalmartStoreSales. En el archivo se encontrarán las siguientes variables:
+
+* VENTAS_SEMANALES: Esta variable registra el monto de las ventas de cada semana.
+* PRECIO_COMBUSTRIBLE: Es el precio de la gasolina en la región. Se registra el monto del precio en dólares por galón.
+* CPI: Es el índice de precios al consumidor.
+
+
+# Análisis exploratorio
+
+Análisis Exploratorio, se tomaron en consideración las variables con outliers: Unemployment, Fuel_price y CPI.
+Se generó una tabla de correlación para observar la posible influencia de las variables  y tratar de predecir cuáles serían de utilidad para el modelo. Decidimos utilizar la tasa de desempleo, el precio del combustible y la semana del año para tratar de explicar el comportamiento de ventas.
+
+```{r}
+
+# Verificamos si hay datos nulos
+colSums(is.na(data1))
+
+# Verificamos si hay datos duplicados
+all(duplicated(data1) == TRUE)
+
+# Generamos un objeto que acumule las ventas por tienda
+Store_Sales<- aggregate(Weekly_Sales ~ Store, data = data1, sum)
+colnames(Store_Sales)[2] <- "Total_Sales_by_Store"
+
+Store_Sales <- arrange(Store_Sales, desc(Total_Sales_by_Store))
+
+print(paste('La tienda número ', Store_Sales[1,]$Store,
+            'tiene las mayores ventas con un valor de : ', Store_Sales[1,]$Total_Sales_by_Store))
+```
+
+```{r}
+
+# Gráfica de ventas totales por tienda
+
+Store_Sales$Store <- as.character(Store_Sales$Store)
+Store_Sales$Store <- factor(Store_Sales$Store, levels=unique(Store_Sales$Store))
+
+options(repr.plot.width = 14, repr.plot.height = 8)
+
+graficaVentasTienda <- ggplot(data=Store_Sales, aes(x=Store, y=Total_Sales_by_Store)) + geom_bar(stat="identity",fill="steelblue") +
+  theme(axis.text.x = element_text(angle = 90,vjust = 0.5, hjust=0.5))+ scale_x_discrete(breaks = data1$Store)+
+  scale_y_continuous(labels = label_number(suffix = " M", scale = 1e-6))+ ggtitle('Ventas totales por tienda')+
+  theme(plot.title = element_text(hjust = 0.5))+
+  xlab("Tiendas") + ylab("Total de ventas")
+
+graficaVentasTienda
+
+```
+
+```{r}
+
+alterData <- data1
+
+# Usamos la tienda número uno
+alterData <- dplyr::filter(alterData, Store ==1)
+
+# Cambiamos el formato de fecha y ordenamos de menor a mayor
+alterData$Date <- lubridate::dmy(alterData$Date)
+alterData <- dplyr::arrange(alterData,Date)
+
+# Creamos columnas para número de semana, mes y cuarto del año
+alterData$Week_Number <- seq(1:length(unique(alterData$Date)))
+alterData$month <- lubridate::month(alterData$Date)
+alterData$quarter <- lubridate::quarter(alterData$Date)
+
+# Creating a event type dataframe
+
+# Vector con fechas festivas en estados unidos
+Holiday_date <- c("12-02-2010", "11-02-2011", "10-02-2012", "08-02-2013","10-09-2010", "09-09-2011", "07-09-2012", "06-09-2013","26-11-2010", "25-11-2011", "23-11-2012", "29-11-2013","31-12-2010", "30-12-2011", "28-12-2012", "27-12-2013")
+Holiday_date <- lubridate::dmy(Holiday_date)
+
+# Etiquetas de los eventos
+Events <- c(rep("Super Bowl", 4), rep("Labour Day", 4),rep("Thanksgiving", 4), rep("Christmas", 4))
+
+# Data frame de eventos y fechas
+Holidays_Data <- data.frame(Events,Holiday_date)
+
+# Combinamos data frames 
+alterData <- merge(alterData,Holidays_Data, by.x="Date", by.y="Holiday_date", all.x = TRUE)
+
+# En las semanas sin eventos ponemos una etiqueta
+alterData$Events = as.character(alterData$Events)
+alterData$Events[is.na(alterData$Events)]= "No_Holiday"
+
+head(alterData)
+
+```
+
+
+```{r}
+
+# Graficamos las ventas semanales contra todas las variables
+par(mfrow=c(3,3))
+for(i in 3:11){
+  plot(alterData[,i], 
+       alterData$Weekly_Sales,
+       main=names(alterData[i]), 
+       ylab="Weekly Sales", xlab =" ",
+       col='red',
+       abline(lm(alterData[,i] ~ alterData$Weekly_Sales, data = alterData), col = "blue"))
+}
+par(mfrow=c(1,1))
+
+```
+
+## Buscando Outliers por variable contra Ventas semanales {.tabset .tabset-fade .tabset-pills}
+Buscaremos outliers en las diferentes variables 
+
+```{r}
+# Creamos otro data frame para limpiarlo
+cleanedData <- alterData
+```
+
+### Temperatura
+
+```{r}
+# En la variable de temperatura se encontraron 5 outliers
+
+boxplot(cleanedData$Weekly_Sales ~ cut(cleanedData$Temperature, pretty(cleanedData$Temperature)), main="Ventas semanales vs temperatura", xlab ="Temperatura", ylab="Ventas semanales", cex.axis=0.5, col="Steel Blue")
+outliers_temp <- boxplot(cleanedData$Weekly_Sales ~ cut(cleanedData$Temperature, pretty(cleanedData$Temperature)), main="Ventas semanales vs temperatura", cex.axis=0.5,plot=FALSE)$out
+
+cleanedData<- cleanedData[-which(cleanedData$Weekly_Sales %in% outliers_temp),]
+```
+
+### CPI
+
+```{r}
+# En la variable CPI se encontró un outlier
+boxplot(cleanedData$Weekly_Sales ~ cut(cleanedData$CPI, pretty(cleanedData$CPI)), main="CPI vs Ventas Semanales",xlab ="CPI", ylab="Ventas semanales", cex.axis=0.5,col="Steel Blue")
+
+outliers_CPI <- boxplot(cleanedData$Weekly_Sales ~ cut(cleanedData$CPI, pretty(cleanedData$CPI)), main="CPI vs Ventas Semanales", cex.axis=0.5,plot=FALSE)$out
+
+cleanedData <- cleanedData[-which(cleanedData$Weekly_Sales %in% outliers_CPI),]
+```
+
+### Tasa de Desempleo
+
+```{r}
+# Se encontraron 3 outliers en la variable Desempleo
+boxplot(cleanedData$Weekly_Sales ~ cut(cleanedData$Unemployment, pretty(cleanedData$Unemployment)), main="Desempleo vs Ventas Semanales",xlab ="Desempleo", ylab="Ventas Semanales",  cex.axis=0.5, col="Steel Blue")
+
+outliers_Unemployment <- boxplot(cleanedData$Weekly_Sales ~ cut(cleanedData$Unemployment, pretty(cleanedData$Unemployment)), main="Desempleo vs Ventas Semanales", cex.axis=0.5,plot=FALSE)$out
+
+cleanedData <- cleanedData[-which(cleanedData$Weekly_Sales %in% outliers_Unemployment),]
+```
+
+### Precio del combustible
+
+```{r}
+# Se encontraron dos outliers en la variable Precio del combustible
+boxplot(cleanedData$Weekly_Sales ~ cut(cleanedData$Fuel_Price, pretty(cleanedData$Fuel_Price) ), main="Precio del combustible vs Ventas Semanales", xlab ="Precio del combustible", ylab="Ventas Semanales", cex.axis=0.5,col="Steel Blue")
+
+outliers_fuel_price <- boxplot(cleanedData$Weekly_Sales ~ cut(cleanedData$Fuel_Price, pretty(cleanedData$Fuel_Price)), main="Precio del combustible vs Ventas Semanales", cex.axis=0.5,plot=FALSE)$out
+
+cleanedData <- cleanedData[-which(cleanedData$Weekly_Sales %in% outliers_fuel_price),]
+```
+
+### Feriados
+
+```{r}
+# No se encuentran outliers para la variable de detección de día feriado
+boxplot(cleanedData$Weekly_Sales ~ cleanedData$Holiday_Flag, main = 'Ventas Semanales vs Feriados',xlab ="Feriados", ylab="Ventas Semanales",col="Steel Blue" )
+
+```
+
+### Mes
+
+```{r}
+# Ventas Semanales por la variable mes, se eliminan 4 outliers
+boxplot(cleanedData$Weekly_Sales ~ cleanedData$month, main = 'Ventas Semanales vs Mes', xlab ="Mes", ylab="Ventas Semanales", col="Steel Blue")
+outliers_month <- boxplot(cleanedData$Weekly_Sales ~ cleanedData$month, main = 'Ventas Semanales vs Mes',plot=FALSE)$out
+cleanedData<- cleanedData[-which(cleanedData$Weekly_Sales %in% outliers_month),]
+```
+
+### Cuarto
+
+```{r}
+# Dos outliers al hacer el tratamiento por la variable de cuarto de año
+outliers_quarter <- boxplot(cleanedData$Weekly_Sales ~ cleanedData$quarter, main = 'Ventas Semanales vs Cuartos',xlab ="Cuartos", ylab="Ventas Semanales", col="Steel Blue")$out
+cleanedData<- cleanedData[-which(cleanedData$Weekly_Sales %in% outliers_quarter),]
+```
+
+## Modificación de data frame
+
+Removemos columnas innecesarias y cambiamos un poco la estructura de la variable Evento y modificamos los valores de las otras variables para trabajar mejor con ellas.
+
+```{r}
+cleanedData$Date <- NULL
+cleanedData$Store <- NULL
+cleanedData$Events <- as.factor(cleanedData$Events)
+cleanedData$Holiday_Flag <- as.numeric(cleanedData$Holiday_Flag)
+cleanedData$Week_Number <- as.numeric(cleanedData$Week_Number)
+cleanedData$quarter <- as.numeric(cleanedData$quarter)
+str(cleanedData)
+```
+
+## Matriz de correlación
+
+```{r}
+# Creamos una matrix de correlación
+corr = cor(cleanedData[, c(1:9)])
+View(corr)
+corrplot(corr, method = "color", cl.pos = 'n', rect.col = "black",  tl.col = "indianred4", addCoef.col = "black", number.digits = 2, number.cex = 0.60, tl.cex = 0.7, cl.cex = 1, col = colorRampPalette(c("green4","white","red"))(100))
+
+```
+Con esta matriz de correlación nos damos cuenta que las correlaciones más fuertes están entre las variables Número de semana con precio de combustible, Número de semana con CPI, Número de semana con tasa de desempleo, Tasa de desempleo con CPI, Precio de combustible con CPI.
+
+# Regresión Lineal
+
+```{r, include=FALSE}
+# Creamos variables auxiliares 'Dummies'
+
+Events <- as.factor(cleanedData$Events)
+dummy_Events <- data.frame(model.matrix(~Events))[,-1]
+
+quarter <- as.factor(cleanedData$quarter)
+dummy_quarter <- data.frame(model.matrix(~quarter))[,-1]
+
+month <- as.factor(cleanedData$month)
+dummy_month <- data.frame(model.matrix(~month))[,-1]
+
+
+cleanedData <- cbind(cleanedData,dummy_Events,dummy_quarter,dummy_month)
+
+```
+
+## Modelo Simple
+
+Interpretación 
+
+* Si los parámetros son igual a cero, la venta semanal incrementa en 340,219.1226 dólares.
+* Si el Fuel_Price incrementa en una unidad, entonces las ventas semanales incrementan 27,671.8389 dólares
+* Si el desempleo incrementa en una unidad , entonces se tendría una disminución de las ventas de 30,766.7480 dólares.
+
+**R-Cuadrada**: Representa que tan cerca están los datos de la línea de regresión ajustada. El 48% explica la variabilidad de los datos de respuesta en torno a su media.
+
+**R Cuadrado Ajustado**: Representa la extensión de la varianza de la variable dependiente que pueda explicarse por la variable independiente. El 38% de la variación en la variable dependiente se explica por la variable independiente.
+
+```{r}
+model = lm(formula = Weekly_Sales ~ . , data = cleanedData)
+model$coefficients
+summary(model)
+```
+
+## Modelo Lin-Lin
+
+Modelo Lin-Lin, en este modelo su especificación contempla que tanto para la variable dependiente, cómo para la variables independientes o explicativas se contemplan lineales. 
+
+La especificación del modelo consiste en las ventas semanales cómo variable dependiente, al precio del combustible (Fuel Price), el Desempleo (Unemployment) y el número  de la semana cómo variable explicativa. 
+
+El modelo así especificado reportó significativa al intercepto con un P-value menor 3.78e-09, también el precio del combustible con su P-value de 0.062, mostrando también su significancia cómo variable explicativa. Sin embargo, el desempleo y el no. de la semana no demostraron ser significativas para el modelo. 
+
+Para el modelo su R ^2 de 0.098 indicando que sólo el 9.8% de los datos de las ventas semanales resultaron explicados por el modelo.
+
+```{r}
+modLin <- lm(cleanedData$Weekly_Sales~cleanedData$Fuel_Price+cleanedData$Unemployment+cleanedData$Week_Number)
+modLin$coefficients
+summary(modLin)
+```
+
+## Modelo Log-Log
+
+Modelo Log Log, este modelo consiste en utilizar el logaritmo de la variable explicativa y de la variables independientes.
+
+Su especificación toma a las ventas semanales cómo dependiente y al precio de combustible, tasa de desempleo y al número de la semana cómo independiente o explicativa. 
+
+El modelo reportó significancia para todas sus variables. Para este modelo su R ^2 de 0.1312 indicando que sólo el 13.12% de los datos resultaron explicados por el modelo así especificado. 
+
+
+```{r}
+modLog <- lm(log(cleanedData$Weekly_Sales)~log(cleanedData$Fuel_Price)+log(cleanedData$Unemployment)+log(cleanedData$Week_Number) )
+modLog$coefficients
+summary(modLog)
+```
+
+Graficamos los residuales del modelo
+```{r}
+residuosLog <- modLog$residuals
+ts.plot(residuosLog)
+auto.arima(residuosLog)
+```
+Construimos nuevo modelo con la predicción para la siguiente semana
+```{r}
+modeloRL <- arima(residuosLog, order=c(2,0,2))
+
+# Predición para la semana 139
+prediccion1 <- predict(modeloRL, h=1)
+
+
+# Predicción Mod Log-Log
+prediccionModLog <- predict(modLog)
+
+# Añadimos la predicción de la semana 139 a las observaciones
+newObs <- c(cleanedData$Weekly_Sales, exp(14.27747 + predict(modeloRL, h=1)$pred[1]) )
+
+predictionWS <- ts(newObs)
+
+autoplot(predictionWS)
+
+```
+
+## Modelo Estandarizado
+
+Se propone la siguiente prueba de Hipótesis
+
+$$
+H_{0} = 0 \\
+H_{a} <> 0
+$$
+
+
+Con un 95% de confianza se acepta Ho para las variables desempleo y número de la semana.
+Y para la variable precio del combustible, con un 95% de confianza se rechaza Ho.
+
+Solo se puede concluir que la variable fuel price, es estadísticamente significativa para el modelo.
+
+
+```{r}
+
+Mean_ws <- mean(cleanedData$Weekly_Sales)
+Sd_ws <- sd(cleanedData$Weekly_Sales)
+
+Mean_fuel <- mean(cleanedData$Fuel_Price)
+Sd_fuel <- sd(cleanedData$Fuel_Price)
+
+Mean_unemp <- mean(cleanedData$Unemployment)
+Sd_unemp <- sd(cleanedData$Unemployment)
+
+Mean_week <- mean(cleanedData$Week_Number)
+Sd_week <- sd(cleanedData$Week_Number)
+
+norm_ws <- (cleanedData$Weekly_Sales - Mean_ws) / Sd_ws;
+norm_fuel <- (cleanedData$Fuel_Price - Mean_fuel) / Sd_fuel;
+norm_unemp <- (cleanedData$Unemployment - Mean_unemp) / Sd_unemp;
+norm_week <- (cleanedData$Week_Number - Mean_week) / Sd_week;
+
+modNorm <- lm(norm_ws~norm_fuel+norm_unemp+norm_week-1)
+
+format(modNorm$coefficients, scientific = FALSE)
+modNorm$coefficients
+summary(modNorm)
+```
+
+# Series de Tiempo
+
+```{r, include=FALSE}
+Walmart = read.csv("WALMART_SALES_DATA.csv")
+```
+
+## Promedio Simple de Ventas Semanales
+
+Representación gráfica de la variable ventas de la tienda número 1 (Walmart$Store$Weekly_Sales)
+la serie de tiempo con periodicidad semanal se define como (start = decimal_date(as.Date("2010-02-05")), frequency = 52)
+
+```{r}
+# Actualizacion de inicio y Frecuencia
+info_tda_1 <- Walmart[Walmart$Store == '1',];
+modets <- ts(info_tda_1$Weekly_Sales,start = decimal_date(as.Date("2010-02-05")), frequency = 52); 
+
+# Gráfica 
+ts.plot(modets)
+qqline(mean(modets), col="Red", lwd=2)
+```
+
+A continuación se presentan los diferentes modelos trabajados, graficados y con la tabla de error. La interpretación para cada uno de estos se debe entender de la siguiente forma:
+
+> El modelo acepta una tolerancia del error de hasta (MAPE) por ciento (%), lo que representa un error mínimo en Millones de dólares (MAE)  y un máximo en millones de dólares de (RMSE) 
+
+
+## Promedio Movil
+
+```{r}
+Prom_Movil_2 <- movavg(modets,2,type="s");
+ts.plot(modets,Prom_Movil_2,xlab=NULL,ylab=NULL, main = "Pronóstico de Promedio Movil",lty=c(1:2),lwd =c(1,1.5) ,col=c(1,2))
+legend(x="bottomright",legend=c("Obs","Prom Movil"),col=c(1,2),lty=c(1,2))
+```
+
+```{r}
+#Errores
+mae <- MAE(modets,Prom_Movil_2);
+mape <- MAPE(modets,Prom_Movil_2);
+smape <- SMAPE(modets,Prom_Movil_2);
+mse <- MSE(modets,Prom_Movil_2);
+rmse <- RMSE(modets,Prom_Movil_2);
+medidas <- matrix(c(mae,mape,smape,mse,rmse));
+rownames(medidas) <- c('MAE','MAPE','SMAPE','MSE','RMSE')
+colnames(medidas)<-c("Prom.Simple")
+df_medidas <- as.data.frame(medidas)  
+
+tab_medidas <- as.data.table(df_medidas, keep.rownames=TRUE, keep.colnames=FALSE)
+colnames(tab_medidas) <- c("Medida","Promedio Movil ")
+ftab_medidas <- format(tab_medidas, digits=5, scientific = F, big.mark=",",decimal.mark=".",justify="right")
+tem <- ttheme_minimal(base_colour="black",base_size=15, core=list(bg_params=list(fill=blues9,col=NA)))
+
+grid.arrange(tableGrob(ftab_medidas,theme=tem))
+```
+
+## Promedio Ponderado
+```{r}
+y <- ts(info_tda_1$Weekly_Sales, start = decimal_date(as.Date("2010-02-05")), frequency = 52)
+
+f<-rep(0,144)
+for (t in 3:144) f[t]<-(0.75)*y[t-1]+(0.25)*y[t-2]
+
+f <- ts(f, start = decimal_date(as.Date("2010-02-05")), frequency = 52)
+
+ts.plot(y,f,xlab=NULL,ylab=NULL, main = "Pronóstico de Promedio Ponderado",lty=c(1:2),lwd =c(1,1.5) ,col=c(1,2))
+legend(x="bottom",legend=c("Obs","Promedio Ponderado"),col=c(1,2),lty=c(1,2))
+```
+
+```{r}
+yp_ob<-rep(0,141)
+for (t in 1:141) yp_ob[t]<-y[t+2]
+
+yp_pr<-rep(0,141)
+for (t in 1:141) yp_pr[t]<-f[t+2]
+
+mae_yp<-MAE(yp_ob,yp_pr)
+mape_yp<-MAPE(yp_ob,yp_pr)
+smape_yp<-SMAPE(yp_ob,yp_pr)
+mse_yp<-MSE(yp_ob,yp_pr)
+rmse_yp<-RMSE(yp_ob,yp_pr)
+
+medidas <- matrix(c(mae_yp,mape_yp,smape_yp,mse_yp,rmse_yp))
+rownames(medidas) <- c('MAE','MAPE','SMAPE','MSE','RMSE')
+colnames(medidas)<-c("Promedio Ponderado")
+df_medidas <- as.data.frame(medidas)     
+
+tab_medidas <- as.data.table(df_medidas, keep.rownames=TRUE, keep.colnames=FALSE)
+colnames(tab_medidas) <- c("Medida","Promedio Ponderado")
+ftab_medidas <- format(tab_medidas, digits=5, scientific = F, big.mark=",",decimal.mark=".",justify="right")
+tem <- ttheme_minimal(base_colour="black",base_size=15, core=list(bg_params=list(fill=blues9,col=NA)))
+
+grid.arrange(tableGrob(ftab_medidas,theme=tem))
+```
+
+## Media móvil tipo "w"
+```{r}
+fw<-movavg(y,2,type="w")
+fwt<-rep(0,143)
+for(t in 2:143) fwt[t]<-fw[t-1]
+for(t in 1) fwt[t]<-NA
+fw_ts<-rep(0,143)
+fw_ts<-ts(fwt,start = decimal_date(as.Date("2010-02-05")), frequency = 52)
+
+ts.plot(y,fw_ts,xlab=NULL,ylab=NULL, main = "Media Móvil w",lty=c(1:2),col=c(1,2))
+legend(x="bottomright",legend=c("Obs","MedMovP"),col=c(1,2),lty=c(1,2))
+
+```
+
+```{r}
+yw_ob<-rep(0,142)
+for (t in 1:142) yw_ob[t]<-y[t+1]
+yw_pr<-rep(0,142)
+for (t in 1:142) yw_pr[t]<-fw[t]
+mae_yw<-MAE(yw_ob,yw_pr)
+mape_yw<-MAPE(yw_ob,yw_pr)
+smape_yw<-SMAPE(yw_ob,yw_pr)
+mse_yw<-MSE(yw_ob,yw_pr)
+rmse_yw<-RMSE(yw_ob,yw_pr)
+
+medidas <- matrix(c(mae_yw,mape_yw,smape_yw,mse_yw,rmse_yw));
+rownames(medidas) <- c('MAE','MAPE','SMAPE','MSE','RMSE')
+colnames(medidas)<-c("Prom.Movilw")
+df_medidas <- as.data.frame(medidas)
+
+tab_medidas <- as.data.table(df_medidas, keep.rownames=TRUE, keep.colnames=FALSE)
+colnames(tab_medidas) <- c("Medida","Prom.Movilw")
+ftab_medidas <- format(tab_medidas, digits=5, scientific = F, big.mark=",",decimal.mark=".",justify="right")
+tem <- ttheme_minimal(base_colour="black",base_size=15, core=list(bg_params=list(fill=blues9,col=NA)))
+
+grid.arrange(tableGrob(ftab_medidas,theme=tem))
+```
+
+## Media móvil tipo "e"
+```{r}
+fe<-movavg(y,2,type="e")
+fet<-rep(0,143)
+for(t in 2:143) fet[t]<-fe[t-1]
+for(t in 1) fet[t]<-NA
+fe_ts<-rep(0,143)
+fe_ts<-ts(fet,start = decimal_date(as.Date("2010-02-05")), frequency = 52)
+
+ts.plot(y,fe_ts,xlab=NULL,ylab=NULL, main = "Media Móvil e",lty=c(1:2),col=c(1,2))
+legend(x="bottomright",legend=c("Obs","MedMovP"),col=c(1,2),lty=c(1,2))
+```
+
+```{r}
+ye_ob<-rep(0,142)
+for (t in 1:142) ye_ob[t]<-y[t+1]
+ye_pr<-rep(0,142)
+for (t in 1:142) ye_pr[t]<-fe[t]
+mae_ye<-MAE(ye_ob,ye_pr)
+mape_ye<-MAPE(ye_ob,ye_pr)
+smape_ye<-SMAPE(ye_ob,ye_pr)
+mse_ye<-MSE(ye_ob,ye_pr)
+rmse_ye<-RMSE(ye_ob,ye_pr)
+
+medidas <- matrix(c(mae_ye,mape_ye,smape_ye,mse_ye,rmse_ye));
+rownames(medidas) <- c('MAE','MAPE','SMAPE','MSE','RMSE')
+colnames(medidas)<-c("Prom.Movile")
+df_medidas <- as.data.frame(medidas)     
+
+tab_medidas <- as.data.table(df_medidas, keep.rownames=TRUE, keep.colnames=FALSE)
+colnames(tab_medidas) <- c("Medida","Prom.Movile")
+ftab_medidas <- format(tab_medidas, digits=5, scientific = F, big.mark=",",decimal.mark=".",justify="right")
+tem <- ttheme_minimal(base_colour="black",base_size=15, core=list(bg_params=list(fill=blues9,col=NA)))
+
+grid.arrange(tableGrob(ftab_medidas,theme=tem))
+```
+
+## Media móvil tipo "r"
+```{r}
+fr<-movavg(y,2,type="r")
+frt<-rep(0,143)
+for(t in 2:143) frt[t]<-fr[t-1]
+for(t in 1) frt[t]<-NA
+fr_ts<-rep(0,143)
+fr_ts<-ts(frt,start = decimal_date(as.Date("2010-02-05")), frequency = 52)
+
+ts.plot(y,fr_ts,xlab=NULL,ylab=NULL, main = "Media Móvil r",lty=c(1:2),col=c(1,2))
+legend(x="bottomright",legend=c("Obs","MedMovP"),col=c(1,2),lty=c(1,2))
+```
+
+```{r}
+yr_ob<-rep(0,142)
+for (t in 1:142) yr_ob[t]<-y[t+1]
+yr_pr<-rep(0,142)
+for (t in 1:142) yr_pr[t]<-fr[t]
+mae_yr<-MAE(yr_ob,yr_pr)
+mape_yr<-MAPE(yr_ob,yr_pr)
+smape_yr<-SMAPE(yr_ob,yr_pr)
+mse_yr<-MSE(yr_ob,yr_pr)
+rmse_yr<-RMSE(yr_ob,yr_pr)
+
+medidas <- matrix(c(mae_yr,mape_yr,smape_yr,mse_yr,rmse_yr));
+rownames(medidas) <- c('MAE','MAPE','SMAPE','MSE','RMSE')
+colnames(medidas)<-c("Prom.MovilR")
+df_medidas <- as.data.frame(medidas)     
+
+tab_medidas <- as.data.table(df_medidas, keep.rownames=TRUE, keep.colnames=FALSE)
+colnames(tab_medidas) <- c("Medida","Prom.MovilR")
+ftab_medidas <- format(tab_medidas, digits=5, scientific = F, big.mark=",",decimal.mark=".",justify="right")
+tem <- ttheme_minimal(base_colour="black",base_size=15, core=list(bg_params=list(fill=blues9,col=NA)))
+
+grid.arrange(tableGrob(ftab_medidas,theme=tem))
+```
+
+## Promedio móvil doble
+```{r}
+y <- ts(info_tda_1$Weekly_Sales, start = decimal_date(as.Date("2010-02-05")), frequency = 52)
+
+m1<-movavg(y, 2, type=c("s"))
+m2<-movavg(m1,2, type=c("s"))
+b<-(2/1)*(m1-m2)
+a = 2*m1-m2
+f<-a+b*1
+
+# Grafica
+fdt<-rep(0,144)
+for(t in 2:144) fdt[t]<-f[t-1]
+for(t in 1) fdt[t]<-NA
+fd_ts<-rep(0,144)
+fd_ts<-ts(fdt,start = decimal_date(as.Date("2010-02-05")), frequency = 52)
+ts.plot(y,fd_ts,xlab=NULL,ylab=NULL, main = "Media Móvil Doble",lty=c(1:2),col=c(1,2))
+legend(x="bottomright",legend=c("Obs","MedMovD"),col=c(1,2),lty=c(1,2))
+```
+
+```{r}
+yd_pr<-rep(0,143)
+for (t in 1:143) yd_pr[t]<-f[t]
+mae_yd<-MAE(y,yd_pr)
+mape_yd<-MAPE(y,yd_pr)
+smape_yd<-SMAPE(y,yd_pr)
+mse_yd<-MSE(y,yd_pr)
+rmse_yd<-RMSE(y,yd_pr)
+
+medidas <- matrix(c(mae_yd,mape_yd,smape_yd,mse_yd,rmse_yd));
+rownames(medidas) <- c('MAE','MAPE','SMAPE','MSE','RMSE')
+colnames(medidas)<-c("Prom.Movil doble")
+df_medidas <- as.data.frame(medidas)     
+
+tab_medidas <- as.data.table(df_medidas, keep.rownames=TRUE, keep.colnames=FALSE)
+colnames(tab_medidas) <- c("Medida","Prom.Movil doble")
+ftab_medidas <- format(tab_medidas, digits=5, scientific = F, big.mark=",",decimal.mark=".",justify="right")
+tem <- ttheme_minimal(base_colour="black",base_size=15, core=list(bg_params=list(fill=blues9,col=NA)))
+
+grid.arrange(tableGrob(ftab_medidas,theme=tem))
+```
+
+## Promedio móvil triangular
+```{r}
+y <- ts(info_tda_1$Weekly_Sales, start = decimal_date(as.Date("2010-02-05")), frequency = 52)
+
+m1<-movavg(y, 2, type=c("t"))
+m2<-movavg(m1,2, type=c("t"))
+b<-(2/1)*(m1-m2)
+a = 2*m1-m2
+f<-a+b*1
+
+# Grafica
+fdt<-rep(0,144)
+for(t in 2:144) fdt[t]<-f[t-1]
+for(t in 1) fdt[t]<-NA
+fd_ts<-rep(0,144)
+fd_ts<-ts(fdt,start = decimal_date(as.Date("2010-02-05")), frequency = 52)
+ts.plot(y,fd_ts,xlab=NULL,ylab=NULL, main = "Media Móvil Doble Triangular",lty=c(1:2),col=c(1,2))
+legend(x="bottomright",legend=c("Obs","MedMovD"),col=c(1,2),lty=c(1,2))
+```
+```{r}
+yd_pr<-rep(0,143)
+for (t in 1:143) yd_pr[t]<-f[t]
+mae_yd<-MAE(y,yd_pr)
+mape_yd<-MAPE(y,yd_pr)
+smape_yd<-SMAPE(y,yd_pr)
+mse_yd<-MSE(y,yd_pr)
+rmse_yd<-RMSE(y,yd_pr)
+
+medidas <- matrix(c(mae_yd,mape_yd,smape_yd,mse_yd,rmse_yd));
+rownames(medidas) <- c('MAE','MAPE','SMAPE','MSE','RMSE')
+colnames(medidas)<-c("Prom.Movil doble Triangular")
+df_medidas <- as.data.frame(medidas)     
+
+tab_medidas <- as.data.table(df_medidas, keep.rownames=TRUE, keep.colnames=FALSE)
+colnames(tab_medidas) <- c("Medida","Prom.Movil doble Triangular")
+ftab_medidas <- format(tab_medidas, digits=5, scientific = F, big.mark=",",decimal.mark=".",justify="right")
+tem <- ttheme_minimal(base_colour="black",base_size=15, core=list(bg_params=list(fill=blues9,col=NA)))
+
+grid.arrange(tableGrob(ftab_medidas,theme=tem))
+```
+
+## Promedio móvil doble modificado
+
+```{r}
+y <- ts(info_tda_1$Weekly_Sales, start = decimal_date(as.Date("2010-02-05")), frequency = 52)
+
+m1<-movavg(y, 2, type=c("m"))
+m2<-movavg(m1,2, type=c("m"))
+b<-(2/1)*(m1-m2)
+a = 2*m1-m2
+f<-a+b*1
+
+# Grafica
+fdt<-rep(0,144)
+for(t in 2:144) fdt[t]<-f[t-1]
+for(t in 1) fdt[t]<-NA
+fd_ts<-rep(0,144)
+fd_ts<-ts(fdt,start = decimal_date(as.Date("2010-02-05")), frequency = 52)
+ts.plot(y,fd_ts,xlab=NULL,ylab=NULL, main = "Media Móvil Doble Modificado",lty=c(1:2),col=c(1,2))
+legend(x="bottomright",legend=c("Obs","MedMovD"),col=c(1,2),lty=c(1,2))
+```
+
+```{r}
+yd_pr<-rep(0,143)
+for (t in 1:143) yd_pr[t]<-f[t]
+mae_yd<-MAE(y,yd_pr)
+mape_yd<-MAPE(y,yd_pr)
+smape_yd<-SMAPE(y,yd_pr)
+mse_yd<-MSE(y,yd_pr)
+rmse_yd<-RMSE(y,yd_pr)
+
+medidas <- matrix(c(mae_yd,mape_yd,smape_yd,mse_yd,rmse_yd));
+rownames(medidas) <- c('MAE','MAPE','SMAPE','MSE','RMSE')
+colnames(medidas)<-c("Prom.Movil doble Modificado")
+df_medidas <- as.data.frame(medidas)     
+
+tab_medidas <- as.data.table(df_medidas, keep.rownames=TRUE, keep.colnames=FALSE)
+colnames(tab_medidas) <- c("Medida","Prom.Movil doble Modificado")
+ftab_medidas <- format(tab_medidas, digits=5, scientific = F, big.mark=",",decimal.mark=".",justify="right")
+tem <- ttheme_minimal(base_colour="black",base_size=15, core=list(bg_params=list(fill=blues9,col=NA)))
+
+grid.arrange(tableGrob(ftab_medidas,theme=tem))
+```
+
+## Suavizamiento exponencial {.tabset .tabset-fade .tabset-pills}
+
+```{r, include=FALSE}
+info_tda_1 <- Walmart[Walmart$Store == '1',]
+y <- ts(info_tda_1$Weekly_Sales, start = decimal_date(as.Date("2010-02-05")), frequency = 52)
+```
+
+### Simple a=0.1
+
+```{r}
+est.s1<-ses(y, h = 2, level = c(99,99), initial = c("simple"),  alpha = 0.1)
+fse<-est.s1$fitted
+fse_ts<-ts(fse,start=decimal_date(as.Date("2010-02-05")), frequency = 52)
+fset_ts<-rep(0,144)
+for(t in 3:144) fset_ts[t]<-fse_ts[t-2]
+for(t in 1:2) fset_ts[t]<-NA
+yt<-rep(0,144)
+for(t in 1:142) yt[t]<-y[t]
+for(t in 143:144) yt[t]<-NA
+yt_ts<-ts(yt,start=decimal_date(as.Date("2010-02-05")), frequency = 52)
+ts.plot(yt_ts,fset_ts,xlab=NULL,ylab=NULL, main = "Serie Suavizada Exponencialmente",lty=c(1:2),col=c(1,2))
+legend(x="bottomright",legend=c("Obs","Suavizada"),col=c(1,2),lty=c(1,2))
+```
+
+```{r}
+mae_yd<-MAE(y,fse_ts)
+mape_yd<-MAPE(y,fse_ts)
+smape_yd<-SMAPE(y,fse_ts)
+mse_yd<-MSE(y,fse_ts)
+rmse_yd<-RMSE(y,fse_ts)
+
+medidas <- matrix(c(mae_yd,mape_yd,smape_yd,mse_yd,rmse_yd));
+rownames(medidas) <- c('MAE','MAPE','SMAPE','MSE','RMSE')
+colnames(medidas)<-c("Suavizamiento Exponencial Simple 0.1")
+df_medidas <- as.data.frame(medidas)     
+
+tab_medidas <- as.data.table(df_medidas, keep.rownames=TRUE, keep.colnames=FALSE)
+colnames(tab_medidas) <- c("Medida","Suavizamiento Exponencial Simple 0.1")
+ftab_medidas <- format(tab_medidas, digits=5, scientific = F, big.mark=",",decimal.mark=".",justify="right")
+tem <- ttheme_minimal(base_colour="black",base_size=15, core=list(bg_params=list(fill=blues9,col=NA)))
+
+grid.arrange(tableGrob(ftab_medidas,theme=tem))
+```
+
+### Simple a=0.5
+```{r}
+est.s5<-ses(y, h = 2, level = c(95,95), initial = c("simple"),  alpha = 0.5)
+fse<-est.s5$fitted
+fse_ts<-ts(fse,start=decimal_date(as.Date("2010-02-05")), frequency = 52)
+fset_ts<-rep(0,144)
+for(t in 3:144) fset_ts[t]<-fse_ts[t-2]
+for(t in 1:2) fset_ts[t]<-NA
+yt<-rep(0,144)
+for(t in 1:142) yt[t]<-y[t]
+for(t in 143:144) yt[t]<-NA
+yt_ts<-ts(yt,start=decimal_date(as.Date("2010-02-05")), frequency = 52)
+ts.plot(yt_ts,fset_ts,xlab=NULL,ylab=NULL, main = "Serie Suavizada Exponencialmente",lty=c(1:2),col=c(1,2))
+legend(x="bottomright",legend=c("Obs","Suavizada"),col=c(1,2),lty=c(1,2))
+```
+
+```{r}
+mae_yd<-MAE(y,fse_ts)
+mape_yd<-MAPE(y,fse_ts)
+smape_yd<-SMAPE(y,fse_ts)
+mse_yd<-MSE(y,fse_ts)
+rmse_yd<-RMSE(y,fse_ts)
+
+medidas <- matrix(c(mae_yd,mape_yd,smape_yd,mse_yd,rmse_yd))
+rownames(medidas) <- c('MAE','MAPE','SMAPE','MSE','RMSE')
+colnames(medidas)<-c("Suavizamiento Exponencial Simple 0.5")
+df_medidas <- as.data.frame(medidas)     
+
+tab_medidas <- as.data.table(df_medidas, keep.rownames=TRUE, keep.colnames=FALSE)
+colnames(tab_medidas) <- c("Medida","Suavizamiento Exponencial Simple 0.5")
+ftab_medidas <- format(tab_medidas, digits=5, scientific = F, big.mark=",",decimal.mark=".",justify="right")
+tem <- ttheme_minimal(base_colour="black",base_size=15, core=list(bg_params=list(fill=blues9,col=NA)))
+
+grid.arrange(tableGrob(ftab_medidas,theme=tem))
+```
+
+### Simple a=0.8
+```{r}
+est.s8<-ses(y, h = 2, level = c(92,92), initial = c("simple"),  alpha = 0.8)
+fse<-est.s8$fitted
+fse_ts<-ts(fse,start=decimal_date(as.Date("2010-02-05")), frequency = 52)
+fset_ts<-rep(0,144)
+for(t in 3:144) fset_ts[t]<-fse_ts[t-2]
+for(t in 1:2) fset_ts[t]<-NA
+yt<-rep(0,144)
+for(t in 1:142) yt[t]<-y[t]
+for(t in 143:144) yt[t]<-NA
+yt_ts<-ts(yt,start=decimal_date(as.Date("2010-02-05")), frequency = 52)
+ts.plot(yt_ts,fset_ts,xlab=NULL,ylab=NULL, main = "Serie Suavizada Exponencialmente",lty=c(1:2),col=c(1,2))
+legend(x="bottomright",legend=c("Obs","Suavizada"),col=c(1,2),lty=c(1,2))
+```
+
+```{r}
+mae_yd<-MAE(y,fse_ts)
+mape_yd<-MAPE(y,fse_ts)
+smape_yd<-SMAPE(y,fse_ts)
+mse_yd<-MSE(y,fse_ts)
+rmse_yd<-RMSE(y,fse_ts)
+
+medidas <- matrix(c(mae_yd,mape_yd,smape_yd,mse_yd,rmse_yd))
+rownames(medidas) <- c('MAE','MAPE','SMAPE','MSE','RMSE')
+colnames(medidas)<-c("Suavizamiento Exponencial Simple 0.8")
+df_medidas <- as.data.frame(medidas)     
+
+tab_medidas <- as.data.table(df_medidas, keep.rownames=TRUE, keep.colnames=FALSE)
+colnames(tab_medidas) <- c("Medida","Suavizamiento Exponencial Simple 0.8")
+ftab_medidas <- format(tab_medidas, digits=5, scientific = F, big.mark=",",decimal.mark=".",justify="right")
+tem <- ttheme_minimal(base_colour="black",base_size=15, core=list(bg_params=list(fill=blues9,col=NA)))
+
+grid.arrange(tableGrob(ftab_medidas,theme=tem))
+```
+
+### Optimal a=0.1
+
+```{r}
+est.o1<-ses(y, h = 2, level = c(99,99), initial = c("optimal"),  alpha = 0.1)
+
+fse<-est.o1$fitted
+fse_ts<-ts(fse,start=decimal_date(as.Date("2010-02-05")), frequency = 52)
+fset_ts<-rep(0,144)
+for(t in 3:144) fset_ts[t]<-fse_ts[t-2]
+for(t in 1:2) fset_ts[t]<-NA
+yt<-rep(0,144)
+for(t in 1:142) yt[t]<-y[t]
+for(t in 143:144) yt[t]<-NA
+yt_ts<-ts(yt,start=decimal_date(as.Date("2010-02-05")), frequency = 52)
+ts.plot(yt_ts,fset_ts,xlab=NULL,ylab=NULL, main = "Serie Suavizada Exponencialmente",lty=c(1:2),col=c(1,2))
+legend(x="bottomright",legend=c("Obs","Suavizada"),col=c(1,2),lty=c(1,2))
+```
+
+```{r}
+mae_yd<-MAE(y,fse_ts)
+mape_yd<-MAPE(y,fse_ts)
+smape_yd<-SMAPE(y,fse_ts)
+mse_yd<-MSE(y,fse_ts)
+rmse_yd<-RMSE(y,fse_ts)
+
+medidas <- matrix(c(mae_yd,mape_yd,smape_yd,mse_yd,rmse_yd))
+rownames(medidas) <- c('MAE','MAPE','SMAPE','MSE','RMSE')
+colnames(medidas)<-c("Suavizamiento Exponencial Optimal 0.1")
+df_medidas <- as.data.frame(medidas)     
+
+tab_medidas <- as.data.table(df_medidas, keep.rownames=TRUE, keep.colnames=FALSE)
+colnames(tab_medidas) <- c("Medida","Suavizamiento Exponencial Optimal 0.1")
+ftab_medidas <- format(tab_medidas, digits=5, scientific = F, big.mark=",",decimal.mark=".",justify="right")
+tem <- ttheme_minimal(base_colour="black",base_size=15, core=list(bg_params=list(fill=blues9,col=NA)))
+
+grid.arrange(tableGrob(ftab_medidas,theme=tem))
+```
+
+### Optimal a=0.5
+
+```{r}
+est.o5<-ses(y, h = 2, level = c(95,95), initial = c("optimal"),  alpha = 0.5)
+fse<-est.o5$fitted
+fse_ts<-ts(fse,start=decimal_date(as.Date("2010-02-05")), frequency = 52)
+fset_ts<-rep(0,144)
+for(t in 3:144) fset_ts[t]<-fse_ts[t-2]
+for(t in 1:2) fset_ts[t]<-NA
+yt<-rep(0,144)
+for(t in 1:142) yt[t]<-y[t]
+for(t in 143:144) yt[t]<-NA
+yt_ts<-ts(yt,start=decimal_date(as.Date("2010-02-05")), frequency = 52)
+ts.plot(yt_ts,fset_ts,xlab=NULL,ylab=NULL, main = "Serie Suavizada Exponencialmente",lty=c(1:2),col=c(1,2))
+legend(x="bottomright",legend=c("Obs","Suavizada"),col=c(1,2),lty=c(1,2))
+```
+
+```{r}
+mae_yd<-MAE(y,fse_ts)
+mape_yd<-MAPE(y,fse_ts)
+smape_yd<-SMAPE(y,fse_ts)
+mse_yd<-MSE(y,fse_ts)
+rmse_yd<-RMSE(y,fse_ts)
+
+medidas <- matrix(c(mae_yd,mape_yd,smape_yd,mse_yd,rmse_yd))
+rownames(medidas) <- c('MAE','MAPE','SMAPE','MSE','RMSE')
+colnames(medidas)<-c("Suavizamiento Exponencial Optimal 0.5")
+df_medidas <- as.data.frame(medidas)     
+
+tab_medidas <- as.data.table(df_medidas, keep.rownames=TRUE, keep.colnames=FALSE)
+colnames(tab_medidas) <- c("Medida","Suavizamiento Exponencial Optimal 0.5")
+ftab_medidas <- format(tab_medidas, digits=5, scientific = F, big.mark=",",decimal.mark=".",justify="right")
+tem <- ttheme_minimal(base_colour="black",base_size=15, core=list(bg_params=list(fill=blues9,col=NA)))
+
+grid.arrange(tableGrob(ftab_medidas,theme=tem))
+```
+
+### Optimal a=0.8
+
+```{r}
+est.o8<-ses(y, h = 2, level = c(92,92), initial = c("optimal"),  alpha = 0.8)
+fse<-est.o8$fitted
+fse_ts<-ts(fse,start=decimal_date(as.Date("2010-02-05")), frequency = 52)
+fset_ts<-rep(0,144)
+for(t in 3:144) fset_ts[t]<-fse_ts[t-2]
+for(t in 1:2) fset_ts[t]<-NA
+yt<-rep(0,144)
+for(t in 1:142) yt[t]<-y[t]
+for(t in 143:144) yt[t]<-NA
+yt_ts<-ts(yt,start=decimal_date(as.Date("2010-02-05")), frequency = 52)
+ts.plot(yt_ts,fset_ts,xlab=NULL,ylab=NULL, main = "Serie Suavizada Exponencialmente",lty=c(1:2),col=c(1,2))
+legend(x="bottomright",legend=c("Obs","Suavizada"),col=c(1,2),lty=c(1,2))
+```
+
+```{r}
+mae_yd<-MAE(y,fse_ts)
+mape_yd<-MAPE(y,fse_ts)
+smape_yd<-SMAPE(y,fse_ts)
+mse_yd<-MSE(y,fse_ts)
+rmse_yd<-RMSE(y,fse_ts)
+
+medidas <- matrix(c(mae_yd,mape_yd,smape_yd,mse_yd,rmse_yd))
+rownames(medidas) <- c('MAE','MAPE','SMAPE','MSE','RMSE')
+colnames(medidas)<-c("Suavizamiento Exponencial Optimal 0.8")
+df_medidas <- as.data.frame(medidas)     
+
+tab_medidas <- as.data.table(df_medidas, keep.rownames=TRUE, keep.colnames=FALSE)
+colnames(tab_medidas) <- c("Medida","Suavizamiento Exponencial Optimal 0.8")
+ftab_medidas <- format(tab_medidas, digits=5, scientific = F, big.mark=",",decimal.mark=".",justify="right")
+tem <- ttheme_minimal(base_colour="black",base_size=15, core=list(bg_params=list(fill=blues9,col=NA)))
+
+grid.arrange(tableGrob(ftab_medidas,theme=tem))
+```
+
+## Método de Holt {.tabset .tabset-fade .tabset-pills}
+### Simple
+```{r}
+y <- ts(info_tda_1$Weekly_Sales, start = decimal_date(as.Date("2010-02-05")), frequency = 52)
+
+esth<-holt(y, h = 2, level = c(80, 95), initial = c("simple"),  alpha = NULL, beta = NULL)
+fh<-esth$fitted
+fh_ts<-ts(fh,start=decimal_date(as.Date("2010-02-05")), frequency = 52)
+fht_ts<-rep(0,144)
+for(t in 3:144) fht_ts[t]<-fh_ts[t-2]
+for(t in 1:2) fht_ts[t]<-NA
+yt<-rep(0,144)
+for(t in 1:142) yt[t]<-y[t]
+for(t in 143:144) yt[t]<-NA
+yt_ts<-ts(yt,start=decimal_date(as.Date("2010-02-05")), frequency = 52)
+ts.plot(yt_ts,fht_ts,xlab=NULL,ylab=NULL, main = "Pronóstico de Holt",lty=c(1:2),col=c(1,2))
+legend(x="bottomright",legend=c("Obs","Holt"),col=c(1,2),lty=c(1,2))
+```
+
+```{r}
+mae_yd<-MAE(y,fh_ts)
+mape_yd<-MAPE(y,fh_ts)
+smape_yd<-SMAPE(y,fh_ts)
+mse_yd<-MSE(y,fh_ts)
+rmse_yd<-RMSE(y,fh_ts)
+
+medidas <- matrix(c(mae_yd,mape_yd,smape_yd,mse_yd,rmse_yd))
+rownames(medidas) <- c('MAE','MAPE','SMAPE','MSE','RMSE')
+colnames(medidas)<-c("Pronóstico de Holt")
+df_medidas <- as.data.frame(medidas)     
+
+tab_medidas <- as.data.table(df_medidas, keep.rownames=TRUE, keep.colnames=FALSE)
+colnames(tab_medidas) <- c("Medida","Pronóstico de Holt")
+ftab_medidas <- format(tab_medidas, digits=5, scientific = F, big.mark=",",decimal.mark=".",justify="right")
+tem <- ttheme_minimal(base_colour="black",base_size=15, core=list(bg_params=list(fill=blues9,col=NA)))
+
+grid.arrange(tableGrob(ftab_medidas,theme=tem))
+```
+
+### Optimal
+
+```{r}
+y <- ts(info_tda_1$Weekly_Sales, start = decimal_date(as.Date("2010-02-05")), frequency = 52)
+
+esth<-holt(y, h = 2, level = c(80, 95), initial = c("optimal"),  alpha = NULL, beta = NULL)
+fh<-esth$fitted
+fh_ts<-ts(fh,start=decimal_date(as.Date("2010-02-05")), frequency = 52)
+fht_ts<-rep(0,144)
+for(t in 3:144) fht_ts[t]<-fh_ts[t-2]
+for(t in 1:2) fht_ts[t]<-NA
+yt<-rep(0,144)
+for(t in 1:142) yt[t]<-y[t]
+for(t in 143:144) yt[t]<-NA
+yt_ts<-ts(yt,start=decimal_date(as.Date("2010-02-05")), frequency = 52)
+ts.plot(yt_ts,fht_ts,xlab=NULL,ylab=NULL, main = "Pronóstico de Holt",lty=c(1:2),col=c(1,2))
+legend(x="bottomright",legend=c("Obs","Holt"),col=c(1,2),lty=c(1,2))
+
+```
+
+```{r}
+mae_yd<-MAE(y,fh_ts)
+mape_yd<-MAPE(y,fh_ts)
+smape_yd<-SMAPE(y,fh_ts)
+mse_yd<-MSE(y,fh_ts)
+rmse_yd<-RMSE(y,fh_ts)
+
+medidas <- matrix(c(mae_yd,mape_yd,smape_yd,mse_yd,rmse_yd))
+rownames(medidas) <- c('MAE','MAPE','SMAPE','MSE','RMSE')
+colnames(medidas)<-c("Pronóstico de Holt optimal")
+df_medidas <- as.data.frame(medidas)     
+
+tab_medidas <- as.data.table(df_medidas, keep.rownames=TRUE, keep.colnames=FALSE)
+colnames(tab_medidas) <- c("Medida","Pronóstico de Holt optimal")
+ftab_medidas <- format(tab_medidas, digits=5, scientific = F, big.mark=",",decimal.mark=".",justify="right")
+tem <- ttheme_minimal(base_colour="black",base_size=15, core=list(bg_params=list(fill=blues9,col=NA)))
+
+grid.arrange(tableGrob(ftab_medidas,theme=tem))
+
+```
+
+## Holt-Winters {.tabset .tabset-fade .tabset-pills}
+### Multiplicativo Simple
+
+```{r}
+y <- ts(info_tda_1$Weekly_Sales, start = decimal_date(as.Date("2010-02-05")), frequency = 52)
+
+est_hwm<-hw(y, h = 2, seasonal = c("multiplicative"),level = c(80, 95),initial = c("simple"), alpha = NULL, beta = NULL, gamma = NULL)
+
+fhwm<-est_hwm$fitted
+fhwm_ts<-ts(fhwm,start = decimal_date(as.Date("2010-02-05")), frequency = 52)
+fhwmt_ts<-rep(0,144)
+for(t in 3:144) fhwmt_ts[t]<-fhwm_ts[t-2]
+for(t in 1:2) fhwmt_ts[t]<-NA
+yt<-rep(0,144)
+for(t in 1:142) yt[t]<-y[t]
+for(t in 143:144) yt[t]<-NA
+yt_ts<-ts(yt,start = decimal_date(as.Date("2010-02-05")), frequency = 52)
+ts.plot(yt_ts,fhwmt_ts,xlab=NULL,ylab=NULL, main = "Pronóstico de Holt-Winters Multiplicativo",lty=c(1:2),col=c(1,2))
+legend(x="bottomright",legend=c("Obs","HoltWM"),col=c(1,2),lty=c(1,2))
+
+```
+
+```{r}
+mae_est_hwm<-MAE(y,fhwm_ts)
+mape_est_hwm<-MAPE(y,fhwm_ts)
+smape_est_hwm<-SMAPE(y,fhwm_ts)
+mse_est_hwm<-MSE(y,fhwm_ts)
+rmse_est_hwm<-RMSE(y,fhwm_ts)
+
+medidas <- matrix(c(mae_est_hwm,mape_est_hwm,smape_est_hwm,mse_est_hwm,rmse_est_hwm))
+rownames(medidas) <- c('MAE','MAPE','SMAPE','MSE','RMSE')
+colnames(medidas)<-c("HOLT-WINTERS M")
+df_medidas <- as.data.frame(medidas)     
+
+tab_medidas <- as.data.table(df_medidas, keep.rownames=TRUE, keep.colnames=FALSE)
+colnames(tab_medidas) <- c("Medida","HOLT-WINTERS M")
+ftab_medidas <- format(tab_medidas, digits=5, scientific = F, big.mark=",",decimal.mark=".",justify="right")
+tem <- ttheme_minimal(base_colour="black",base_size=15, core=list(bg_params=list(fill=blues9,col=NA)))
+
+grid.arrange(tableGrob(ftab_medidas,theme=tem))
+
+```
+
+### Aditivo Simple
+
+```{r}
+y <- ts(info_tda_1$Weekly_Sales, start = decimal_date(as.Date("2010-02-05")), frequency = 24)
+
+est_hwm<-hw(y, h = 2, seasonal = c("additive"),level = c(80, 95),initial = c("optimal"), alpha = NULL, beta = NULL, gamma = NULL)
+
+fhwm<-est_hwm$fitted
+fhwm_ts<-ts(fhwm,start = decimal_date(as.Date("2010-02-05")), frequency = 24)
+fhwmt_ts<-rep(0,144)
+for(t in 3:144) fhwmt_ts[t]<-fhwm_ts[t-2]
+for(t in 1:2) fhwmt_ts[t]<-NA
+yt<-rep(0,144)
+for(t in 1:142) yt[t]<-y[t]
+for(t in 143:144) yt[t]<-NA
+yt_ts<-ts(yt,start = decimal_date(as.Date("2010-02-05")), frequency = 24)
+ts.plot(yt_ts,fhwmt_ts,xlab=NULL,ylab=NULL, main = "Pronóstico de Holt-Winters additive",lty=c(1:2),col=c(1,2))
+legend(x="bottomright",legend=c("Obs","HoltWM"),col=c(1,2),lty=c(1,2))
+```
+
+
+```{r}
+mae_est_hwm<-MAE(y,fhwm_ts)
+mape_est_hwm<-MAPE(y,fhwm_ts)
+smape_est_hwm<-SMAPE(y,fhwm_ts)
+mse_est_hwm<-MSE(y,fhwm_ts)
+rmse_est_hwm<-RMSE(y,fhwm_ts)
+
+medidas <- matrix(c(mae_est_hwm,mape_est_hwm,smape_est_hwm,mse_est_hwm,rmse_est_hwm))
+rownames(medidas) <- c('MAE','MAPE','SMAPE','MSE','RMSE')
+colnames(medidas)<-c("HOLT-WINTERS A")
+df_medidas <- as.data.frame(medidas)     
+
+tab_medidas <- as.data.table(df_medidas, keep.rownames=TRUE, keep.colnames=FALSE)
+colnames(tab_medidas) <- c("Medida","HOLT-WINTERS A")
+ftab_medidas <- format(tab_medidas, digits=5, scientific = F, big.mark=",",decimal.mark=".",justify="right")
+tem <- ttheme_minimal(base_colour="black",base_size=15, core=list(bg_params=list(fill=blues9,col=NA)))
+
+grid.arrange(tableGrob(ftab_medidas,theme=tem))
+```
+
+## Resumen de modelos
+
+Ahora observemos un resumen de las tolerancias de error de todos los modelos vistos, en donde el modelo Holt-Winters multiplicativo simple es el que menor porcentaje tiene.
+
+|                    **Modelo**                    | **MAPE** |
+|:------------------------------------------------:|:--------:|
+| Holt-Winters Multiplicativo Simple               | 2.29%    |
+| Promedio Móvil Modificado                        | 3.12%    |
+| Promedio Móvil                                   | 3.71%    |
+| Promedio Móvil Doble                             | 6.12%    |
+| Holt-Winters Aditivo Simple                      | 6.54%    |
+| Suavizamiento Exponencial Tipo Optimal con a=0.1 | 6.59%    |
+| Suavizamiento Exponencial Tipo Simple con a=0.1  | 6.64%    |
+| Método de Holt Simple                            | 6.72%    |
+| Método de Holt Optimal                           | 6.87%    |
+| Suavizamiento Exponencial Tipo Simple con a=0.5  | 6.89%    |
+| Suavizamiento Exponencial Tipo Optimal con a=0.5 | 6.90%    |
+| Media Movil Tipo "r"                             | 6.94%    |
+| Media Movil Tipo "e"                             | 6.99%    |
+| Suavizamiento Exponencial Tipo Simple con a=0.8  | 7.07%    |
+| Suavizamiento Exponencial Tipo Optimal con a=0.8 | 7.07%    |
+| Media Móvil Tipo "w"                             | 7.15%    |
+| Promedio Ponderado                               | 7.20%    |
+| Promedio Móvil Triangular                        | 10.52%   |
+
+
+Gráfica que representa el pronóstico elegido, debido a que el error generado es el más pequeño de los modelos que se seleccionaron para su validación.
+
+```{r}
+# Gráfica de modelo seleccionado
+y <- ts(info_tda_1$Weekly_Sales, start = decimal_date(as.Date("2010-02-05")), frequency = 52)
+est_hwm<-hw(y, h = 2, seasonal = c("multiplicative"),level = c(80, 95),initial = c("simple"), alpha = NULL, beta = NULL, gamma = NULL)
+
+fhwm<-est_hwm$fitted
+fhwm_ts<-ts(fhwm,start = decimal_date(as.Date("2010-02-05")), frequency = 52)
+fhwmt_ts<-rep(0,144)
+for(t in 3:144) fhwmt_ts[t]<-fhwm_ts[t-2]
+for(t in 1:2) fhwmt_ts[t]<-NA
+yt<-rep(0,144)
+for(t in 1:142) yt[t]<-y[t]
+for(t in 143:144) yt[t]<-NA
+yt_ts<-ts(yt,start = decimal_date(as.Date("2010-02-05")), frequency = 52)
+
+yd_pr_2 <- ts(fhwm_ts, start = decimal_date(as.Date("2010-02-05")), frequency = 52)
+
+lis_mae<-fhwm_ts+mae_est_hwm
+lii_mae<-fhwm_ts-mae_est_hwm
+lis_rmse<-fhwm_ts+rmse_est_hwm
+lii_rmse<-fhwm_ts-rmse_est_hwm
+ts.plot(yd_pr_2, lis_mae, lii_mae, lis_rmse, lii_rmse, xlab=NULL, main="Pronóstico ´Holt-Winters Multiplicativo´", lty=c(1,2,2,2,2), col = c(1,6,6,3,3))
+legend(x="bottomright",legend=c("Pron","LimMAEInf", "LimMAESup","LimRMSEInf","LimRMSESup"),col=c(1,2,2,2,2),lty=c(1,6,6,3,3), cex=0.8)
+
+```
+
+## Modelos de Descomposición {.tabset .tabset-fade .tabset-pills}
+
+Este tipo de descomposición exhibe la variación constante de la serie. Y por medio de esta gráfica se representa la estacionalidad de la serie, mostrada en los dos picos en la serie. 
+De los cuales podemos inferir que marcan un impulso en las ventas semanales por la temporada decembrina, incluso las fechas coinciden . 
+
+
+### Aditivo
+
+```{r}
+y <- ts(info_tda_1$Weekly_Sales, start = decimal_date(as.Date("2010-02-05")), frequency = 52)
+dec_y <-decompose (y, type = c("additive", "multiplicative"))
+
+plot(dec_y)
+```
+
+### Multiplicativo
+
+```{r}
+y <- ts(info_tda_1$Weekly_Sales, start = decimal_date(as.Date("2010-02-05")), frequency = 52)
+dec_y <-decompose (y, type = c("multiplicative"))
+
+plot(dec_y)
+```
+
+## Box-Jenkins
+
+Y finalmente tenemos el método de Box-Jenkins, es importante señalar que estamos usando una frecuencia de 52 ya que estamos usando datos semanales. Entonces aqui observamos que las autocorrelaciones están por encima de su límite de confianza por lo que se evidencia que la serie tiene un proceso AR no estable.
+
+La serie se está dividiendo en subconjuntos de 52 datos.
+
+En la primera parte es un proceso AR, es no estable y para las parciales no toma como tal un proceso MA.
+
+Una vez calculadas las diferencias, tenemos un comportamiento estacional del tipo SAR. El tamaño del período estacional cambia con P veces, en este caso tiene estacional con P=3.
+
+Y en las parciales de las diferencias, observamos un modelo tipo ARIMA con parámetros (10,2,3)
+
+### Datos Observados
+
+```{r}
+y <- ts(info_tda_1$Weekly_Sales, start = decimal_date(as.Date("2010-02-05")), frequency = 24)
+# La lectura es Cruzada, para determinar un modelo AR se aobserva la grafica de Correlacion, mientras que para indicar su valor se obserba la parcial
+# La lectura es Cruzada, para determinar un modelo MA se aobserva la grafica de PARCIAL, mientras que para indicar su valor se obserba la CORRELACION
+acf(y, lag.max = NULL, type = c("correlation"), plot = TRUE) 
+
+```
+
+```{r}
+#Lineas Salientes de los limites indican un AR | Ultima Linea que sopbrepasa el limite indica un # Maximo del modelo MA 
+acf(y, lag.max = NULL, type = c("partial"), plot = TRUE)
+#Lineas Salientes de los limites indican un MA | Ultima Linea que sopbrepasa el limite indica un # Maximo del modelo AR
+
+```
+
+### Segunda Diferencia
+
+```{r}
+y_2 <- diff(y,1,lag = 52)
+acf(y_2, lag.max = NULL, type = c("correlation"), plot = TRUE)
+```
+
+```{r}
+acf(y_2, lag.max = NULL, type = c("partial"), plot = TRUE)
+#De acuerco con la grafica en la que no se observa tendencia pero si estacionalidad por medio de las diferencias y los resagos se intenta Eliminar la estacionalidad
+
+```
+
+### ARIMA
+
+```{r}
+modelo_1 <- arima(y, order = c(5,0,5))
+
+tar1<-modelo_1$coef[1]/sqrt(vcov(modelo_1)[1,1])
+ptar1<-1-pt(tar1,modelo_1$nobs)
+tar2<-modelo_1$coef[2]/sqrt(vcov(modelo_1)[2,2])
+ptar2<-1-pt(tar2,modelo_1$nobs)
+tar3<-modelo_1$coef[3]/sqrt(vcov(modelo_1)[3,3])
+ptar3<-1-pt(tar3,modelo_1$nobs)
+tar4<-modelo_1$coef[4]/sqrt(vcov(modelo_1)[4,4])
+ptar4<-1-pt(tar4,modelo_1$nobs)
+tar5<-modelo_1$coef[5]/sqrt(vcov(modelo_1)[5,5])
+ptar5<-1-pt(tar5,modelo_1$nobs)
+
+tsma1<-modelo_1$coef[6]/sqrt(vcov(modelo_1)[6,6])
+ptsma1<-1-pt(tsma1,modelo_1$nobs)
+tsma2<-modelo_1$coef[7]/sqrt(vcov(modelo_1)[7,7])
+ptsma2<-1-pt(tsma2,modelo_1$nobs)
+tsma3<-modelo_1$coef[8]/sqrt(vcov(modelo_1)[8,8])
+ptsma3<-1-pt(tsma3,modelo_1$nobs)
+tsma4<-modelo_1$coef[9]/sqrt(vcov(modelo_1)[9,9])
+ptsma4<-1-pt(tsma4,modelo_1$nobs)
+tsma5<-modelo_1$coef[10]/sqrt(vcov(modelo_1)[10,10])
+ptsma5<-1-pt(tsma5,modelo_1$nobs)
+
+#Arima (AR(5);MA(5)
+library(forecast)
+auto.arima(y,
+           d=NA, 
+           D = NA, 
+           max.p = 10, 
+           max.q = 10, 
+           max.P = 52, 
+           max.Q = 52, 
+           max.d = 10, 
+           max.D = 10, 
+           stationary = TRUE, 
+           ic = c("aic") #"aicc", "aic", "bic" 
+)
+```
+
+```{r}
+modelo_2 <- arima(y, order = c(0,0,4))
+
+tsma1<-modelo_2$coef[1]/sqrt(vcov(modelo_2)[1,1])
+ptsma1<-1-pt(tsma1,modelo_2$nobs)
+tsma2<-modelo_2$coef[2]/sqrt(vcov(modelo_2)[2,2])
+ptsma2<-1-pt(tsma2,modelo_2$nobs)
+tsma3<-modelo_2$coef[3]/sqrt(vcov(modelo_2)[3,3])
+ptsma3<-1-pt(tsma3,modelo_2$nobs)
+tsma4<-modelo_2$coef[4]/sqrt(vcov(modelo_2)[4,4])
+ptsma4<-1-pt(tsma4,modelo_2$nobs)
+
+for_1 <- forecast(modelo_2, h=10)
+autoplot(for_1)
+```
+
+
